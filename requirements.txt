@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+gunicorn
+jinja2
+sqlalchemy
+python-jose
+razorpay
+requests
+pydantic
