@@ -3,7 +3,11 @@ uvicorn[standard]
 gunicorn
 jinja2
 sqlalchemy
-python-jose
-razorpay
-requests
+python-jose[cryptography]
+passlib[bcrypt]
+slowapi
+python-multipart
 pydantic
+razorpay
+psycopg2-binary
+requests

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ta">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -47,7 +48,7 @@
           <span class="text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2.5 py-1 rounded-lg">99% OFF</span>
         </div>
         <p class="text-[11px] text-slate-400 mt-3 pt-3 border-t border-slate-700/60">
-          Adutha month-la irundhu <b class="text-white">₹299/month</b> Autopay active aagum. Neenga eppothu vendumaanalum cancel pannikkalaam.
+          From the next month onwards, recurring subscription of <b class="text-white">₹299/month</b> will be billed. You may cancel anytime.
         </p>
 
         <ul class="text-xs space-y-2 text-slate-300 mt-4 font-medium">
@@ -94,25 +95,25 @@
       <!-- Login Form -->
       <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
         <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Email alladhu Phone</label>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Email or Phone Number</label>
           <input type="text" id="login-identifier" required class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-sm text-white placeholder-slate-500" placeholder="store@gmail.com / 9876543210">
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Password</label>
           <input type="password" id="login-password" required class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-sm text-white placeholder-slate-500" placeholder="••••••••">
         </div>
-        <button type="submit" class="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-xl font-bold transition text-sm shadow-lg shadow-emerald-500/20">Login to Store</button>
+        <button type="submit" class="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-xl font-bold transition text-sm shadow-lg shadow-emerald-500/20">Login to Terminal</button>
       </form>
 
       <!-- Register Form Step 1 -->
       <form id="register-form-step1" onsubmit="handleRegisterInitiate(event)" class="hidden space-y-3">
         <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Kada Peyar (Store Name)</label>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Store Name</label>
           <input type="text" id="reg-shop-name" required class="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none focus:ring-2 focus:ring-emerald-500" placeholder="PJ Supermarket">
         </div>
         <div class="grid grid-cols-2 gap-2">
           <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Email (For OTP)</label>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Email Address</label>
             <input type="email" id="reg-email" required class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none focus:ring-2 focus:ring-emerald-500" placeholder="store@mail.com">
           </div>
           <div>
@@ -122,11 +123,11 @@
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Password</label>
-          <input type="password" id="reg-password" required class="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Min 8 chars">
+          <input type="password" id="reg-password" required class="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Minimum 8 characters">
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Confirm Password</label>
-          <input type="password" id="reg-cpassword" required class="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Confirm password">
+          <input type="password" id="reg-cpassword" required class="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Re-type password">
         </div>
         <button type="submit" class="w-full py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-sm transition">Send Verification Code</button>
       </form>
@@ -135,7 +136,7 @@
       <form id="register-form-step2" onsubmit="handleRegisterVerify(event)" class="hidden space-y-4">
         <div>
           <div class="flex justify-between items-center mb-1">
-            <label class="block text-xs font-semibold text-slate-300">Enter Email OTP</label>
+            <label class="block text-xs font-semibold text-slate-300">Enter Verification Code (OTP)</label>
             <button type="button" onclick="backToRegisterStep1()" class="text-xs text-emerald-400 hover:underline">Change Email</button>
           </div>
           <input type="text" id="reg-otp" maxlength="6" required class="w-full text-center tracking-[0.5em] text-2xl font-bold py-2.5 bg-slate-800 border border-slate-700 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-white mono" placeholder="••••••">
@@ -158,20 +159,26 @@
 
   <!-- ================= 3. MAIN DASHBOARD APP ================= -->
   <div id="main-app" class="hidden flex-1 flex flex-col h-full bg-slate-950 text-slate-100">
-    <!-- Navbar -->
+    <!-- Navbar with Live Clock & Right-Side Menu Trigger -->
     <header class="bg-slate-900 border-b border-slate-800 px-6 py-3 flex justify-between items-center shadow-lg">
-      <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-xl text-emerald-400">
-          🛒
-        </div>
-        <div>
-          <div class="flex items-center space-x-2">
-            <h1 id="top-shop-name" class="font-extrabold text-base text-white tracking-wide">My Supermarket</h1>
-            <span id="plan-badge" class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-              Active Plan
-            </span>
+      <div class="flex items-center space-x-4">
+        <div class="flex items-center space-x-3">
+          <img id="top-shop-logo" src="/static/default-shop.png" onerror="this.src='https://via.placeholder.com/40'" class="w-10 h-10 rounded-xl border border-emerald-500/30 object-cover bg-slate-800" alt="Logo">
+          <div>
+            <div class="flex items-center space-x-2">
+              <h1 id="top-shop-name" class="font-extrabold text-base text-white tracking-wide">My Supermarket</h1>
+              <span id="plan-badge" class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                Active Plan
+              </span>
+            </div>
+            <p class="text-[11px] text-slate-400">Departmental Barcode POS</p>
           </div>
-          <p class="text-[11px] text-slate-400">Departmental Barcode POS</p>
+        </div>
+
+        <!-- Real-Time Date & Clock (Ticking) -->
+        <div class="hidden lg:flex items-center space-x-2 bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800 text-xs font-mono">
+          <i class="fa-regular fa-clock text-amber-400"></i>
+          <span id="liveClock" class="text-emerald-400 font-bold tracking-wider">Syncing...</span>
         </div>
       </div>
 
@@ -181,15 +188,20 @@
           <span>⚡</span> <span>POS Counter</span>
         </button>
         <button onclick="navTo('stock')" id="btn-nav-stock" class="px-5 py-2 rounded-xl text-slate-400 hover:text-white transition flex items-center space-x-2">
-          <span>📦</span> <span>Inventory & Barcode</span>
+          <span>📦</span> <span>Inventory & Catalog</span>
         </button>
         <button onclick="navTo('dashboard')" id="btn-nav-dashboard" class="px-5 py-2 rounded-xl text-slate-400 hover:text-white transition flex items-center space-x-2">
           <span>📊</span> <span>Sales & Invoices</span>
         </button>
       </nav>
 
+      <!-- Right Action Items (Side Menu & Logout) -->
       <div class="flex items-center space-x-3">
-        <button onclick="logout()" class="px-3 py-1.5 bg-slate-800 hover:bg-red-500/20 hover:text-red-400 text-slate-400 text-xs font-bold rounded-xl transition border border-slate-700">Logout</button>
+        <button onclick="toggleSideMenu()" class="p-2.5 bg-slate-800 hover:bg-slate-700 text-emerald-400 hover:text-white rounded-xl transition border border-slate-700 flex items-center space-x-2 text-xs font-bold shadow">
+          <i class="fa-solid fa-bars text-sm"></i>
+          <span class="hidden sm:inline">Menu</span>
+        </button>
+        <button onclick="logout()" class="px-3.5 py-2 bg-slate-800 hover:bg-red-500/20 hover:text-red-400 text-slate-400 text-xs font-bold rounded-xl transition border border-slate-700">Logout</button>
       </div>
     </header>
 
@@ -204,11 +216,11 @@
           <div class="p-4 bg-slate-900 border-b border-slate-800 flex items-center space-x-3">
             <div class="relative flex-1">
               <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-emerald-400 text-lg">📟</span>
-              <input type="text" id="barcode-scanner-input" onkeydown="handleBarcodeKeypress(event)" autofocus placeholder="Scan Barcode Gun (alladhu type barcode) & press Enter..." class="w-full pl-11 pr-4 py-3 bg-slate-950 border-2 border-emerald-500/40 focus:border-emerald-400 rounded-2xl outline-none text-sm text-emerald-300 mono placeholder-slate-500 shadow-inner">
+              <input type="text" id="barcode-scanner-input" onkeydown="handleBarcodeKeypress(event)" autofocus placeholder="Scan Barcode or Type Code & Press Enter..." class="w-full pl-11 pr-4 py-3 bg-slate-950 border-2 border-emerald-500/40 focus:border-emerald-400 rounded-2xl outline-none text-sm text-emerald-300 mono placeholder-slate-500 shadow-inner">
             </div>
             <div class="relative w-64">
               <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500 text-sm">🔍</span>
-              <input type="text" id="billing-search" onkeyup="filterBillingCatalog()" placeholder="Type item name..." class="w-full pl-9 pr-3 py-3 bg-slate-800 border border-slate-700 rounded-2xl outline-none text-xs text-white placeholder-slate-500">
+              <input type="text" id="billing-search" onkeyup="filterBillingCatalog()" placeholder="Search item title..." class="w-full pl-9 pr-3 py-3 bg-slate-800 border border-slate-700 rounded-2xl outline-none text-xs text-white placeholder-slate-500">
             </div>
           </div>
 
@@ -278,29 +290,33 @@
           <!-- Add Product Card -->
           <div class="col-span-4 bg-slate-900 border border-slate-800 p-6 rounded-3xl shadow-xl">
             <h3 class="text-base font-extrabold text-white mb-4 flex items-center space-x-2">
-              <span class="text-emerald-400">➕</span> <span>Product & Barcode Serkka</span>
+              <span class="text-emerald-400">➕</span> <span>Add Product to Catalog</span>
             </h3>
-            <form onsubmit="handleProductAdd(event)" class="space-y-4">
+            <form onsubmit="handleProductAdd(event)" enctype="multipart/form-data" class="space-y-4">
               <div>
-                <label class="block text-xs font-semibold text-slate-300 mb-1">Barcode (Scan gun / Type)</label>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">Barcode (Scanner Gun / Manual)</label>
                 <div class="relative">
                   <input type="text" id="add-prod-barcode" placeholder="Scan barcode with scanner..." class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-sm mono text-emerald-400 outline-none focus:ring-2 focus:ring-emerald-500">
                   <span class="absolute right-3 top-2.5 text-xs text-slate-500">Scan</span>
                 </div>
               </div>
               <div>
-                <label class="block text-xs font-semibold text-slate-300 mb-1">Product Name</label>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">Product Title</label>
                 <input type="text" id="add-prod-name" required placeholder="e.g. Aashirvaad Atta 5kg" class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none focus:ring-2 focus:ring-emerald-500">
               </div>
               <div class="grid grid-cols-2 gap-3">
                 <div>
-                  <label class="block text-xs font-semibold text-slate-300 mb-1">Price (₹)</label>
+                  <label class="block text-xs font-semibold text-slate-300 mb-1">Selling Price (₹)</label>
                   <input type="number" step="0.01" min="0.01" id="add-prod-price" required placeholder="0.00" class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none focus:ring-2 focus:ring-emerald-500 mono">
                 </div>
                 <div>
-                  <label class="block text-xs font-semibold text-slate-300 mb-1">Stock Qty</label>
+                  <label class="block text-xs font-semibold text-slate-300 mb-1">Stock Units</label>
                   <input type="number" min="0" id="add-prod-stock" required placeholder="20" class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none focus:ring-2 focus:ring-emerald-500 mono">
                 </div>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">Product Image (Optional)</label>
+                <input type="file" id="add-prod-image" accept="image/*" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-xs text-slate-400 file:mr-3 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:bg-slate-700 file:text-emerald-400 file:font-semibold">
               </div>
               <button type="submit" class="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-sm transition shadow-lg shadow-emerald-500/20 mt-2">+ Save Product to Stock</button>
             </form>
@@ -310,7 +326,7 @@
           <div class="col-span-8 bg-slate-900 border border-slate-800 p-6 rounded-3xl shadow-xl flex flex-col">
             <div class="flex justify-between items-center mb-4">
               <h3 class="text-base font-extrabold text-white flex items-center space-x-2">
-                <span>📦</span> <span>Departmental Stock List</span>
+                <span>📦</span> <span>Store Inventory List</span>
               </h3>
               <input type="text" id="stock-search" onkeyup="filterStockTable()" placeholder="🔍 Search barcode or name..." class="px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white outline-none w-64 focus:ring-2 focus:ring-emerald-500">
             </div>
@@ -319,8 +335,8 @@
               <table class="w-full text-left text-xs border-collapse">
                 <thead>
                   <tr class="bg-slate-800/80 text-slate-400 uppercase tracking-wider border-b border-slate-800">
+                    <th class="py-3 px-3">Item</th>
                     <th class="py-3 px-3">Barcode</th>
-                    <th class="py-3 px-3">Item Name</th>
                     <th class="py-3 px-3 text-right">Price (₹)</th>
                     <th class="py-3 px-3 text-center">Stock</th>
                     <th class="py-3 px-3 text-center">Action</th>
@@ -395,7 +411,129 @@
     </footer>
   </div>
 
-  <!-- ================= 4. SUPERMARKET INVOICE MODAL ================= -->
+  <!-- ================= 4. RIGHT-SIDE SLIDING MENU DRAWER ================= -->
+  <div id="sideMenuOverlay" onclick="toggleSideMenu()" class="fixed inset-0 bg-black/60 z-40 hidden transition-opacity"></div>
+  <aside id="sideMenu" class="fixed top-0 right-0 h-full w-80 bg-slate-900 text-white z-50 transform translate-x-full transition-transform duration-300 flex flex-col justify-between shadow-2xl border-l border-slate-800">
+    <div>
+      <div class="flex items-center justify-between p-5 border-b border-slate-800">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-sliders text-emerald-400"></i>
+          <h3 class="font-bold text-base tracking-wide">Terminal Settings</h3>
+        </div>
+        <button onclick="toggleSideMenu()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+      <nav class="p-4 space-y-1.5 text-xs font-semibold">
+        <button onclick="openProfileModal()" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition text-slate-200">
+          <i class="fa-regular fa-id-badge text-indigo-400 w-5 text-sm"></i>
+          <span>Store Profile & Info</span>
+        </button>
+        <button onclick="openSubscriptionModal()" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition text-slate-200">
+          <i class="fa-solid fa-credit-card text-emerald-400 w-5 text-sm"></i>
+          <span>Subscription Details</span>
+        </button>
+        <button onclick="openDatasetModal()" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition text-slate-200">
+          <i class="fa-solid fa-file-csv text-amber-400 w-5 text-sm"></i>
+          <span>Upload Dataset (CSV)</span>
+        </button>
+        <button onclick="openHelpModal()" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition text-slate-200">
+          <i class="fa-solid fa-headset text-sky-400 w-5 text-sm"></i>
+          <span>Help & Support</span>
+        </button>
+        <button onclick="openPolicyModal('refund')" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition text-slate-200">
+          <i class="fa-solid fa-rotate-left text-rose-400 w-5 text-sm"></i>
+          <span>Refund Policy</span>
+        </button>
+        <button onclick="openPolicyModal('terms')" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition text-slate-200">
+          <i class="fa-solid fa-shield-halved text-purple-400 w-5 text-sm"></i>
+          <span>Terms & Conditions</span>
+        </button>
+      </nav>
+    </div>
+    <div class="p-4 border-t border-slate-800 text-[10px] text-slate-400 text-center">
+      PJ SmartBill POS Cloud Enterprise Edition<br>© 2026 PJ Technologies.
+    </div>
+  </aside>
+
+  <!-- ================= 5. STORE PROFILE MODAL ================= -->
+  <div id="profileModal" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-md p-6 shadow-2xl relative text-slate-100">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-base font-bold text-white">Merchant Store Profile</h3>
+        <button onclick="closeModal('profileModal')" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+      <form id="profileForm" onsubmit="saveProfile(event)" class="space-y-3 text-xs">
+        <div class="flex items-center space-x-4 pb-2 border-b border-slate-800">
+          <img id="profilePreview" src="/static/default-shop.png" class="w-14 h-14 rounded-2xl object-cover border border-slate-700 bg-slate-800" alt="Shop">
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-400 mb-1">Store Logo / Photo</label>
+            <input type="file" name="photo" id="profilePhotoInput" accept="image/*" class="text-xs file:mr-2 file:py-1 file:px-3 file:rounded-lg file:border-0 file:bg-slate-800 file:text-emerald-400 file:font-semibold">
+          </div>
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-400 mb-1">Store / Shop Name</label>
+          <input type="text" name="shop_name" id="profShopName" required class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 outline-none focus:border-emerald-500 text-white">
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-400 mb-1">Contact Phone Number</label>
+          <input type="text" name="phone" id="profPhone" required class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 outline-none focus:border-emerald-500 text-white">
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-400 mb-1">Store Email Address</label>
+          <input type="email" name="email" id="profEmail" required class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 outline-none focus:border-emerald-500 text-white">
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-400 mb-1">Store Address</label>
+          <textarea name="address" id="profAddress" rows="2" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 outline-none focus:border-emerald-500 text-white"></textarea>
+        </div>
+        <div class="flex justify-end space-x-2 pt-2">
+          <button type="button" onclick="closeModal('profileModal')" class="px-4 py-2 bg-slate-800 text-slate-400 rounded-xl">Cancel</button>
+          <button type="submit" class="px-5 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl shadow">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= 6. BULK DATASET CSV IMPORT MODAL ================= -->
+  <div id="datasetModal" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-md p-6 shadow-2xl">
+      <div class="flex justify-between items-center mb-2">
+        <h3 class="text-base font-bold text-white">Bulk Ingestion Catalog</h3>
+        <button onclick="closeModal('datasetModal')" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+      <p class="text-xs text-slate-400 mb-4">Upload pre-cataloged CSV file containing barcodes, item names, prices, and stock units.</p>
+      <form onsubmit="uploadDataset(event)" class="space-y-4">
+        <div class="border-2 border-dashed border-slate-700 rounded-2xl p-6 text-center hover:border-emerald-500 transition">
+          <i class="fa-solid fa-file-csv text-3xl text-emerald-400 mb-2"></i>
+          <input type="file" id="csvFileInput" accept=".csv" required class="block w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-slate-800 file:text-emerald-400">
+        </div>
+        <div class="flex justify-end space-x-3">
+          <button type="button" onclick="closeModal('datasetModal')" class="px-4 py-2 bg-slate-800 text-slate-400 rounded-xl text-xs">Cancel</button>
+          <button type="submit" class="px-5 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-xl text-xs font-bold">Import Dataset</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= 7. HELP & SUPPORT MODAL ================= -->
+  <div id="helpModal" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-6 shadow-2xl text-center space-y-4">
+      <div class="w-12 h-12 bg-emerald-500/20 text-emerald-400 rounded-2xl flex items-center justify-center mx-auto text-xl">
+        <i class="fa-solid fa-headset"></i>
+      </div>
+      <div>
+        <h3 class="font-bold text-white text-base">Terminal Help Desk</h3>
+        <p class="text-xs text-slate-400 mt-1">Dedicated support for POS hardware, printers & system configuration.</p>
+      </div>
+      <div class="bg-slate-800/80 border border-slate-700/60 p-4 rounded-2xl text-left space-y-2 text-xs">
+        <div><span class="text-slate-400">Mobile Support:</span> <a href="tel:7708081821" class="text-emerald-400 font-bold block mt-0.5">+91 7708081821</a></div>
+        <div><span class="text-slate-400">Official Email:</span> <a href="mailto:jeyamuruganmurugan765@gmail.com" class="text-emerald-400 font-bold block mt-0.5">jeyamuruganmurugan765@gmail.com</a></div>
+        <div><span class="text-slate-400">Developer:</span> <span class="text-white font-medium block mt-0.5">Jeyamurugan P</span></div>
+      </div>
+      <button onclick="closeModal('helpModal')" class="w-full py-2.5 bg-emerald-500 text-slate-950 font-bold rounded-xl text-xs">Close</button>
+    </div>
+  </div>
+
+  <!-- ================= 8. SUPERMARKET INVOICE MODAL ================= -->
   <div id="invoice-modal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
     <div class="bg-white text-slate-900 rounded-3xl max-w-md w-full p-6 shadow-2xl flex flex-col max-h-[92vh] border border-slate-200">
       <div class="flex justify-between items-center pb-3 border-b border-slate-200">
@@ -414,7 +552,7 @@
     </div>
   </div>
 
-  <!-- ================= 5. COMPLIANCE POLICIES MODAL (RAZORPAY MANDATORY) ================= -->
+  <!-- ================= 9. COMPLIANCE POLICIES MODAL (RAZORPAY MANDATORY) ================= -->
   <div id="policy-modal" class="hidden fixed inset-0 bg-slate-950/90 backdrop-blur-md flex items-center justify-center z-50 p-4">
     <div class="bg-slate-900 border border-slate-800 p-8 rounded-3xl max-w-xl w-full max-h-[85vh] flex flex-col shadow-2xl">
       <div class="flex justify-between items-center pb-3 border-b border-slate-800">
@@ -443,7 +581,7 @@
           <input type="text" id="edit-prod-barcode" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-xs mono text-emerald-400">
         </div>
         <div>
-          <label class="block text-xs font-semibold text-slate-400 mb-1">Product Name</label>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Product Title</label>
           <input type="text" id="edit-prod-name" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white">
         </div>
         <div>
@@ -473,6 +611,108 @@
     let pendingRegisterEmail = "";
     let currentUser = null;
     let currentPaymentMode = "Cash";
+
+    // 1. Live Real-Time Ticking Clock (Date + Time)
+    function updateClock() {
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      const timeStr = now.toLocaleTimeString('en-US', { hour12: true });
+      const clockEl = document.getElementById('liveClock');
+      if (clockEl) clockEl.innerText = `${dateStr} | ${timeStr}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // 2. Side Menu Drawer Toggles
+    function toggleSideMenu() {
+      const menu = document.getElementById('sideMenu');
+      const overlay = document.getElementById('sideMenuOverlay');
+      menu.classList.toggle('translate-x-full');
+      overlay.classList.toggle('hidden');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+    }
+
+    function openProfileModal() {
+      toggleSideMenu();
+      if (currentUser) {
+        document.getElementById('profShopName').value = currentUser.shop_name || '';
+        document.getElementById('profPhone').value = currentUser.phone || '';
+        document.getElementById('profEmail').value = currentUser.email || '';
+        document.getElementById('profAddress').value = currentUser.address || '';
+        if (currentUser.profile_image) {
+          document.getElementById('profilePreview').src = currentUser.profile_image;
+        }
+      }
+      document.getElementById('profileModal').classList.remove('hidden');
+    }
+
+    function openSubscriptionModal() {
+      toggleSideMenu();
+      const days = currentUser ? (currentUser.days_left || 30) : 30;
+      alert(`Subscription Tier: Monthly Business Plan (₹299/month)\nStatus: Active\nDays Remaining: ${days} days`);
+    }
+
+    function openDatasetModal() {
+      toggleSideMenu();
+      document.getElementById('datasetModal').classList.remove('hidden');
+    }
+
+    function openHelpModal() {
+      toggleSideMenu();
+      document.getElementById('helpModal').classList.remove('hidden');
+    }
+
+    // 3. Profile Save & Dynamic Navbar Sync
+    async function saveProfile(e) {
+      e.preventDefault();
+      const form = document.getElementById('profileForm');
+      const formData = new FormData(form);
+
+      try {
+        const res = await fetch('/api/user/profile-update', { method: 'POST', body: formData });
+        const data = await res.json();
+        if (res.ok && data.status === 'success') {
+          // Update shop name instantly in navbar and local state
+          document.getElementById('top-shop-name').innerText = data.shop_name;
+          if (currentUser) {
+            currentUser.shop_name = data.shop_name;
+            if (data.profile_image) {
+              currentUser.profile_image = data.profile_image;
+              document.getElementById('top-shop-logo').src = data.profile_image;
+            }
+          }
+          closeModal('profileModal');
+          alert("Store profile successfully updated!");
+        } else {
+          alert(data.message || "Failed to update profile");
+        }
+      } catch (err) {
+        alert("Server connection error during profile save");
+      }
+    }
+
+    // 4. Bulk Dataset CSV Import
+    async function uploadDataset(e) {
+      e.preventDefault();
+      const fileInput = document.getElementById('csvFileInput');
+      if (!fileInput.files[0]) return;
+
+      const formData = new FormData();
+      formData.append('file', fileInput.files[0]);
+
+      try {
+        const res = await fetch('/api/products/import-csv', { method: 'POST', body: formData });
+        const data = await res.json();
+        alert(data.message || "Dataset imported successfully!");
+        closeModal('datasetModal');
+        refreshAllData();
+      } catch (err) {
+        alert("Error uploading dataset!");
+      }
+    }
 
     function playBeep() {
       try {
@@ -601,7 +841,6 @@
     }
 
     async function handleSubscriptionPayment() {
-      // Direct instant unlock without waiting for Razorpay test key
       try {
         const res = await fetch('/api/subscription/activate', {
           method: 'POST',
@@ -626,7 +865,10 @@
     function showApp(user) {
       document.getElementById('main-app').classList.remove('hidden');
       document.getElementById('top-shop-name').innerText = user.shop_name;
-      document.getElementById('plan-badge').innerText = `Plan Active (${user.days_left} Days Left)`;
+      if (user.profile_image) {
+        document.getElementById('top-shop-logo').src = user.profile_image;
+      }
+      document.getElementById('plan-badge').innerText = `Plan Active (${user.days_left || 30} Days Left)`;
       refreshAllData();
       setTimeout(() => document.getElementById('barcode-scanner-input').focus(), 400);
     }
@@ -667,7 +909,7 @@
           addToCart(prod.id);
           playBeep();
         } else {
-          alert(`Intha Barcode (${code}) product illai! Stock management-il add seyyavum.`);
+          alert(`Barcode (${code}) not recognized in catalog! Please add it in Stock Inventory.`);
         }
         document.getElementById('barcode-scanner-input').value = '';
       }
@@ -683,13 +925,16 @@
     function renderStockTable(list) {
       const tbody = document.getElementById('stock-table-body');
       if (!list.length) {
-        tbody.innerHTML = `<tr><td colspan="5" class="text-center py-8 text-slate-500">Products innum add aagavillai.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="5" class="text-center py-8 text-slate-500">No inventory products registered yet.</td></tr>`;
         return;
       }
       tbody.innerHTML = list.map(p => `
         <tr class="hover:bg-slate-800/40 transition">
+          <td class="py-3 px-3 flex items-center space-x-3">
+            <img src="${p.image_url || '/static/default-item.png'}" onerror="this.src='https://via.placeholder.com/32'" class="w-8 h-8 rounded-lg object-cover border border-slate-700 bg-slate-800" alt="">
+            <span class="font-semibold text-white">${p.name}</span>
+          </td>
           <td class="py-3 px-3 mono text-emerald-400 font-bold">${p.barcode || '<span class="text-slate-600">None</span>'}</td>
-          <td class="py-3 px-3 font-semibold text-white">${p.name}</td>
           <td class="py-3 px-3 text-right mono font-bold">₹${p.price.toFixed(2)}</td>
           <td class="py-3 px-3 text-center mono font-bold ${p.stock <= 5 ? 'text-amber-400' : 'text-slate-300'}">${p.stock}</td>
           <td class="py-3 px-3 text-center space-x-2">
@@ -711,19 +956,29 @@
       const name = document.getElementById('add-prod-name').value.trim();
       const price = parseFloat(document.getElementById('add-prod-price').value);
       const stock = parseInt(document.getElementById('add-prod-stock').value);
+      const imageFile = document.getElementById('add-prod-image').files[0];
 
-      const res = await fetch('/api/products', {
+      const formData = new FormData();
+      formData.append("barcode", barcode);
+      formData.append("name", name);
+      formData.append("price", price);
+      formData.append("stock", stock);
+      if (imageFile) {
+        formData.append("image", imageFile);
+      }
+
+      const res = await fetch('/api/products/create', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ barcode, name, price, stock })
+        body: formData
       });
       const data = await res.json();
-      if (!res.ok) return alert(data.detail);
+      if (!res.ok) return alert(data.detail || data.message);
 
       document.getElementById('add-prod-barcode').value = '';
       document.getElementById('add-prod-name').value = '';
       document.getElementById('add-prod-price').value = '';
       document.getElementById('add-prod-stock').value = '';
+      document.getElementById('add-prod-image').value = '';
       refreshAllData();
     }
 
@@ -754,7 +1009,7 @@
     }
 
     async function deleteProductItem(id) {
-      if (!confirm("Intha item-ai delete seyyava?")) return;
+      if (!confirm("Are you sure you want to delete this inventory product?")) return;
       await fetch(`/api/products/${id}`, { method: 'DELETE' });
       refreshAllData();
     }
@@ -762,7 +1017,7 @@
     function renderBillingCatalog(list) {
       const c = document.getElementById('billing-catalog');
       if (!list.length) {
-        c.innerHTML = `<p class="col-span-3 text-center py-10 text-slate-500">Products empty.</p>`;
+        c.innerHTML = `<p class="col-span-3 text-center py-10 text-slate-500">Product inventory is empty.</p>`;
         return;
       }
       c.innerHTML = list.map(p => `
@@ -789,7 +1044,7 @@
 
     function addToCart(productId) {
       const prod = allProducts.find(p => p.id === productId);
-      if (!prod || prod.stock <= 0) return alert("Intha product stock kaali!");
+      if (!prod || prod.stock <= 0) return alert("Product is out of stock!");
 
       const existing = cart.find(i => i.product_id === productId);
       if (existing) {
@@ -812,7 +1067,7 @@
     function renderCart() {
       const c = document.getElementById('cart-items-container');
       if (!cart.length) {
-        c.innerHTML = `<p class="text-slate-500 text-center py-16 text-xs">Cart empty. Barcode scan pannavum.</p>`;
+        c.innerHTML = `<p class="text-slate-500 text-center py-16 text-xs">Cart is empty. Scan barcode or select products.</p>`;
         calculateTotal();
         return;
       }
@@ -856,7 +1111,7 @@
     }
 
     async function handleInstantCheckout() {
-      if (!cart.length) return alert("Cart-la entha item-um illai!");
+      if (!cart.length) return alert("The cart is currently empty!");
 
       const total = calculateTotal();
       const customer_name = document.getElementById('cust-name').value.trim() || "Walk-in Customer";
@@ -878,7 +1133,7 @@
           body: JSON.stringify(payload)
         });
         const data = await res.json();
-        if (!res.ok) return alert(data.detail || "Checkout Failed!");
+        if (!res.ok) return alert(data.detail || "Checkout transaction failed!");
 
         openInvoiceModal(data);
         clearCart();
@@ -894,7 +1149,7 @@
         }, 300);
 
       } catch (err) {
-        alert("Server error during billing!");
+        alert("Server error occurred during checkout!");
       }
     }
 
@@ -963,7 +1218,6 @@
     function closeInvoiceModal() { document.getElementById('invoice-modal').classList.add('hidden'); }
     function triggerPrintFromModal() { window.print(); }
 
-    // Dynamic Razorpay Compliance Policy Loader
     function openPolicyModal(type) {
       const modal = document.getElementById('policy-modal');
       const title = document.getElementById('policy-modal-title');
@@ -1028,7 +1282,7 @@
 
       const tb = document.getElementById('history-table-body');
       if (!data.recent_bills.length) {
-        tb.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-500">Invoices innum create aagavillai.</td></tr>`;
+        tb.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-500">No invoices generated yet.</td></tr>`;
       } else {
         tb.innerHTML = data.recent_bills.map(b => `
           <tr class="hover:bg-slate-800/40 transition">

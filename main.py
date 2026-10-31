@@ -1,4 +1,8 @@
+import os
 import re
+import csv
+import io
+import shutil
 import random
 import smtplib
 from email.mime.text import MIMEText
@@ -6,30 +10,54 @@ from email.mime.multipart import MIMEMultipart
 from datetime import datetime, timedelta
 from uuid import uuid4
 from typing import List, Optional
+
 import razorpay
-from fastapi import FastAPI, Depends, HTTPException, Request, Response
-from fastapi.responses import HTMLResponse
+from fastapi import FastAPI, Depends, HTTPException, Request, Response, UploadFile, File, Form, status
+from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from sqlalchemy import func, or_
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
 
 import database as db
 import auth
 
 db.init_db()
 
+# Upload directory setup
+UPLOAD_DIR = os.path.join("static", "uploads")
+os.makedirs(UPLOAD_DIR, exist_ok=True)
+
+# Rate Limiter setup
+limiter = Limiter(key_func=get_remote_address)
 app = FastAPI(title="PJ SmartBill POS Enterprise")
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+# Mount static folder for uploads and assets
+app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
-# Ungaloda Gmail SMTP Details
-SMTP_EMAIL = "jeyamuruganmurugan765@gmail.com"
-SMTP_PASSWORD = "luta yqru mqhw uobn"
+# Credentials & Environment Variables (Render-la irundhu load aagum, illana default use pannum)
+SMTP_EMAIL = os.getenv("SMTP_EMAIL", "jeyamuruganmurugan765@gmail.com")
+SMTP_PASSWORD = os.getenv("SMTP_PASSWORD", "luta yqru mqhw uobn")
 
-# Razorpay Test Credentials (Subscription paywall-kku mattum)
-RAZORPAY_KEY_ID = "rzp_test_1DP5mmOlF5G5ag"
-RAZORPAY_KEY_SECRET = "dummy_secret_for_now"
+RAZORPAY_KEY_ID = os.getenv("RAZORPAY_KEY_ID", "rzp_test_1DP5mmOlF5G5ag")
+RAZORPAY_KEY_SECRET = os.getenv("RAZORPAY_KEY_SECRET", "dummy_secret_for_now")
 rzp_client = razorpay.Client(auth=(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET))
+
+# ----------------- SECURITY HEADERS MIDDLEWARE -----------------
+@app.middleware("http")
+async def add_security_headers(request: Request, call_next):
+    response = await call_next(request)
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["X-XSS-Protection"] = "1; mode=block"
+    return response
 
 def get_db():
     session = db.SessionLocal()
@@ -59,12 +87,12 @@ def send_real_email_otp(to_email: str, otp: str, shop_name: str):
           <h2 style="color: #059669; text-align: center; margin-bottom: 4px;">🧾 PJ SmartBill POS</h2>
           <p style="text-align: center; color: #64748b; font-size: 13px; margin-top: 0;">Departmental Store Retail System</p>
           <hr style="border: none; border-top: 1px solid #f1f5f9; margin: 20px 0;">
-          <p style="font-size: 14px; color: #334155;">Vanakkam,</p>
-          <p style="font-size: 14px; color: #334155;">Ungal <b>{shop_name}</b> store registration-kaga intha OTP anuppappattullathu:</p>
+          <p style="font-size: 14px; color: #334155;">Hello,</p>
+          <p style="font-size: 14px; color: #334155;">Your verification code for <b>{shop_name}</b> store registration is:</p>
           <div style="text-align: center; margin: 25px 0;">
             <span style="display: inline-block; font-size: 34px; font-weight: 900; letter-spacing: 8px; color: #0f172a; background: #ecfdf5; padding: 12px 28px; border-radius: 12px; border: 2px dashed #059669;">{otp}</span>
           </div>
-          <p style="font-size: 12px; color: #dc2626; text-align: center;">Intha code 10 nimidangalukku mattumey chellum.</p>
+          <p style="font-size: 12px; color: #dc2626; text-align: center;">This code is valid for 10 minutes only.</p>
         </div>
         """
         msg.attach(MIMEText(html_body, "html"))
@@ -78,7 +106,7 @@ def send_real_email_otp(to_email: str, otp: str, shop_name: str):
         print(f"[SMTP Error]: {e}")
         return False
 
-# Pydantic Schemas
+# ----------------- PYDANTIC SCHEMAS -----------------
 class RegisterInitiatePayload(BaseModel):
     shop_name: str
     email: str
@@ -108,12 +136,14 @@ class BillPayload(BaseModel):
     customer_name: Optional[str] = "Walk-in"
     customer_phone: Optional[str] = ""
     discount: float = 0.0
-    payment_mode: str = "Cash"  # Cash, UPI, Card (Staff Selection)
+    payment_mode: str = "Cash"
     items: List[CartItem]
 
 class SubscriptionVerifyPayload(BaseModel):
     payment_id: str
     plan: str
+
+# ----------------- ROUTES -----------------
 
 @app.get("/", response_class=HTMLResponse)
 def index(request: Request):
@@ -123,21 +153,22 @@ def index(request: Request):
         context={"rzp_key": RAZORPAY_KEY_ID}
     )
 
-# --- Register Step 1: Send Real Email OTP ---
+# --- Register Step 1: Send Real Email OTP (Rate limited to prevent bot abuse) ---
 @app.post("/api/auth/register-initiate")
-def register_initiate(data: RegisterInitiatePayload, session: Session = Depends(get_db)):
+@limiter.limit("3/minute")
+def register_initiate(request: Request, data: RegisterInitiatePayload, session: Session = Depends(get_db)):
     shop_name = data.shop_name.strip()
     email = data.email.strip().lower()
     phone = data.phone.strip()
     pwd = data.password.strip()
 
     if pwd != data.confirm_password.strip():
-        raise HTTPException(status_code=400, detail="Passwords match aagavillai!")
+        raise HTTPException(status_code=400, detail="Passwords do not match!")
 
     clean_phone = ''.join(filter(str.isdigit, phone))[-10:]
     existing_user = session.query(db.User).filter(or_(db.User.email == email, db.User.phone == clean_phone)).first()
     if existing_user and existing_user.is_verified:
-        raise HTTPException(status_code=400, detail="Intha Email/Phone erkanave register aagiyullathu!")
+        raise HTTPException(status_code=400, detail="This Email or Phone is already registered!")
 
     otp = f"{random.randint(100000, 999999)}"
     expiry = datetime.utcnow() + timedelta(minutes=10)
@@ -165,7 +196,7 @@ def register_initiate(data: RegisterInitiatePayload, session: Session = Depends(
     session.commit()
 
     send_real_email_otp(email, otp, shop_name)
-    return {"message": f"OTP verification code {email}-kku anuppappattadhu!", "email": email}
+    return {"message": f"Verification code sent to {email}!", "email": email}
 
 # --- Register Step 2: Verify Real OTP ---
 @app.post("/api/auth/register-verify")
@@ -173,32 +204,33 @@ def register_verify(data: VerifyRegisterOTPPayload, response: Response, session:
     email = data.email.strip().lower()
     user = session.query(db.User).filter(db.User.email == email).first()
     if not user or user.otp != data.otp.strip():
-        raise HTTPException(status_code=400, detail="Thavarana OTP!")
+        raise HTTPException(status_code=400, detail="Invalid verification code!")
 
     user.is_verified = True
     user.otp = None
     session.commit()
 
     token = auth.create_access_token({"sub": str(user.id)})
-    response.set_cookie(key="access_token", value=token, httponly=True, max_age=86400 * 7)
+    response.set_cookie(key="access_token", value=token, httponly=True, max_age=86400 * 7, samesite="lax")
     return {"shop_name": user.shop_name, "message": "Registered successfully!"}
 
-# --- Direct Login ---
+# --- Direct Login (Rate limited against brute-force) ---
 @app.post("/api/auth/login")
-def login(data: LoginPayload, response: Response, session: Session = Depends(get_db)):
+@limiter.limit("5/minute")
+def login(request: Request, data: LoginPayload, response: Response, session: Session = Depends(get_db)):
     ident = data.identifier.strip().lower()
     user = session.query(db.User).filter(or_(db.User.email == ident, db.User.phone == ident)).first()
     if not user or not user.is_verified or not auth.verify_password(data.password.strip(), user.password_hash):
-        raise HTTPException(status_code=400, detail="Thavarana Email/Phone alladhu Password!")
+        raise HTTPException(status_code=400, detail="Invalid Email/Phone or Password!")
 
     token = auth.create_access_token({"sub": str(user.id)})
-    response.set_cookie(key="access_token", value=token, httponly=True, max_age=86400 * 7)
+    response.set_cookie(key="access_token", value=token, httponly=True, max_age=86400 * 7, samesite="lax")
     return {"shop_name": user.shop_name}
 
 @app.post("/api/logout")
 def logout(response: Response):
     response.delete_cookie("access_token")
-    return {"message": "Logged out"}
+    return {"message": "Logged out successfully"}
 
 @app.get("/api/me")
 def check_me(user: Optional[db.User] = Depends(get_current_user)):
@@ -218,13 +250,55 @@ def check_me(user: Optional[db.User] = Depends(get_current_user)):
         "shop_name": user.shop_name,
         "email": user.email,
         "phone": user.phone,
+        "address": getattr(user, "address", "Main Bazaar, Sayalgudi, Tamil Nadu"),
+        "profile_image": getattr(user, "profile_image", "/static/default-shop.png"),
         "is_subscribed": is_active,
         "subscription_plan": user.subscription_plan,
         "days_left": days_left,
         "subscription_end": user.subscription_end.strftime("%d %b %Y") if user.subscription_end else None
     }
 
-# --- Subscription Paywall Activation (₹1 first month + ₹299 autopay) ---
+# --- Profile Update (Shop Name, Photo, Phone, Email, Address) ---
+@app.post("/api/user/profile-update")
+def update_profile(
+    shop_name: str = Form(...),
+    phone: str = Form(...),
+    email: str = Form(...),
+    address: str = Form(...),
+    photo: Optional[UploadFile] = File(None),
+    user: db.User = Depends(get_current_user),
+    session: Session = Depends(get_db)
+):
+    if not user:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+
+    user.shop_name = shop_name.strip()
+    user.phone = phone.strip()
+    user.email = email.strip()
+    if hasattr(user, "address"):
+        user.address = address.strip()
+
+    profile_img_url = getattr(user, "profile_image", "/static/default-shop.png")
+    if photo and photo.filename:
+        filename = f"shop_{user.id}_{int(datetime.utcnow().timestamp())}_{photo.filename}"
+        filepath = os.path.join(UPLOAD_DIR, filename)
+        with open(filepath, "wb") as buffer:
+            shutil.copyfileobj(photo.file, buffer)
+        profile_img_url = f"/{filepath}"
+        if hasattr(user, "profile_image"):
+            user.profile_image = profile_img_url
+
+    session.commit()
+    session.refresh(user)
+
+    return {
+        "status": "success",
+        "message": "Store profile updated successfully",
+        "shop_name": user.shop_name,
+        "profile_image": profile_img_url
+    }
+
+# --- Subscription Paywall Activation ---
 @app.post("/api/subscription/activate")
 def activate_subscription(data: SubscriptionVerifyPayload, user: db.User = Depends(get_current_user), session: Session = Depends(get_db)):
     if not user:
@@ -241,13 +315,67 @@ def activate_subscription(data: SubscriptionVerifyPayload, user: db.User = Depen
         "subscription_end": user.subscription_end.strftime("%d %b %Y")
     }
 
-# --- Products APIs (With Barcode Scanner Support) ---
+# --- Products APIs ---
 @app.get("/api/products")
 def get_products(user: db.User = Depends(get_current_user), session: Session = Depends(get_db)):
     if not user:
         raise HTTPException(status_code=401, detail="Unauthorized")
-    return session.query(db.Product).filter(db.Product.user_id == user.id).order_by(db.Product.name.asc()).all()
+    prods = session.query(db.Product).filter(db.Product.user_id == user.id).order_by(db.Product.name.asc()).all()
+    results = []
+    for p in prods:
+        results.append({
+            "id": p.id,
+            "barcode": p.barcode,
+            "name": p.name,
+            "price": p.price,
+            "stock": p.stock,
+            "image_url": getattr(p, "image_url", "/static/default-item.png")
+        })
+    return results
 
+# Add Product with Optional Image File
+@app.post("/api/products/create")
+def add_product_with_image(
+    barcode: Optional[str] = Form(""),
+    name: str = Form(...),
+    price: float = Form(...),
+    stock: int = Form(...),
+    image: Optional[UploadFile] = File(None),
+    user: db.User = Depends(get_current_user),
+    session: Session = Depends(get_db)
+):
+    if not user:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+
+    clean_barcode = barcode.strip() if barcode else None
+    if clean_barcode:
+        existing = session.query(db.Product).filter(db.Product.user_id == user.id, db.Product.barcode == clean_barcode).first()
+        if existing:
+            raise HTTPException(status_code=400, detail=f"Barcode ({clean_barcode}) already exists for '{existing.name}'!")
+
+    image_url = "/static/default-item.png"
+    if image and image.filename:
+        filename = f"prod_{user.id}_{int(datetime.utcnow().timestamp())}_{image.filename}"
+        filepath = os.path.join(UPLOAD_DIR, filename)
+        with open(filepath, "wb") as buffer:
+            shutil.copyfileobj(image.file, buffer)
+        image_url = f"/{filepath}"
+
+    prod = db.Product(
+        user_id=user.id,
+        barcode=clean_barcode,
+        name=name.strip(),
+        price=price,
+        stock=stock
+    )
+    if hasattr(prod, "image_url"):
+        prod.image_url = image_url
+
+    session.add(prod)
+    session.commit()
+    return {"message": "Product saved successfully!"}
+
+# Standard JSON Product Add
 @app.post("/api/products")
 def add_product(item: ProductPayload, user: db.User = Depends(get_current_user), session: Session = Depends(get_db)):
     if not user:
@@ -257,7 +385,7 @@ def add_product(item: ProductPayload, user: db.User = Depends(get_current_user),
     if clean_barcode:
         existing = session.query(db.Product).filter(db.Product.user_id == user.id, db.Product.barcode == clean_barcode).first()
         if existing:
-            raise HTTPException(status_code=400, detail=f"Intha Barcode ({clean_barcode}) erkanave '{existing.name}'-kku irukku!")
+            raise HTTPException(status_code=400, detail=f"Barcode ({clean_barcode}) already assigned to '{existing.name}'!")
 
     prod = db.Product(
         user_id=user.id,
@@ -268,7 +396,50 @@ def add_product(item: ProductPayload, user: db.User = Depends(get_current_user),
     )
     session.add(prod)
     session.commit()
-    return {"message": "Product serkkappattathu!"}
+    return {"message": "Product added successfully!"}
+
+# Bulk CSV Dataset Upload API
+@app.post("/api/products/import-csv")
+async def import_products_csv(
+    file: UploadFile = File(...),
+    user: db.User = Depends(get_current_user),
+    session: Session = Depends(get_db)
+):
+    if not user:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+    if not file.filename.endswith('.csv'):
+        raise HTTPException(status_code=400, detail="Only CSV files are supported")
+
+    content = await file.read()
+    decoded = content.decode('utf-8', errors='ignore')
+    reader = csv.DictReader(io.StringIO(decoded))
+
+    count = 0
+    for row in reader:
+        bcode = row.get("barcode", "").strip() or None
+        pname = row.get("name", "").strip()
+        if not pname:
+            continue
+
+        existing = None
+        if bcode:
+            existing = session.query(db.Product).filter(db.Product.user_id == user.id, db.Product.barcode == bcode).first()
+
+        if not existing:
+            new_p = db.Product(
+                user_id=user.id,
+                barcode=bcode,
+                name=pname,
+                price=float(row.get("price", 0.0) or 0.0),
+                stock=int(row.get("stock", 100) or 100)
+            )
+            if hasattr(new_p, "image_url"):
+                new_p.image_url = row.get("image_url", "/static/default-item.png").strip()
+            session.add(new_p)
+            count += 1
+
+    session.commit()
+    return {"status": "success", "message": f"Successfully imported {count} items into catalog!"}
 
 @app.put("/api/products/{prod_id}")
 def update_product(prod_id: int, item: ProductPayload, user: db.User = Depends(get_current_user), session: Session = Depends(get_db)):
@@ -276,7 +447,7 @@ def update_product(prod_id: int, item: ProductPayload, user: db.User = Depends(g
         raise HTTPException(status_code=401, detail="Unauthorized")
     prod = session.query(db.Product).filter(db.Product.id == prod_id, db.Product.user_id == user.id).first()
     if not prod:
-        raise HTTPException(status_code=404, detail="Product kaanavillai!")
+        raise HTTPException(status_code=404, detail="Product not found!")
     
     clean_barcode = item.barcode.strip() if item.barcode else None
     prod.barcode = clean_barcode
@@ -284,7 +455,7 @@ def update_product(prod_id: int, item: ProductPayload, user: db.User = Depends(g
     prod.price = item.price
     prod.stock = item.stock
     session.commit()
-    return {"message": "Product updated!"}
+    return {"message": "Product updated successfully!"}
 
 @app.delete("/api/products/{prod_id}")
 def delete_product(prod_id: int, user: db.User = Depends(get_current_user), session: Session = Depends(get_db)):
@@ -296,7 +467,7 @@ def delete_product(prod_id: int, user: db.User = Depends(get_current_user), sess
         session.commit()
     return {"message": "Deleted"}
 
-# --- POS Billing Checkout (No Razorpay pop-up; Direct Cash/UPI/Card save by staff) ---
+# --- POS Billing Checkout ---
 @app.post("/api/checkout")
 def checkout(payload: BillPayload, user: db.User = Depends(get_current_user), session: Session = Depends(get_db)):
     if not user:
@@ -304,7 +475,7 @@ def checkout(payload: BillPayload, user: db.User = Depends(get_current_user), se
     
     # 30-Day Paywall check
     if not user.is_subscribed or (user.subscription_end and datetime.utcnow() > user.subscription_end):
-        raise HTTPException(status_code=403, detail="Subscription expire aagivittathu! Please renew panni bill podavum.")
+        raise HTTPException(status_code=403, detail="Subscription expired! Please renew your plan to continue billing.")
 
     subtotal = 0.0
     items_to_save = []
@@ -312,9 +483,9 @@ def checkout(payload: BillPayload, user: db.User = Depends(get_current_user), se
     for itm in payload.items:
         p = session.query(db.Product).filter(db.Product.id == itm.product_id, db.Product.user_id == user.id).first()
         if not p:
-            raise HTTPException(status_code=404, detail="Product kaanavillai!")
+            raise HTTPException(status_code=404, detail="Product not found in store catalog!")
         if p.stock < itm.quantity:
-            raise HTTPException(status_code=400, detail=f"'{p.name}' podhumana stock illai! (Current: {p.stock})")
+            raise HTTPException(status_code=400, detail=f"Insufficient stock for '{p.name}'! (Available: {p.stock})")
         
         amt = round(p.price * itm.quantity, 2)
         subtotal += amt
@@ -323,7 +494,7 @@ def checkout(payload: BillPayload, user: db.User = Depends(get_current_user), se
     total = max(0.0, round(subtotal - payload.discount, 2))
     invoice_no = f"POS-{datetime.now().strftime('%y%m%d')}-{uuid4().hex[:4].upper()}"
 
-    # Stock deduct
+    # Deduct stock
     for itm in items_to_save:
         itm["obj"].stock -= itm["qty"]
 

@@ -1,72 +1,83 @@
+import os
 from datetime import datetime
-from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime, ForeignKey, Boolean
-from sqlalchemy.orm import declarative_base, sessionmaker, relationship
+from sqlalchemy import create_engine, Column, Integer, String, Float, Boolean, DateTime, ForeignKey, Text
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker, relationship
 
-DATABASE_URL = "sqlite:///./pj_smartbill.db"
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./pj_smartbill.db")
 
-engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+# SQLAlchemy 2.0 Render PostgreSQL fix
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
+if "sqlite" in DATABASE_URL:
+    engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+else:
+    engine = create_engine(DATABASE_URL, pool_pre_ping=True)
+
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True, index=True)
-    shop_name = Column(String, nullable=False)
-    email = Column(String, unique=True, index=True, nullable=False)
-    phone = Column(String, unique=True, index=True, nullable=False)
-    password_hash = Column(String, nullable=False)
+    shop_name = Column(String(150), default="PJ Smart Store")
+    email = Column(String(120), unique=True, index=True, nullable=False)
+    phone = Column(String(20), unique=True, index=True, nullable=True)
+    address = Column(Text, default="Main Bazaar, Sayalgudi, Tamil Nadu")
+    profile_image = Column(String(255), default="/static/default-shop.png")
+    password_hash = Column(String(255), nullable=False)
     is_verified = Column(Boolean, default=False)
-    
-    # Subscription tracking (₹1 first month -> ₹299 autopay)
     is_subscribed = Column(Boolean, default=False)
-    subscription_plan = Column(String, default="INACTIVE")
+    subscription_plan = Column(String(50), default="TRIAL")
     subscription_end = Column(DateTime, nullable=True)
-    razorpay_subscription_id = Column(String, nullable=True)
-    
-    otp = Column(String, nullable=True)
+    razorpay_subscription_id = Column(String(100), nullable=True)
+    otp = Column(String(6), nullable=True)
     otp_expiry = Column(DateTime, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
-    products = relationship("Product", back_populates="owner")
-    bills = relationship("Bill", back_populates="owner")
+    products = relationship("Product", back_populates="user", cascade="all, delete-orphan")
+    bills = relationship("Bill", back_populates="user", cascade="all, delete-orphan")
 
 class Product(Base):
     __tablename__ = "products"
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
-    barcode = Column(String, index=True, nullable=True)
-    name = Column(String, index=True, nullable=False)
-    price = Column(Float, nullable=False)
+    barcode = Column(String(64), index=True, nullable=True)
+    name = Column(String(200), nullable=False)
+    price = Column(Float, default=0.0)
     stock = Column(Integer, default=0)
+    image_url = Column(String(255), default="/static/default-item.png")
+    created_at = Column(DateTime, default=datetime.utcnow)
 
-    owner = relationship("User", back_populates="products")
+    user = relationship("User", back_populates="products")
 
 class Bill(Base):
     __tablename__ = "bills"
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
-    invoice_no = Column(String, unique=True, index=True)
-    customer_name = Column(String, default="Walk-in")
-    customer_phone = Column(String, default="")
+    invoice_no = Column(String(64), unique=True, index=True)
+    customer_name = Column(String(100), default="Walk-in Customer")
+    customer_phone = Column(String(20), default="N/A")
     subtotal = Column(Float, default=0.0)
     discount = Column(Float, default=0.0)
-    total = Column(Float, nullable=False)
-    payment_mode = Column(String, default="Cash")  # Cash, UPI, Card
-    payment_status = Column(String, default="PAID") 
+    total = Column(Float, default=0.0)
+    payment_mode = Column(String(20), default="Cash")
+    payment_status = Column(String(20), default="PAID")
     created_at = Column(DateTime, default=datetime.utcnow)
 
-    owner = relationship("User", back_populates="bills")
+    user = relationship("User", back_populates="bills")
     items = relationship("BillItem", back_populates="bill", cascade="all, delete-orphan")
 
 class BillItem(Base):
     __tablename__ = "bill_items"
     id = Column(Integer, primary_key=True, index=True)
     bill_id = Column(Integer, ForeignKey("bills.id"))
-    barcode = Column(String, nullable=True)
-    product_name = Column(String, nullable=False)
-    price = Column(Float, nullable=False)
-    quantity = Column(Integer, nullable=False)
-    amount = Column(Float, nullable=False)
+    barcode = Column(String(64), default="-")
+    product_name = Column(String(200), nullable=False)
+    price = Column(Float, default=0.0)
+    quantity = Column(Integer, default=1)
+    amount = Column(Float, default=0.0)
 
     bill = relationship("Bill", back_populates="items")
 

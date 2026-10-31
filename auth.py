@@ -1,43 +1,42 @@
-import hashlib
-import secrets
+import os
+import bcrypt
 from datetime import datetime, timedelta
-from jose import jwt, JWTError
+from jose import JWTError, jwt
 
-SECRET_KEY = "PJ_SMARTBILL_SECRET_KEY_PROD_998877"
+SECRET_KEY = os.getenv("SECRET_KEY", "pj_smartbill_super_jwt_secret_key_2026_secure")
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_HOURS = 24 * 7
+ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7  # 7 Days
+
+def _safe_bytes(password: str) -> bytes:
+    """UTF-8 encode panni strictly 71 bytes-la cut pannum"""
+    if not password:
+        return b""
+    return password.encode("utf-8")[:71]
 
 def hash_password(password: str) -> str:
-    salt = secrets.token_hex(16)
-    key = hashlib.pbkdf2_hmac(
-        'sha256',
-        password.encode('utf-8'),
-        salt.encode('utf-8'),
-        100000
-    ).hex()
-    return f"{salt}${key}"
+    pwd_bytes = _safe_bytes(password)
+    # Generate salt and hash directly using bcrypt
+    salt = bcrypt.gensalt()
+    hashed = bcrypt.hashpw(pwd_bytes, salt)
+    return hashed.decode("utf-8")
 
-def verify_password(plain_password: str, stored_hash: str) -> bool:
+def verify_password(plain_password: str, hashed_password: str) -> bool:
     try:
-        salt, key = stored_hash.split("$")
-        new_key = hashlib.pbkdf2_hmac(
-            'sha256',
-            plain_password.encode('utf-8'),
-            salt.encode('utf-8'),
-            100000
-        ).hex()
-        return secrets.compare_digest(key, new_key)
+        pwd_bytes = _safe_bytes(plain_password)
+        hashed_bytes = hashed_password.encode("utf-8")
+        return bcrypt.checkpw(pwd_bytes, hashed_bytes)
     except Exception:
         return False
 
 def create_access_token(data: dict) -> str:
-    payload = data.copy()
-    expire = datetime.utcnow() + timedelta(hours=ACCESS_TOKEN_EXPIRE_HOURS)
-    payload.update({"exp": expire})
-    return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
+    to_encode = data.copy()
+    expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    to_encode.update({"exp": expire})
+    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 def decode_token(token: str):
     try:
-        return jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        return payload
     except JWTError:
         return None
