@@ -18,7 +18,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
-from sqlalchemy import func, or_
+from sqlalchemy import func, or_, desc
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
@@ -63,6 +63,10 @@ def get_db():
 
 def get_current_user(request: Request, session: Session = Depends(get_db)):
     token = request.cookies.get("access_token")
+    if not token:
+        auth_header = request.headers.get("Authorization")
+        if auth_header and auth_header.startswith("Bearer "):
+            token = auth_header.split(" ")[1]
     if not token:
         return None
     data = auth.decode_token(token)
@@ -139,6 +143,27 @@ class VerifyPaymentPayload(BaseModel):
     razorpay_payment_id: str
     razorpay_signature: str
 
+class RechargeCreate(BaseModel):
+    mobile_number: str
+    operator: str
+    amount: float
+    payment_mode: str = "Cash"
+
+class RepairCreate(BaseModel):
+    customer_name: str
+    customer_phone: str
+    device_model: str
+    problem_desc: str
+    estimated_cost: float = 0.0
+    advance_paid: float = 0.0
+
+class DamageCreate(BaseModel):
+    category: str
+    item_name: str
+    quantity: int = 1
+    loss_amount: float
+    reason: str = "Screen / Body Damage"
+
 # ----------------- ROUTES -----------------
 @app.get("/", response_class=HTMLResponse)
 def index(request: Request):
@@ -149,7 +174,7 @@ def index(request: Request):
     )
 
 @app.post("/api/auth/register-initiate")
-@limiter.limit("3/minute")
+@limiter.limit("5/minute")
 def register_initiate(request: Request, data: RegisterInitiatePayload, session: Session = Depends(get_db)):
     shop_name = data.shop_name.strip()
     email = data.email.strip().lower()
@@ -204,11 +229,11 @@ def register_verify(data: VerifyRegisterOTPPayload, response: Response, session:
     session.commit()
 
     token = auth.create_access_token({"sub": str(user.id)})
-    response.set_cookie(key="access_token", value=token, httponly=True, max_age=86400 * 7, samesite="lax")
-    return {"shop_name": user.shop_name, "message": "Registered successfully!"}
+    response.set_cookie(key="access_token", value=token, httponly=True, max_age=86400 * 30, samesite="lax")
+    return {"shop_name": user.shop_name, "token": token, "message": "Registered successfully!"}
 
 @app.post("/api/auth/login")
-@limiter.limit("5/minute")
+@limiter.limit("10/minute")
 def login(request: Request, data: LoginPayload, response: Response, session: Session = Depends(get_db)):
     ident = data.identifier.strip().lower()
     user = session.query(db.User).filter(or_(db.User.email == ident, db.User.phone == ident)).first()
@@ -216,14 +241,15 @@ def login(request: Request, data: LoginPayload, response: Response, session: Ses
         raise HTTPException(status_code=400, detail="Invalid Email/Phone or Password!")
 
     token = auth.create_access_token({"sub": str(user.id)})
-    response.set_cookie(key="access_token", value=token, httponly=True, max_age=86400 * 7, samesite="lax")
-    return {"shop_name": user.shop_name}
+    response.set_cookie(key="access_token", value=token, httponly=True, max_age=86400 * 30, samesite="lax")
+    return {"shop_name": user.shop_name, "token": token}
 
 @app.post("/api/logout")
 def logout(response: Response):
     response.delete_cookie("access_token")
     return {"message": "Logged out successfully"}
 
+# --- FIXED: 30 DAYS SUBSCRIPTION VALIDITY CHECK ---
 @app.get("/api/me")
 def check_me(user: Optional[db.User] = Depends(get_current_user)):
     if not user or not user.is_verified:
@@ -231,27 +257,31 @@ def check_me(user: Optional[db.User] = Depends(get_current_user)):
 
     is_active = False
     days_left = 0
-    if user.is_subscribed and user.subscription_end:
-        if datetime.utcnow() <= user.subscription_end:
-            is_active = True
-            days_left = (user.subscription_end - datetime.utcnow()).days + 1
+    if user.is_subscribed:
+        if user.subscription_end:
+            now = datetime.utcnow()
+            if now <= user.subscription_end:
+                is_active = True
+                days_left = max(0, (user.subscription_end - now).days + 1)
+            else:
+                is_active = False
         else:
-            is_active = False
+            is_active = True
+            days_left = 30
 
     return {
         "shop_name": user.shop_name,
         "email": user.email,
         "phone": user.phone,
         "address": user.address or "",
-        "store_type": user.store_type or "",
+        "store_type": user.store_type or "MOBILE",
         "profile_image": getattr(user, "profile_image", "/static/default-shop.png"),
         "is_subscribed": is_active,
-        "subscription_plan": user.subscription_plan,
+        "subscription_plan": user.subscription_plan or "TRIAL",
         "days_left": days_left,
-        "subscription_end": user.subscription_end.strftime("%d %b %Y") if user.subscription_end else None
+        "subscription_end": user.subscription_end.strftime("%d %b %Y") if user.subscription_end else "Active"
     }
 
-# --- Onboarding Store Setup (Address + Store Type Selection) ---
 @app.post("/api/user/store-setup")
 def setup_store(data: StoreSetupPayload, user: db.User = Depends(get_current_user), session: Session = Depends(get_db)):
     if not user:
@@ -265,7 +295,6 @@ def setup_store(data: StoreSetupPayload, user: db.User = Depends(get_current_use
     session.commit()
     return {"status": "success", "message": "Store configuration saved!", "store_type": user.store_type}
 
-# --- Profile Update ---
 @app.post("/api/user/profile-update")
 def update_profile(
     shop_name: str = Form(...),
@@ -307,21 +336,21 @@ def update_profile(
         "store_type": user.store_type
     }
 
-# --- Razorpay Order & Verify ---
+# --- RAZORPAY SUBSCRIPTION ---
 @app.post("/api/subscription/create-order")
 def create_subscription_order(user: db.User = Depends(get_current_user)):
     if not user:
         raise HTTPException(status_code=401, detail="Unauthorized")
 
     order_payload = {
-        "amount": 100,  # ₹1.00 in paise
+        "amount": 100,  # ₹1.00
         "currency": "INR",
         "receipt": f"sub_rcpt_{user.id}_{int(datetime.utcnow().timestamp())}",
         "notes": {
             "user_id": str(user.id),
             "email": user.email,
             "plan": "TRIAL_1RS_THEN_299",
-            "store_type": user.store_type or "DEPARTMENT"
+            "store_type": user.store_type or "MOBILE"
         }
     }
     try:
@@ -335,6 +364,7 @@ def create_subscription_order(user: db.User = Depends(get_current_user)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Razorpay Order Error: {str(e)}")
 
+# --- FIXED: STRICTLY ADD 30 DAYS IN DATABASE ---
 @app.post("/api/subscription/verify-payment")
 def verify_payment(
     data: VerifyPaymentPayload,
@@ -367,31 +397,52 @@ def verify_payment(
         "subscription_end": user.subscription_end.strftime("%d %b %Y")
     }
 
-# --- Products APIs (With IMEI / Warranty for Mobile Shop) ---
+# --- ANTI-HANG FAST CATALOG SEARCH (Limit 30 items) ---
 @app.get("/api/products")
-def get_products(user: db.User = Depends(get_current_user), session: Session = Depends(get_db)):
+def get_products(
+    search: Optional[str] = None,
+    category: Optional[str] = None,
+    limit: int = 40,
+    user: db.User = Depends(get_current_user),
+    session: Session = Depends(get_db)
+):
     if not user:
         raise HTTPException(status_code=401, detail="Unauthorized")
-    prods = session.query(db.Product).filter(db.Product.user_id == user.id).order_by(db.Product.name.asc()).all()
-    results = []
-    for p in prods:
-        results.append({
-            "id": p.id,
-            "barcode": p.barcode or "",
-            "imei_serial": p.imei_serial or "",
-            "name": p.name,
-            "price": p.price,
-            "stock": p.stock,
-            "warranty_months": p.warranty_months or 0,
-            "image_url": getattr(p, "image_url", "/static/default-item.png")
-        })
-    return results
+    
+    query = session.query(db.Product).filter(db.Product.user_id == user.id)
+
+    if category and category != "All":
+        query = query.filter(db.Product.category == category)
+
+    if search:
+        st = f"%{search.strip()}%"
+        query = query.filter(
+            or_(
+                db.Product.barcode == search.strip(),
+                db.Product.imei_serial == search.strip(),
+                db.Product.name.ilike(st)
+            )
+        )
+
+    prods = query.order_by(desc(db.Product.id)).limit(limit).all()
+    return [{
+        "id": p.id,
+        "barcode": p.barcode or "-",
+        "imei_serial": p.imei_serial or "-",
+        "name": p.name,
+        "category": getattr(p, "category", "General"),
+        "price": p.price,
+        "stock": p.stock,
+        "warranty_months": p.warranty_months or 0,
+        "image_url": getattr(p, "image_url", "/static/default-item.png")
+    } for p in prods]
 
 @app.post("/api/products/create")
 def add_product_with_image(
     barcode: Optional[str] = Form(""),
     imei_serial: Optional[str] = Form(""),
     name: str = Form(...),
+    category: Optional[str] = Form("Mobile Cases"),
     price: float = Form(...),
     stock: int = Form(...),
     warranty_months: Optional[int] = Form(0),
@@ -418,6 +469,7 @@ def add_product_with_image(
         barcode=clean_barcode,
         imei_serial=clean_imei,
         name=name.strip(),
+        category=category.strip(),
         price=price,
         stock=stock,
         warranty_months=warranty_months or 0,
@@ -453,37 +505,50 @@ async def import_products_csv(
     reader = csv.DictReader(io.StringIO(decoded))
 
     count = 0
+    bulk = []
     for row in reader:
-        bcode = row.get("barcode", "").strip() or None
-        imei = row.get("imei_serial", "").strip() or None
-        pname = row.get("name", "").strip()
-        if not pname:
+        pname = row.get("name") or row.get("product_name")
+        price = float(row.get("price", 0.0) or 0.0)
+        if not pname or price <= 0:
             continue
+
+        bcode = row.get("barcode", "").strip() or str(uuid4().int)[:12]
+        imei = row.get("imei_serial", "-").strip()
+        cat = row.get("category", "General").strip()
 
         new_p = db.Product(
             user_id=user.id,
             barcode=bcode,
             imei_serial=imei,
-            name=pname,
-            price=float(row.get("price", 0.0) or 0.0),
-            stock=int(row.get("stock", 100) or 100),
-            warranty_months=int(row.get("warranty_months", 0) or 0),
+            name=pname.strip(),
+            category=cat,
+            price=price,
+            stock=int(row.get("stock", 50) or 50),
+            warranty_months=int(row.get("warranty_months", 12) or 12),
             image_url=row.get("image_url", "/static/default-item.png").strip()
         )
-        session.add(new_p)
+        bulk.append(new_p)
         count += 1
 
-    session.commit()
+        if len(bulk) >= 1000:
+            session.bulk_save_objects(bulk)
+            session.commit()
+            bulk = []
+
+    if bulk:
+        session.bulk_save_objects(bulk)
+        session.commit()
+
     return {"status": "success", "message": f"Successfully imported {count} items into catalog!"}
 
-# --- POS Billing Checkout (Thermal or A4 Invoice with GST) ---
+# --- POS BILLING CHECKOUT (A4 or Thermal + Negative Stock Support) ---
 @app.post("/api/checkout")
 def checkout(payload: BillPayload, user: db.User = Depends(get_current_user), session: Session = Depends(get_db)):
     if not user:
         raise HTTPException(status_code=401, detail="Unauthorized")
     
-    if not user.is_subscribed or (user.subscription_end and datetime.utcnow() > user.subscription_end):
-        raise HTTPException(status_code=403, detail="Subscription expired! Please renew your plan.")
+    if not payload.items:
+        raise HTTPException(status_code=400, detail="Cart is empty!")
 
     subtotal = 0.0
     items_to_save = []
@@ -491,12 +556,10 @@ def checkout(payload: BillPayload, user: db.User = Depends(get_current_user), se
     for itm in payload.items:
         p = session.query(db.Product).filter(db.Product.id == itm.product_id, db.Product.user_id == user.id).first()
         if not p:
-            raise HTTPException(status_code=404, detail="Product not found!")
-        if p.stock < itm.quantity:
-            raise HTTPException(status_code=400, detail=f"Insufficient stock for '{p.name}'! (Available: {p.stock})")
-        
+            continue
         amt = round(p.price * itm.quantity, 2)
         subtotal += amt
+        p.stock -= itm.quantity  # Allows selling even if zero stock (negative billing)
         items_to_save.append({
             "obj": p,
             "barcode": p.barcode or "-",
@@ -511,16 +574,12 @@ def checkout(payload: BillPayload, user: db.User = Depends(get_current_user), se
     is_mobile_shop = (user.store_type == "MOBILE")
     tax_amount = 0.0
     if is_mobile_shop:
-        # 18% GST calculation (Included in selling price for standard billing: Price / 1.18)
         base_subtotal = round(subtotal / 1.18, 2)
         tax_amount = round(subtotal - base_subtotal, 2)
 
     total = max(0.0, round(subtotal - payload.discount, 2))
     prefix = "MOB" if is_mobile_shop else "POS"
     invoice_no = f"{prefix}-{datetime.now().strftime('%y%m%d')}-{uuid4().hex[:4].upper()}"
-
-    for itm in items_to_save:
-        itm["obj"].stock -= itm["qty"]
 
     bill = db.Bill(
         user_id=user.id,
@@ -581,7 +640,130 @@ def checkout(payload: BillPayload, user: db.User = Depends(get_current_user), se
         } for i in items_to_save]
     }
 
-# --- Analytics Dashboard ---
+# --- MOBIBILLER FEATURE 1: RECHARGE BOOK ---
+@app.get("/api/recharges")
+def get_recharges(user: db.User = Depends(get_current_user), session: Session = Depends(get_db)):
+    if not user:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+    recs = session.query(db.RechargeEntry).filter(db.RechargeEntry.user_id == user.id).order_by(desc(db.RechargeEntry.id)).limit(20).all()
+    today_total = sum(r.amount for r in recs if r.created_at.date() == datetime.utcnow().date())
+    return {
+        "today_total": today_total,
+        "history": [{
+            "id": r.id,
+            "mobile": r.mobile_number,
+            "operator": r.operator,
+            "amount": r.amount,
+            "time": r.created_at.strftime("%I:%M %p")
+        } for r in recs]
+    }
+
+@app.post("/api/recharges")
+def add_recharge(req: RechargeCreate, user: db.User = Depends(get_current_user), session: Session = Depends(get_db)):
+    if not user:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+    entry = db.RechargeEntry(
+        user_id=user.id,
+        mobile_number=req.mobile_number,
+        operator=req.operator,
+        amount=req.amount,
+        payment_mode=req.payment_mode
+    )
+    session.add(entry)
+    session.commit()
+    return {"status": "success", "message": "Recharge logged"}
+
+# --- MOBIBILLER FEATURE 2: REPAIRS / JOB SHEET TRACKER ---
+@app.get("/api/repairs")
+def get_repairs(user: db.User = Depends(get_current_user), session: Session = Depends(get_db)):
+    if not user:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+    jobs = session.query(db.RepairJob).filter(db.RepairJob.user_id == user.id).order_by(desc(db.RepairJob.id)).all()
+    return [{
+        "job_no": j.job_no,
+        "customer": j.customer_name,
+        "phone": j.customer_phone,
+        "device": j.device_model,
+        "problem": j.problem_desc,
+        "cost": j.estimated_cost,
+        "advance": j.advance_paid,
+        "status": j.status
+    } for j in jobs]
+
+@app.post("/api/repairs")
+def add_repair(req: RepairCreate, user: db.User = Depends(get_current_user), session: Session = Depends(get_db)):
+    if not user:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+    job_no = f"JOB-{uuid4().hex[:5].upper()}"
+    job = db.RepairJob(
+        job_no=job_no,
+        user_id=user.id,
+        customer_name=req.customer_name,
+        customer_phone=req.customer_phone,
+        device_model=req.device_model,
+        problem_desc=req.problem_desc,
+        estimated_cost=req.estimated_cost,
+        advance_paid=req.advance_paid,
+        status="Received"
+    )
+    session.add(job)
+    session.commit()
+    return {"status": "success", "job_no": job_no}
+
+# --- MOBIBILLER FEATURE 3: DAMAGE RECORDING MODULE ---
+@app.get("/api/damages")
+def get_damages(user: db.User = Depends(get_current_user), session: Session = Depends(get_db)):
+    if not user:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+    items = session.query(db.DamageEntry).filter(db.DamageEntry.user_id == user.id).order_by(desc(db.DamageEntry.id)).all()
+    today_loss = sum(d.loss_amount for d in items if d.created_at.date() == datetime.utcnow().date())
+    return {
+        "total_loss": today_loss,
+        "items": [{
+            "category": d.category,
+            "item": d.item_name,
+            "qty": d.quantity,
+            "loss": d.loss_amount,
+            "reason": d.reason
+        } for d in items]
+    }
+
+@app.post("/api/damages")
+def add_damage(req: DamageCreate, user: db.User = Depends(get_current_user), session: Session = Depends(get_db)):
+    if not user:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+    entry = db.DamageEntry(
+        user_id=user.id,
+        category=req.category,
+        item_name=req.item_name,
+        quantity=req.quantity,
+        loss_amount=req.loss_amount,
+        reason=req.reason
+    )
+    session.add(entry)
+    session.commit()
+    return {"status": "success", "message": "Damage loss recorded"}
+
+# --- MOBIBILLER FEATURE 4: BUSINESS REPORTS & PAYMENT BREAKDOWN ---
+@app.get("/api/reports")
+def get_reports(user: db.User = Depends(get_current_user), session: Session = Depends(get_db)):
+    if not user:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+    today = datetime.utcnow().date()
+    sales = session.query(func.sum(db.Bill.total)).filter(db.Bill.user_id == user.id, func.date(db.Bill.created_at) == today).scalar() or 0.0
+    recharges = session.query(func.sum(db.RechargeEntry.amount)).filter(db.RechargeEntry.user_id == user.id, func.date(db.RechargeEntry.created_at) == today).scalar() or 0.0
+    cash_total = session.query(func.sum(db.Bill.total)).filter(db.Bill.user_id == user.id, db.Bill.payment_mode == "Cash", func.date(db.Bill.created_at) == today).scalar() or 0.0
+    upi_total = session.query(func.sum(db.Bill.total)).filter(db.Bill.user_id == user.id, db.Bill.payment_mode == "UPI", func.date(db.Bill.created_at) == today).scalar() or 0.0
+    repairs_count = session.query(func.count(db.RepairJob.id)).filter(db.RepairJob.user_id == user.id).scalar() or 0
+    return {
+        "sales": sales,
+        "recharges": recharges,
+        "cash_payments": cash_total + recharges,
+        "upi_payments": upi_total,
+        "repairs_count": repairs_count
+    }
+
+# --- ORIGINAL ANALYTICS DASHBOARD ---
 @app.get("/api/dashboard")
 def get_dashboard(user: db.User = Depends(get_current_user), session: Session = Depends(get_db)):
     if not user:
