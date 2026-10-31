@@ -2,8 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>PJ SmartBill Enterprise POS | Multi-Store Cloud SaaS</title>
+  
+  <!-- ================= ANDROID PWA & MOBILE SUPPORT ================= -->
+  <link rel="manifest" href="/static/manifest.json">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="/static/default-shop.png">
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -199,7 +208,7 @@
           <img id="top-shop-logo" src="/static/default-shop.png" onerror="this.src='https://via.placeholder.com/40'" class="w-10 h-10 rounded-xl border border-emerald-500/30 object-cover bg-slate-800" alt="Logo">
           <div>
             <div class="flex items-center space-x-2">
-              <h1 id="top-shop-name" class="font-extrabold text-base text-white tracking-wide">My Store</h1>
+              <h1 id="top-shop-name" class="font-extrabold text-base text-white tracking-wide">PJ Smart Store</h1>
               <span id="top-store-type-badge" class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
                 Departmental
               </span>
@@ -265,13 +274,12 @@
             <button onclick="clearCart()" class="text-xs text-slate-400 hover:text-red-400 bg-slate-800 px-3 py-1 rounded-lg transition font-medium">Clear Cart</button>
           </div>
 
-          <!-- Customer Details Header (Expanded for Mobile Showroom) -->
+          <!-- Customer Details Header -->
           <div class="p-3 bg-slate-950/40 border-b border-slate-800 space-y-2 text-xs">
             <div class="grid grid-cols-2 gap-2">
               <input type="text" id="cust-name" placeholder="Customer Name *" class="px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white outline-none">
               <input type="text" id="cust-phone" placeholder="Customer Phone *" class="px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white outline-none">
             </div>
-            <!-- Mobile Shop Specific GST and Address Fields -->
             <div id="mobile-cust-fields" class="hidden grid grid-cols-2 gap-2">
               <input type="text" id="cust-gstin" placeholder="GSTIN (Optional)" class="px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white outline-none uppercase font-mono text-[11px]">
               <input type="text" id="cust-address" placeholder="Customer Address" class="px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white outline-none text-[11px]">
@@ -286,7 +294,6 @@
               <span>Subtotal:</span>
               <span id="subtotal-text" class="font-bold text-white mono">₹0.00</span>
             </div>
-            <!-- Mobile Shop Tax breakdown indicator -->
             <div id="tax-breakdown-row" class="hidden flex justify-between text-xs text-slate-400">
               <span>Incl. GST (18%):</span>
               <span id="tax-text" class="font-bold text-indigo-400 mono">₹0.00</span>
@@ -600,7 +607,6 @@
     }
     function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 
-    // 1. Onboarding Category Selection
     function selectStoreType(type) {
       selectedStoreType = type;
       const deptCard = document.getElementById('card-type-dept');
@@ -629,7 +635,6 @@
         document.getElementById('onboarding-modal').classList.add('hidden');
         currentUser.address = address;
         currentUser.store_type = selectedStoreType;
-        // Open Paywall Screen right after selecting store
         showPaywallScreen(currentUser);
       } else {
         alert(data.detail || "Setup error");
@@ -663,20 +668,17 @@
       document.getElementById('paywall-modal').classList.remove('hidden');
     }
 
-    // 2. Auth & App Initialization
     window.onload = async () => {
       try {
         const res = await fetch('/api/me');
         if (res.ok) {
           currentUser = await res.json();
-          // Condition 1: Check if store address or type is missing
           if (!currentUser.address || !currentUser.store_type) {
             document.getElementById('auth-modal').classList.add('hidden');
             document.getElementById('onboarding-modal').classList.remove('hidden');
             selectStoreType('DEPARTMENT');
             return;
           }
-          // Condition 2: Check subscription
           if (!currentUser.is_subscribed) {
             document.getElementById('auth-modal').classList.add('hidden');
             showPaywallScreen(currentUser);
@@ -698,7 +700,6 @@
       document.getElementById('top-shop-name').innerText = user.shop_name;
       if (user.profile_image) document.getElementById('top-shop-logo').src = user.profile_image;
 
-      // Adapt UI based on store type
       const isMobile = (user.store_type === 'MOBILE');
       const badge = document.getElementById('top-store-type-badge');
       const subtext = document.getElementById('top-shop-subtext');
@@ -786,7 +787,6 @@
       }
     }
 
-    // 3. Billing & Cart Management
     async function handleBarcodeKeypress(e) {
       if (e.key === "Enter") {
         e.preventDefault();
@@ -887,7 +887,6 @@
       });
     }
 
-    // 4. Checkout & Invoice Generator (A4 vs Thermal)
     async function handleInstantCheckout() {
       if (!cart.length) return alert("The cart is currently empty!");
 
@@ -942,7 +941,6 @@
       const printableArea = document.getElementById('printable-receipt');
 
       if (bill.invoice_type === 'A4') {
-        // MOBILE & ELECTRONICS: FULL A4 SHEET TAX INVOICE WITH GST
         modalTitle.innerText = "📱 Mobile Showroom GST Tax Invoice (A4 Sheet)";
         dialogBox.className = "bg-white text-slate-900 rounded-3xl max-w-4xl w-full p-8 shadow-2xl flex flex-col max-h-[94vh] border border-slate-200";
         btnPdf.classList.remove('hidden');
@@ -953,7 +951,6 @@
 
         const a4Html = `
           <div id="a4-invoice-container" class="p-6 bg-white border border-slate-300 rounded-xl font-sans text-slate-800 text-xs">
-            <!-- Header -->
             <div class="flex justify-between items-start border-b-2 border-slate-800 pb-4">
               <div>
                 <h1 class="text-xl font-black text-slate-900 tracking-wide uppercase">${bill.shop_name}</h1>
@@ -968,7 +965,6 @@
               </div>
             </div>
 
-            <!-- Customer Details Table -->
             <div class="grid grid-cols-2 gap-4 py-3 border-b border-slate-200 text-[11px]">
               <div>
                 <p class="text-slate-400 font-bold uppercase text-[9px]">Billed To (Customer):</p>
@@ -983,7 +979,6 @@
               </div>
             </div>
 
-            <!-- Items Table -->
             <table class="w-full text-left my-4 text-[11px] border-collapse">
               <thead>
                 <tr class="bg-slate-100 border-b border-t border-slate-300 text-slate-700">
@@ -1012,7 +1007,6 @@
               </tbody>
             </table>
 
-            <!-- GST & Total Calculation Box -->
             <div class="grid grid-cols-2 gap-4 border-t border-slate-300 pt-3">
               <div class="text-[10px] text-slate-500 space-y-1">
                 <p><b>Terms & Conditions:</b></p>
@@ -1031,7 +1025,6 @@
               </div>
             </div>
 
-            <!-- Signatures -->
             <div class="flex justify-between items-end mt-8 pt-4 border-t border-dashed border-slate-300 text-[10px] text-slate-400">
               <p>Customer Signature</p>
               <p class="text-right font-bold text-slate-700">For ${bill.shop_name}<br><br><span class="font-normal text-slate-400">Authorized Signatory</span></p>
@@ -1042,7 +1035,6 @@
         printableArea.innerHTML = a4Html;
 
       } else {
-        // DEPARTMENTAL STORE: 80MM THERMAL SLIP
         modalTitle.innerText = "🛒 Supermarket Thermal Bill Receipt (80mm)";
         dialogBox.className = "bg-white text-slate-900 rounded-3xl max-w-md w-full p-6 shadow-2xl flex flex-col max-h-[92vh] border border-slate-200";
         btnPdf.classList.add('hidden');
@@ -1105,7 +1097,6 @@
       html2pdf().set(opt).from(element).save();
     }
 
-    // 5. Auth Handlers
     function switchAuth(mode) {
       document.getElementById('auth-error-box').classList.add('hidden');
       document.getElementById('auth-success-box').classList.add('hidden');
@@ -1216,7 +1207,6 @@
       await loadDashboard();
     }
 
-    // 6. Products Loading & Insertion
     async function loadProducts() {
       const res = await fetch('/api/products');
       allProducts = await res.json();
@@ -1326,7 +1316,6 @@
       renderBillingCatalog(allProducts.filter(p => p.name.toLowerCase().includes(q) || (p.barcode && p.barcode.includes(q)) || (p.imei_serial && p.imei_serial.includes(q))));
     }
 
-    // 7. Profile Edit & Drawer
     function openProfileModal() {
       toggleSideMenu();
       if (currentUser) {

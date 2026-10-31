@@ -1,0 +1,1001 @@
+barcode,imei_serial,name,price,stock,warranty_months,image_url
+890123400001,864201060000001,"iQOO Neo 9 Pro (Purple Mist, 8GB/128GB)",34999.00,6,12,/static/default-item.png
+890123400002,864201060000002,"Redmi 12 5G (Starlight Blue, 8GB/256GB)",13999.00,9,12,/static/default-item.png
+890123400003,864201060000003,"Nokia 105 Single SIM (Titanium Gray, Charcoal)",1249.00,12,12,/static/default-item.png
+890123400004,864201060000004,"Nokia 105 Single SIM (Starlight Blue, Cyan)",1249.00,10,12,/static/default-item.png
+890123400005,864201060000005,"Poco F6 5G (Starlight Blue, 8GB/256GB)",29999.00,14,12,/static/default-item.png
+890123400006,864201060000006,"Oppo Reno 11 5G (Purple Mist, 8GB/128GB)",27999.00,8,12,/static/default-item.png
+890123400007,864201060000007,"Redmi 12 5G (Glacier White, 4GB/128GB)",11999.00,12,12,/static/default-item.png
+890123400008,864201060000008,"OnePlus Nord 4 5G (Emerald Green, 8GB/128GB)",29999.00,3,12,/static/default-item.png
+890123400009,864201060000009,"Samsung Galaxy M15 5G (Starlight Blue, 6GB/128GB)",13499.00,20,12,/static/default-item.png
+890123400010,864201060000010,"Redmi Note 13 Pro 5G (Titanium Gray, 8GB/128GB)",23999.00,7,12,/static/default-item.png
+890123400011,864201060000011,"Realme 12x 5G (Glacier White, 4GB/128GB)",11999.00,11,12,/static/default-item.png
+890123400012,864201060000012,"Poco F6 5G (Midnight Black, 8GB/256GB)",29999.00,4,12,/static/default-item.png
+890123400013,864201060000013,"Apple iPhone 15 (Midnight Black, 256GB)",75999.00,4,12,/static/default-item.png
+890123400014,864201060000014,"Poco X6 Pro 5G (Midnight Black, 8GB/256GB)",23999.00,20,12,/static/default-item.png
+890123400015,864201060000015,"Samsung Galaxy A15 5G (Titanium Gray, 8GB/128GB)",19499.00,12,12,/static/default-item.png
+890123400016,864201060000016,"Oppo F25 Pro 5G (Purple Mist, 8GB/128GB)",23999.00,7,12,/static/default-item.png
+890123400017,864201060000017,"Vivo Y28 5G (Midnight Black, 4GB/128GB)",13499.00,18,12,/static/default-item.png
+890123400018,864201060000018,"Vivo T3x 5G (Glacier White, 6GB/128GB)",13999.00,6,12,/static/default-item.png
+890123400019,864201060000019,"Vivo V30e 5G (Sunset Gold, 8GB/256GB)",27999.00,3,12,/static/default-item.png
+890123400020,864201060000020,"Realme 12 Pro 5G (Glacier White, 8GB/128GB)",21999.00,12,12,/static/default-item.png
+890123400021,864201060000021,"Apple iPhone 13 (Glacier White, 128GB)",47999.00,18,12,/static/default-item.png
+890123400022,864201060000022,"Oppo A59 5G (Purple Mist, 6GB/128GB)",15499.00,18,12,/static/default-item.png
+890123400023,864201060000023,"Samsung Galaxy S24 Plus (Titanium Gray, 12GB/512GB)",94999.00,17,12,/static/default-item.png
+890123400024,864201060000024,"Realme 12x 5G (Midnight Black, 6GB/128GB)",12999.00,13,12,/static/default-item.png
+890123400025,864201060000025,"Samsung Galaxy A55 5G (Glacier White, 12GB/256GB)",42999.00,8,12,/static/default-item.png
+890123400026,864201060000026,"OnePlus Nord CE4 5G (Glacier White, 8GB/256GB)",26999.00,4,12,/static/default-item.png
+890123400027,864201060000027,"Redmi Note 13 5G (Glacier White, 8GB/256GB)",17999.00,11,12,/static/default-item.png
+890123400028,864201060000028,"Samsung Galaxy F15 5G (Sunset Gold, 4GB/128GB)",11999.00,18,12,/static/default-item.png
+890123400029,864201060000029,"Apple iPhone 15 (Midnight Black, 512GB)",95999.00,6,12,/static/default-item.png
+890123400030,864201060000030,"OnePlus Nord CE4 5G (Purple Mist, 8GB/256GB)",26999.00,5,12,/static/default-item.png
+890123400031,864201060000031,"iQOO Neo 9 Pro (Emerald Green, 12GB/256GB)",38999.00,15,12,/static/default-item.png
+890123400032,864201060000032,"OnePlus Nord 4 5G (Sunset Gold, 12GB/256GB)",35999.00,18,12,/static/default-item.png
+890123400033,864201060000033,"Samsung Galaxy A55 5G (Emerald Green, 8GB/256GB)",39999.00,5,12,/static/default-item.png
+890123400034,864201060000034,"Oppo Reno 11 5G (Sunset Gold, 8GB/128GB)",27999.00,4,12,/static/default-item.png
+890123400035,864201060000035,"Poco X6 Pro 5G (Sunset Gold, 12GB/512GB)",25999.00,7,12,/static/default-item.png
+890123400036,864201060000036,"Apple iPhone 15 (Glacier White, 512GB)",95999.00,7,12,/static/default-item.png
+890123400037,864201060000037,"Redmi 12 5G (Midnight Black, 6GB/128GB)",12499.00,12,12,/static/default-item.png
+890123400038,864201060000038,"JioPhone Prima 4G (Glacier White, Blue)",2499.00,5,12,/static/default-item.png
+890123400039,864201060000039,"Samsung Guru Music 2 (Glacier White, White)",2199.00,10,12,/static/default-item.png
+890123400040,864201060000040,"Apple iPhone 15 Plus (Sunset Gold, 256GB)",85999.00,6,12,/static/default-item.png
+890123400041,864201060000041,"Oppo F25 Pro 5G (Starlight Blue, 8GB/128GB)",23999.00,20,12,/static/default-item.png
+890123400042,864201060000042,"Poco F6 5G (Sunset Gold, 12GB/256GB)",31999.00,16,12,/static/default-item.png
+890123400043,864201060000043,"iQOO Neo 9 Pro (Purple Mist, 12GB/256GB)",38999.00,10,12,/static/default-item.png
+890123400044,864201060000044,"Redmi Note 13 Pro 5G (Sunset Gold, 8GB/256GB)",25999.00,19,12,/static/default-item.png
+890123400045,864201060000045,"Samsung Galaxy F15 5G (Midnight Black, 4GB/128GB)",11999.00,15,12,/static/default-item.png
+890123400046,864201060000046,"Samsung Galaxy A15 5G (Midnight Black, 8GB/128GB)",19499.00,17,12,/static/default-item.png
+890123400047,864201060000047,"Redmi 12 5G (Sunset Gold, 6GB/128GB)",12499.00,17,12,/static/default-item.png
+890123400048,864201060000048,"Realme 12 Pro Plus 5G (Sunset Gold, 12GB/256GB)",31999.00,12,12,/static/default-item.png
+890123400049,864201060000049,"Apple iPhone 15 Pro Max (Midnight Black, 512GB)",164999.00,16,12,/static/default-item.png
+890123400050,864201060000050,"Realme 12 Pro Plus 5G (Glacier White, 8GB/256GB)",29999.00,12,12,/static/default-item.png
+890123400051,864201060000051,"Poco F6 5G (Midnight Black, 12GB/256GB)",31999.00,4,12,/static/default-item.png
+890123400052,864201060000052,"Apple iPhone 14 (Sunset Gold, 256GB)",66999.00,6,12,/static/default-item.png
+890123400053,864201060000053,"Vivo Y28 5G (Starlight Blue, 6GB/128GB)",14999.00,9,12,/static/default-item.png
+890123400054,864201060000054,"OnePlus 12 (Emerald Green, 16GB/512GB)",67999.00,9,12,/static/default-item.png
+890123400055,864201060000055,"Redmi Note 13 5G (Starlight Blue, 8GB/256GB)",17999.00,11,12,/static/default-item.png
+890123400056,864201060000056,"Samsung Galaxy A35 5G (Purple Mist, 8GB/256GB)",30999.00,5,12,/static/default-item.png
+890123400057,864201060000057,"iQOO Neo 9 Pro (Titanium Gray, 8GB/256GB)",36999.00,8,12,/static/default-item.png
+890123400058,864201060000058,"Apple iPhone 15 (Purple Mist, 512GB)",95999.00,10,12,/static/default-item.png
+890123400059,864201060000059,"Realme 12 Pro 5G (Midnight Black, 8GB/256GB)",23999.00,8,12,/static/default-item.png
+890123400060,864201060000060,"OnePlus 12 (Purple Mist, 12GB/256GB)",61999.00,20,12,/static/default-item.png
+890123400061,864201060000061,"Lava Flip (Midnight Black, Blue)",1999.00,5,12,/static/default-item.png
+890123400062,864201060000062,"Vivo V30 5G (Starlight Blue, 8GB/256GB)",33999.00,8,12,/static/default-item.png
+890123400063,864201060000063,"Nokia 105 Dual SIM (Starlight Blue, Charcoal)",1399.00,3,12,/static/default-item.png
+890123400064,864201060000064,"Apple iPhone 15 (Glacier White, 128GB)",65999.00,16,12,/static/default-item.png
+890123400065,864201060000065,"Realme 12 Pro 5G (Sunset Gold, 8GB/256GB)",23999.00,17,12,/static/default-item.png
+890123400066,864201060000066,"Samsung Galaxy S24 Plus (Midnight Black, 12GB/512GB)",94999.00,18,12,/static/default-item.png
+890123400067,864201060000067,"Samsung Galaxy S24 Ultra (Midnight Black, 12GB/256GB)",119999.00,12,12,/static/default-item.png
+890123400068,864201060000068,"OnePlus Nord CE4 5G (Midnight Black, 8GB/256GB)",26999.00,4,12,/static/default-item.png
+890123400069,864201060000069,"Apple iPhone 14 (Starlight Blue, 256GB)",66999.00,10,12,/static/default-item.png
+890123400070,864201060000070,"Redmi Note 13 5G (Sunset Gold, 6GB/128GB)",15999.00,12,12,/static/default-item.png
+890123400071,864201060000071,"Apple iPhone 15 (Emerald Green, 512GB)",95999.00,12,12,/static/default-item.png
+890123400072,864201060000072,"Redmi Note 13 5G (Emerald Green, 12GB/256GB)",19999.00,17,12,/static/default-item.png
+890123400073,864201060000073,"Apple iPhone 14 (Emerald Green, 256GB)",66999.00,5,12,/static/default-item.png
+890123400074,864201060000074,"Realme C65 5G (Starlight Blue, 6GB/128GB)",11999.00,10,12,/static/default-item.png
+890123400075,864201060000075,"Samsung Guru Music 2 (Purple Mist, White)",2199.00,11,12,/static/default-item.png
+890123400076,864201060000076,"Apple iPhone 14 (Midnight Black, 256GB)",66999.00,9,12,/static/default-item.png
+890123400077,864201060000077,"iQOO Neo 9 Pro (Midnight Black, 12GB/256GB)",38999.00,16,12,/static/default-item.png
+890123400078,864201060000078,"Poco M6 Pro 5G (Titanium Gray, 8GB/256GB)",12499.00,6,12,/static/default-item.png
+890123400079,864201060000079,"Vivo V30e 5G (Starlight Blue, 8GB/256GB)",27999.00,20,12,/static/default-item.png
+890123400080,864201060000080,"Nokia 110 4G (Starlight Blue, Midnight Blue)",2399.00,10,12,/static/default-item.png
+890123400081,864201060000081,"JioPhone Prima 4G (Sunset Gold, Yellow)",2499.00,7,12,/static/default-item.png
+890123400082,864201060000082,"Realme 12 Pro 5G (Emerald Green, 8GB/128GB)",21999.00,11,12,/static/default-item.png
+890123400083,864201060000083,"Apple iPhone 13 (Titanium Gray, 128GB)",47999.00,7,12,/static/default-item.png
+890123400084,864201060000084,"Poco F6 5G (Glacier White, 12GB/256GB)",31999.00,5,12,/static/default-item.png
+890123400085,864201060000085,"Nokia 110 4G (Purple Mist, Midnight Blue)",2399.00,4,12,/static/default-item.png
+890123400086,864201060000086,"Vivo V30e 5G (Emerald Green, 8GB/256GB)",27999.00,8,12,/static/default-item.png
+890123400087,864201060000087,"Poco M6 Pro 5G (Purple Mist, 8GB/256GB)",12499.00,12,12,/static/default-item.png
+890123400088,864201060000088,"Poco M6 Pro 5G (Titanium Gray, 6GB/128GB)",10999.00,12,12,/static/default-item.png
+890123400089,864201060000089,"Apple iPhone 15 (Emerald Green, 128GB)",65999.00,17,12,/static/default-item.png
+890123400090,864201060000090,"OnePlus Nord CE4 5G (Emerald Green, 8GB/128GB)",24999.00,6,12,/static/default-item.png
+890123400091,864201060000091,"Vivo V30 5G (Sunset Gold, 8GB/128GB)",31999.00,17,12,/static/default-item.png
+890123400092,864201060000092,"Realme 12 Pro Plus 5G (Midnight Black, 8GB/128GB)",27999.00,12,12,/static/default-item.png
+890123400093,864201060000093,"Oppo F25 Pro 5G (Sunset Gold, 8GB/128GB)",23999.00,15,12,/static/default-item.png
+890123400094,864201060000094,"Vivo T3 5G (Purple Mist, 8GB/128GB)",18999.00,11,12,/static/default-item.png
+890123400095,864201060000095,"Redmi 13C 5G (Starlight Blue, 6GB/128GB)",11999.00,19,12,/static/default-item.png
+890123400096,864201060000096,"OnePlus 12R (Purple Mist, 16GB/256GB)",42999.00,20,12,/static/default-item.png
+890123400097,864201060000097,"Samsung Galaxy S24 (Titanium Gray, 8GB/256GB)",69999.00,18,12,/static/default-item.png
+890123400098,864201060000098,"Itel Power 450 (Glacier White, Deep Blue)",1199.00,17,12,/static/default-item.png
+890123400099,864201060000099,"Poco X6 Pro 5G (Glacier White, 12GB/512GB)",25999.00,5,12,/static/default-item.png
+890123400100,864201060000100,"Itel MagicX Pro 4G (Starlight Blue, Black)",2399.00,4,12,/static/default-item.png
+890123400101,864201060000101,"iQOO Neo 9 Pro (Sunset Gold, 12GB/256GB)",38999.00,16,12,/static/default-item.png
+890123400102,864201060000102,"Nokia 105 Dual SIM (Sunset Gold, Blue)",1399.00,13,12,/static/default-item.png
+890123400103,864201060000103,"Samsung Galaxy S24 (Glacier White, 8GB/128GB)",64999.00,11,12,/static/default-item.png
+890123400104,864201060000104,"Realme 12 Pro 5G (Purple Mist, 8GB/128GB)",21999.00,3,12,/static/default-item.png
+890123400105,864201060000105,"Infinix Note 40X 5G (Titanium Gray, 8GB/256GB)",13499.00,5,12,/static/default-item.png
+890123400106,864201060000106,"Samsung Galaxy A15 5G (Titanium Gray, 8GB/256GB)",21499.00,10,12,/static/default-item.png
+890123400107,864201060000107,"Samsung Galaxy A55 5G (Starlight Blue, 12GB/256GB)",42999.00,3,12,/static/default-item.png
+890123400108,864201060000108,"Apple iPhone 13 (Starlight Blue, 128GB)",47999.00,11,12,/static/default-item.png
+890123400109,864201060000109,"Vivo T3 5G (Starlight Blue, 8GB/256GB)",20999.00,4,12,/static/default-item.png
+890123400110,864201060000110,"Redmi Note 13 Pro 5G (Emerald Green, 12GB/256GB)",27999.00,8,12,/static/default-item.png
+890123400111,864201060000111,"Vivo Y28 5G (Glacier White, 6GB/128GB)",14999.00,18,12,/static/default-item.png
+890123400112,864201060000112,"Redmi Note 13 5G (Starlight Blue, 6GB/128GB)",15999.00,19,12,/static/default-item.png
+890123400113,864201060000113,"Redmi 12 5G (Glacier White, 6GB/128GB)",12499.00,17,12,/static/default-item.png
+890123400114,864201060000114,"OnePlus Nord 4 5G (Sunset Gold, 8GB/128GB)",29999.00,11,12,/static/default-item.png
+890123400115,864201060000115,"Samsung Galaxy A55 5G (Midnight Black, 8GB/128GB)",36999.00,8,12,/static/default-item.png
+890123400116,864201060000116,"Samsung Galaxy M15 5G (Titanium Gray, 4GB/128GB)",11999.00,16,12,/static/default-item.png
+890123400117,864201060000117,"Oppo A59 5G (Midnight Black, 6GB/128GB)",15499.00,18,12,/static/default-item.png
+890123400118,864201060000118,"Lava Flip (Purple Mist, Blue)",1999.00,5,12,/static/default-item.png
+890123400119,864201060000119,"Apple iPhone 15 (Starlight Blue, 128GB)",65999.00,18,12,/static/default-item.png
+890123400120,864201060000120,"Nokia 105 Dual SIM (Purple Mist, Blue)",1399.00,14,12,/static/default-item.png
+890123400121,864201060000121,"Poco M6 Pro 5G (Emerald Green, 8GB/256GB)",12499.00,16,12,/static/default-item.png
+890123400122,864201060000122,"Realme 12x 5G (Starlight Blue, 6GB/128GB)",12999.00,13,12,/static/default-item.png
+890123400123,864201060000123,"Nokia 105 Dual SIM (Emerald Green, Blue)",1399.00,13,12,/static/default-item.png
+890123400124,864201060000124,"Samsung Galaxy A15 5G (Starlight Blue, 8GB/128GB)",19499.00,6,12,/static/default-item.png
+890123400125,864201060000125,"Apple iPhone 15 (Titanium Gray, 256GB)",75999.00,8,12,/static/default-item.png
+890123400126,864201060000126,"Samsung Galaxy S24 Plus (Starlight Blue, 12GB/512GB)",94999.00,13,12,/static/default-item.png
+890123400127,864201060000127,"Poco X6 Pro 5G (Midnight Black, 12GB/512GB)",25999.00,16,12,/static/default-item.png
+890123400128,864201060000128,"Samsung Galaxy A55 5G (Sunset Gold, 8GB/256GB)",39999.00,18,12,/static/default-item.png
+890123400129,864201060000129,"Moto G64 5G (Purple Mist, 8GB/128GB)",13999.00,12,12,/static/default-item.png
+890123400130,864201060000130,"Lava Flip (Titanium Gray, Blue)",1999.00,15,12,/static/default-item.png
+890123400131,864201060000131,"Apple iPhone 15 Plus (Starlight Blue, 256GB)",85999.00,20,12,/static/default-item.png
+890123400132,864201060000132,"Redmi 12 5G (Purple Mist, 8GB/256GB)",13999.00,4,12,/static/default-item.png
+890123400133,864201060000133,"Vivo Y28 5G (Sunset Gold, 6GB/128GB)",14999.00,17,12,/static/default-item.png
+890123400134,864201060000134,"Poco M6 Pro 5G (Emerald Green, 4GB/128GB)",9999.00,5,12,/static/default-item.png
+890123400135,864201060000135,"Itel MagicX Pro 4G (Starlight Blue, Blue)",2399.00,13,12,/static/default-item.png
+890123400136,864201060000136,"Samsung Galaxy A15 5G (Glacier White, 6GB/128GB)",17499.00,11,12,/static/default-item.png
+890123400137,864201060000137,"OnePlus 12R (Titanium Gray, 16GB/256GB)",42999.00,13,12,/static/default-item.png
+890123400138,864201060000138,"Vivo V30e 5G (Starlight Blue, 8GB/128GB)",25999.00,6,12,/static/default-item.png
+890123400139,864201060000139,"Redmi 12 5G (Starlight Blue, 6GB/128GB)",12499.00,15,12,/static/default-item.png
+890123400140,864201060000140,"Vivo V30 5G (Emerald Green, 12GB/512GB)",39999.00,19,12,/static/default-item.png
+890123400141,864201060000141,"Apple iPhone 13 (Purple Mist, 128GB)",47999.00,3,12,/static/default-item.png
+890123400142,864201060000142,"Redmi Note 13 5G (Titanium Gray, 12GB/256GB)",19999.00,20,12,/static/default-item.png
+890123400143,864201060000143,"Redmi Note 13 5G (Midnight Black, 6GB/128GB)",15999.00,17,12,/static/default-item.png
+890123400144,864201060000144,"OnePlus 12 (Sunset Gold, 16GB/512GB)",67999.00,16,12,/static/default-item.png
+890123400145,864201060000145,"Poco F6 5G (Starlight Blue, 12GB/512GB)",33999.00,4,12,/static/default-item.png
+890123400146,864201060000146,"OnePlus Nord CE4 5G (Titanium Gray, 8GB/256GB)",26999.00,9,12,/static/default-item.png
+890123400147,864201060000147,"Poco M6 Pro 5G (Sunset Gold, 8GB/256GB)",12499.00,19,12,/static/default-item.png
+890123400148,864201060000148,"Redmi 13C 5G (Glacier White, 6GB/128GB)",11999.00,14,12,/static/default-item.png
+890123400149,864201060000149,"Redmi 13C 5G (Glacier White, 8GB/256GB)",13499.00,18,12,/static/default-item.png
+890123400150,864201060000150,"Apple iPhone 15 Pro (Purple Mist, 128GB)",124999.00,17,12,/static/default-item.png
+890123400151,864201060000151,"Itel MagicX Pro 4G (Glacier White, Black)",2399.00,4,12,/static/default-item.png
+890123400152,864201060000152,"Redmi 13C 5G (Purple Mist, 6GB/128GB)",11999.00,9,12,/static/default-item.png
+890123400153,864201060000153,"OnePlus Nord 4 5G (Titanium Gray, 8GB/128GB)",29999.00,11,12,/static/default-item.png
+890123400154,864201060000154,"Oppo A59 5G (Sunset Gold, 6GB/128GB)",15499.00,20,12,/static/default-item.png
+890123400155,864201060000155,"iQOO Z9 5G (Purple Mist, 8GB/128GB)",17999.00,7,12,/static/default-item.png
+890123400156,864201060000156,"Samsung Galaxy A35 5G (Midnight Black, 8GB/128GB)",27999.00,12,12,/static/default-item.png
+890123400157,864201060000157,"Realme C65 5G (Starlight Blue, 4GB/64GB)",9999.00,17,12,/static/default-item.png
+890123400158,864201060000158,"Apple iPhone 14 (Purple Mist, 128GB)",56999.00,18,12,/static/default-item.png
+890123400159,864201060000159,"JioPhone Prima 4G (Midnight Black, Yellow)",2499.00,6,12,/static/default-item.png
+890123400160,864201060000160,"Apple iPhone 14 (Glacier White, 128GB)",56999.00,3,12,/static/default-item.png
+890123400161,864201060000161,"Oppo A59 5G (Titanium Gray, 4GB/128GB)",13999.00,10,12,/static/default-item.png
+890123400162,864201060000162,"Moto G64 5G (Titanium Gray, 8GB/128GB)",13999.00,8,12,/static/default-item.png
+890123400163,864201060000163,"Vivo V30 5G (Glacier White, 8GB/128GB)",31999.00,12,12,/static/default-item.png
+890123400164,864201060000164,"Infinix Note 40X 5G (Sunset Gold, 12GB/256GB)",14999.00,20,12,/static/default-item.png
+890123400165,864201060000165,"Vivo V30 5G (Midnight Black, 8GB/128GB)",31999.00,3,12,/static/default-item.png
+890123400166,864201060000166,"OnePlus Nord CE4 5G (Sunset Gold, 8GB/256GB)",26999.00,20,12,/static/default-item.png
+890123400167,864201060000167,"OnePlus Nord CE4 5G (Midnight Black, 8GB/128GB)",24999.00,16,12,/static/default-item.png
+890123400168,864201060000168,"Samsung Galaxy A15 5G (Midnight Black, 8GB/256GB)",21499.00,5,12,/static/default-item.png
+890123400169,864201060000169,"Nokia 110 4G (Purple Mist, Rose Gold)",2399.00,10,12,/static/default-item.png
+890123400170,864201060000170,"Samsung Galaxy F15 5G (Purple Mist, 6GB/128GB)",13499.00,6,12,/static/default-item.png
+890123400171,864201060000171,"Redmi 12 5G (Purple Mist, 6GB/128GB)",12499.00,17,12,/static/default-item.png
+890123400172,864201060000172,"Samsung Galaxy A55 5G (Starlight Blue, 8GB/128GB)",36999.00,6,12,/static/default-item.png
+890123400173,864201060000173,"OnePlus Nord CE4 Lite 5G (Glacier White, 8GB/128GB)",17999.00,7,12,/static/default-item.png
+890123400174,864201060000174,"Vivo V30 5G (Sunset Gold, 12GB/512GB)",39999.00,18,12,/static/default-item.png
+890123400175,864201060000175,"Nokia 110 4G (Emerald Green, Midnight Blue)",2399.00,12,12,/static/default-item.png
+890123400176,864201060000176,"OnePlus Nord CE4 5G (Titanium Gray, 8GB/128GB)",24999.00,19,12,/static/default-item.png
+890123400177,864201060000177,"iQOO Neo 9 Pro (Starlight Blue, 12GB/256GB)",38999.00,11,12,/static/default-item.png
+890123400178,864201060000178,"Samsung Galaxy A15 5G (Sunset Gold, 6GB/128GB)",17499.00,16,12,/static/default-item.png
+890123400179,864201060000179,"Nokia 105 Single SIM (Midnight Black, Cyan)",1249.00,18,12,/static/default-item.png
+890123400180,864201060000180,"Itel Power 450 (Purple Mist, Deep Blue)",1199.00,18,12,/static/default-item.png
+890123400181,864201060000181,"Vivo V30e 5G (Glacier White, 8GB/128GB)",25999.00,10,12,/static/default-item.png
+890123400182,864201060000182,"Itel MagicX Pro 4G (Purple Mist, Blue)",2399.00,17,12,/static/default-item.png
+890123400183,864201060000183,"Samsung Galaxy S24 Ultra (Titanium Gray, 12GB/256GB)",119999.00,20,12,/static/default-item.png
+890123400184,864201060000184,"Samsung Galaxy A35 5G (Emerald Green, 8GB/128GB)",27999.00,7,12,/static/default-item.png
+890123400185,864201060000185,"Realme 12x 5G (Midnight Black, 4GB/128GB)",11999.00,15,12,/static/default-item.png
+890123400186,864201060000186,"Poco M6 Pro 5G (Glacier White, 4GB/128GB)",9999.00,9,12,/static/default-item.png
+890123400187,864201060000187,"Nokia 110 4G (Midnight Black, Rose Gold)",2399.00,19,12,/static/default-item.png
+890123400188,864201060000188,"Moto G64 5G (Sunset Gold, 8GB/128GB)",13999.00,7,12,/static/default-item.png
+890123400189,864201060000189,"Oppo A59 5G (Glacier White, 4GB/128GB)",13999.00,5,12,/static/default-item.png
+890123400190,864201060000190,"Realme 12 Pro Plus 5G (Starlight Blue, 8GB/128GB)",27999.00,11,12,/static/default-item.png
+890123400191,864201060000191,"Samsung Guru Music 2 (Emerald Green, Black)",2199.00,16,12,/static/default-item.png
+890123400192,864201060000192,"Samsung Galaxy S24 (Glacier White, 8GB/256GB)",69999.00,13,12,/static/default-item.png
+890123400193,864201060000193,"JioPhone Prima 4G (Glacier White, Yellow)",2499.00,19,12,/static/default-item.png
+890123400194,864201060000194,"OnePlus 12R (Titanium Gray, 8GB/128GB)",37999.00,11,12,/static/default-item.png
+890123400195,864201060000195,"iQOO Neo 9 Pro (Starlight Blue, 8GB/256GB)",36999.00,3,12,/static/default-item.png
+890123400196,864201060000196,"Oppo Reno 11 5G (Starlight Blue, 8GB/128GB)",27999.00,12,12,/static/default-item.png
+890123400197,864201060000197,"Redmi Note 13 5G (Purple Mist, 12GB/256GB)",19999.00,12,12,/static/default-item.png
+890123400198,864201060000198,"Realme 12x 5G (Midnight Black, 8GB/128GB)",13999.00,18,12,/static/default-item.png
+890123400199,864201060000199,"Realme 12 Pro Plus 5G (Glacier White, 12GB/256GB)",31999.00,7,12,/static/default-item.png
+890123400200,864201060000200,"OnePlus Nord CE4 Lite 5G (Sunset Gold, 8GB/128GB)",17999.00,17,12,/static/default-item.png
+890123400201,864201060000201,"Poco M6 Pro 5G (Purple Mist, 4GB/128GB)",9999.00,20,12,/static/default-item.png
+890123400202,864201060000202,"Poco M6 Pro 5G (Emerald Green, 6GB/128GB)",10999.00,18,12,/static/default-item.png
+890123400203,864201060000203,"Vivo T3x 5G (Titanium Gray, 8GB/128GB)",15499.00,14,12,/static/default-item.png
+890123400204,864201060000204,"Redmi Note 13 Pro 5G (Glacier White, 8GB/256GB)",25999.00,13,12,/static/default-item.png
+890123400205,864201060000205,"Samsung Guru Music 2 (Glacier White, Black)",2199.00,20,12,/static/default-item.png
+890123400206,864201060000206,"Poco M6 Pro 5G (Glacier White, 6GB/128GB)",10999.00,20,12,/static/default-item.png
+890123400207,864201060000207,"Oppo A59 5G (Starlight Blue, 6GB/128GB)",15499.00,15,12,/static/default-item.png
+890123400208,864201060000208,"Samsung Galaxy A55 5G (Titanium Gray, 8GB/256GB)",39999.00,17,12,/static/default-item.png
+890123400209,864201060000209,"Oppo F25 Pro 5G (Titanium Gray, 8GB/256GB)",25999.00,13,12,/static/default-item.png
+890123400210,864201060000210,"Poco F6 5G (Emerald Green, 8GB/256GB)",29999.00,9,12,/static/default-item.png
+890123400211,864201060000211,"Apple iPhone 15 (Emerald Green, 256GB)",75999.00,10,12,/static/default-item.png
+890123400212,864201060000212,"Vivo Y28 5G (Midnight Black, 6GB/128GB)",14999.00,15,12,/static/default-item.png
+890123400213,864201060000213,"Vivo T3 5G (Purple Mist, 8GB/256GB)",20999.00,10,12,/static/default-item.png
+890123400214,864201060000214,"Redmi 13C 5G (Sunset Gold, 4GB/128GB)",10499.00,16,12,/static/default-item.png
+890123400215,864201060000215,"OnePlus Nord 4 5G (Sunset Gold, 8GB/256GB)",32999.00,4,12,/static/default-item.png
+890123400216,864201060000216,"Vivo Y28 5G (Emerald Green, 6GB/128GB)",14999.00,13,12,/static/default-item.png
+890123400217,864201060000217,"Samsung Galaxy A35 5G (Midnight Black, 8GB/256GB)",30999.00,18,12,/static/default-item.png
+890123400218,864201060000218,"Nokia 110 4G (Sunset Gold, Midnight Blue)",2399.00,15,12,/static/default-item.png
+890123400219,864201060000219,"Realme 12 Pro Plus 5G (Titanium Gray, 8GB/256GB)",29999.00,15,12,/static/default-item.png
+890123400220,864201060000220,"Infinix Hot 40i (Glacier White, 8GB/256GB)",9999.00,7,12,/static/default-item.png
+890123400221,864201060000221,"Vivo V30 5G (Emerald Green, 8GB/256GB)",33999.00,18,12,/static/default-item.png
+890123400222,864201060000222,"Apple iPhone 15 Pro (Glacier White, 256GB)",134999.00,4,12,/static/default-item.png
+890123400223,864201060000223,"Infinix Note 40X 5G (Glacier White, 12GB/256GB)",14999.00,7,12,/static/default-item.png
+890123400224,864201060000224,"Vivo T3x 5G (Midnight Black, 4GB/128GB)",12999.00,19,12,/static/default-item.png
+890123400225,864201060000225,"Realme 12 Pro Plus 5G (Midnight Black, 8GB/256GB)",29999.00,13,12,/static/default-item.png
+890123400226,864201060000226,"Samsung Galaxy M15 5G (Midnight Black, 4GB/128GB)",11999.00,6,12,/static/default-item.png
+890123400227,864201060000227,"Apple iPhone 15 (Sunset Gold, 512GB)",95999.00,17,12,/static/default-item.png
+890123400228,864201060000228,"Samsung Galaxy F15 5G (Starlight Blue, 4GB/128GB)",11999.00,6,12,/static/default-item.png
+890123400229,864201060000229,"Redmi 13C 5G (Emerald Green, 8GB/256GB)",13499.00,19,12,/static/default-item.png
+890123400230,864201060000230,"Realme Narzo 70 Pro 5G (Titanium Gray, 8GB/128GB)",17999.00,17,12,/static/default-item.png
+890123400231,864201060000231,"Moto G64 5G (Sunset Gold, 12GB/256GB)",15999.00,3,12,/static/default-item.png
+890123400232,864201060000232,"Redmi 12 5G (Titanium Gray, 8GB/256GB)",13999.00,7,12,/static/default-item.png
+890123400233,864201060000233,"Moto G64 5G (Emerald Green, 12GB/256GB)",15999.00,16,12,/static/default-item.png
+890123400234,864201060000234,"Oppo Reno 11 5G (Emerald Green, 8GB/128GB)",27999.00,7,12,/static/default-item.png
+890123400235,864201060000235,"Oppo Reno 11 5G (Sunset Gold, 8GB/256GB)",29999.00,5,12,/static/default-item.png
+890123400236,864201060000236,"Oppo A59 5G (Glacier White, 6GB/128GB)",15499.00,18,12,/static/default-item.png
+890123400237,864201060000237,"Samsung Galaxy S24 (Titanium Gray, 8GB/128GB)",64999.00,11,12,/static/default-item.png
+890123400238,864201060000238,"Vivo V30 5G (Starlight Blue, 12GB/512GB)",39999.00,13,12,/static/default-item.png
+890123400239,864201060000239,"Vivo T3x 5G (Sunset Gold, 8GB/128GB)",15499.00,15,12,/static/default-item.png
+890123400240,864201060000240,"Realme 12 Pro Plus 5G (Glacier White, 8GB/128GB)",27999.00,5,12,/static/default-item.png
+890123400241,864201060000241,"Apple iPhone 13 (Starlight Blue, 256GB)",57999.00,13,12,/static/default-item.png
+890123400242,864201060000242,"Samsung Galaxy M15 5G (Starlight Blue, 4GB/128GB)",11999.00,20,12,/static/default-item.png
+890123400243,864201060000243,"Poco F6 5G (Sunset Gold, 8GB/256GB)",29999.00,15,12,/static/default-item.png
+890123400244,864201060000244,"JioPhone Prima 4G (Starlight Blue, Blue)",2499.00,13,12,/static/default-item.png
+890123400245,864201060000245,"Nokia 105 Dual SIM (Purple Mist, Charcoal)",1399.00,18,12,/static/default-item.png
+890123400246,864201060000246,"Nokia 105 Dual SIM (Titanium Gray, Blue)",1399.00,20,12,/static/default-item.png
+890123400247,864201060000247,"iQOO Z9 5G (Glacier White, 8GB/128GB)",17999.00,4,12,/static/default-item.png
+890123400248,864201060000248,"Vivo V30e 5G (Purple Mist, 8GB/128GB)",25999.00,5,12,/static/default-item.png
+890123400249,864201060000249,"Poco F6 5G (Purple Mist, 8GB/256GB)",29999.00,10,12,/static/default-item.png
+890123400250,864201060000250,"Realme 12x 5G (Sunset Gold, 8GB/128GB)",13999.00,12,12,/static/default-item.png
+890123400251,864201060000251,"Samsung Galaxy A15 5G (Purple Mist, 8GB/128GB)",19499.00,10,12,/static/default-item.png
+890123400252,864201060000252,"Realme 12 Pro Plus 5G (Starlight Blue, 12GB/256GB)",31999.00,5,12,/static/default-item.png
+890123400253,864201060000253,"Samsung Galaxy A55 5G (Midnight Black, 8GB/256GB)",39999.00,16,12,/static/default-item.png
+890123400254,864201060000254,"Poco M6 Pro 5G (Glacier White, 8GB/256GB)",12499.00,6,12,/static/default-item.png
+890123400255,864201060000255,"Apple iPhone 14 (Titanium Gray, 256GB)",66999.00,6,12,/static/default-item.png
+890123400256,864201060000256,"Oppo F25 Pro 5G (Purple Mist, 8GB/256GB)",25999.00,17,12,/static/default-item.png
+890123400257,864201060000257,"Vivo T3x 5G (Midnight Black, 6GB/128GB)",13999.00,8,12,/static/default-item.png
+890123400258,864201060000258,"Vivo T3x 5G (Purple Mist, 6GB/128GB)",13999.00,12,12,/static/default-item.png
+890123400259,864201060000259,"Samsung Galaxy S24 Plus (Sunset Gold, 12GB/256GB)",84999.00,3,12,/static/default-item.png
+890123400260,864201060000260,"Realme 12 Pro 5G (Starlight Blue, 8GB/128GB)",21999.00,4,12,/static/default-item.png
+890123400261,864201060000261,"OnePlus Nord 4 5G (Emerald Green, 8GB/256GB)",32999.00,13,12,/static/default-item.png
+890123400262,864201060000262,"Samsung Guru Music 2 (Midnight Black, Black)",2199.00,4,12,/static/default-item.png
+890123400263,864201060000263,"Samsung Galaxy S24 (Sunset Gold, 8GB/256GB)",69999.00,12,12,/static/default-item.png
+890123400264,864201060000264,"Oppo Reno 11 5G (Starlight Blue, 8GB/256GB)",29999.00,14,12,/static/default-item.png
+890123400265,864201060000265,"Realme 12 Pro Plus 5G (Sunset Gold, 8GB/128GB)",27999.00,14,12,/static/default-item.png
+890123400266,864201060000266,"Moto G34 5G (Starlight Blue, 8GB/128GB)",11999.00,16,12,/static/default-item.png
+890123400267,864201060000267,"Redmi Note 13 Pro 5G (Purple Mist, 12GB/256GB)",27999.00,7,12,/static/default-item.png
+890123400268,864201060000268,"OnePlus Nord CE4 Lite 5G (Purple Mist, 8GB/256GB)",20999.00,10,12,/static/default-item.png
+890123400269,864201060000269,"OnePlus 12R (Purple Mist, 8GB/128GB)",37999.00,19,12,/static/default-item.png
+890123400270,864201060000270,"Poco F6 5G (Titanium Gray, 12GB/512GB)",33999.00,16,12,/static/default-item.png
+890123400271,864201060000271,"Vivo V30e 5G (Titanium Gray, 8GB/128GB)",25999.00,8,12,/static/default-item.png
+890123400272,864201060000272,"Samsung Guru Music 2 (Titanium Gray, Black)",2199.00,8,12,/static/default-item.png
+890123400273,864201060000273,"Redmi Note 13 5G (Purple Mist, 6GB/128GB)",15999.00,8,12,/static/default-item.png
+890123400274,864201060000274,"Redmi Note 13 Pro 5G (Purple Mist, 8GB/256GB)",25999.00,5,12,/static/default-item.png
+890123400275,864201060000275,"Poco X6 Pro 5G (Sunset Gold, 8GB/256GB)",23999.00,15,12,/static/default-item.png
+890123400276,864201060000276,"Apple iPhone 15 Plus (Glacier White, 256GB)",85999.00,10,12,/static/default-item.png
+890123400277,864201060000277,"Apple iPhone 15 Pro Max (Purple Mist, 256GB)",144999.00,18,12,/static/default-item.png
+890123400278,864201060000278,"Apple iPhone 15 Pro (Midnight Black, 256GB)",134999.00,7,12,/static/default-item.png
+890123400279,864201060000279,"Samsung Galaxy S24 Ultra (Starlight Blue, 12GB/512GB)",129999.00,10,12,/static/default-item.png
+890123400280,864201060000280,"Lava Flip (Sunset Gold, Red)",1999.00,17,12,/static/default-item.png
+890123400281,864201060000281,"Vivo T3x 5G (Sunset Gold, 4GB/128GB)",12999.00,11,12,/static/default-item.png
+890123400282,864201060000282,"Apple iPhone 15 Pro (Glacier White, 128GB)",124999.00,17,12,/static/default-item.png
+890123400283,864201060000283,"Samsung Galaxy S24 Plus (Purple Mist, 12GB/256GB)",84999.00,11,12,/static/default-item.png
+890123400284,864201060000284,"Apple iPhone 15 Plus (Midnight Black, 128GB)",75999.00,3,12,/static/default-item.png
+890123400285,864201060000285,"Lava Flip (Starlight Blue, Red)",1999.00,17,12,/static/default-item.png
+890123400286,864201060000286,"Infinix Hot 40i (Emerald Green, 8GB/256GB)",9999.00,12,12,/static/default-item.png
+890123400287,864201060000287,"Nokia 110 4G (Titanium Gray, Rose Gold)",2399.00,20,12,/static/default-item.png
+890123400288,864201060000288,"Redmi 12 5G (Emerald Green, 8GB/256GB)",13999.00,8,12,/static/default-item.png
+890123400289,864201060000289,"Samsung Galaxy S24 (Starlight Blue, 8GB/128GB)",64999.00,5,12,/static/default-item.png
+890123400290,864201060000290,"Apple iPhone 15 Plus (Purple Mist, 256GB)",85999.00,17,12,/static/default-item.png
+890123400291,864201060000291,"Redmi 12 5G (Emerald Green, 4GB/128GB)",11999.00,14,12,/static/default-item.png
+890123400292,864201060000292,"Vivo T3 5G (Glacier White, 8GB/128GB)",18999.00,12,12,/static/default-item.png
+890123400293,864201060000293,"Oppo A59 5G (Starlight Blue, 4GB/128GB)",13999.00,16,12,/static/default-item.png
+890123400294,864201060000294,"Samsung Galaxy M15 5G (Glacier White, 8GB/128GB)",14999.00,11,12,/static/default-item.png
+890123400295,864201060000295,"Samsung Galaxy F15 5G (Glacier White, 6GB/128GB)",13499.00,17,12,/static/default-item.png
+890123400296,864201060000296,"Apple iPhone 13 (Sunset Gold, 256GB)",57999.00,12,12,/static/default-item.png
+890123400297,864201060000297,"Vivo T3x 5G (Starlight Blue, 4GB/128GB)",12999.00,9,12,/static/default-item.png
+890123400298,864201060000298,"Oppo Reno 11 5G (Glacier White, 8GB/128GB)",27999.00,15,12,/static/default-item.png
+890123400299,864201060000299,"Moto G64 5G (Glacier White, 8GB/128GB)",13999.00,18,12,/static/default-item.png
+890123400300,864201060000300,"Redmi Note 13 Pro 5G (Titanium Gray, 8GB/256GB)",25999.00,6,12,/static/default-item.png
+890123400301,864201060000301,"OnePlus Nord 4 5G (Purple Mist, 8GB/128GB)",29999.00,10,12,/static/default-item.png
+890123400302,864201060000302,"Realme 12x 5G (Starlight Blue, 4GB/128GB)",11999.00,15,12,/static/default-item.png
+890123400303,864201060000303,"Samsung Galaxy M15 5G (Emerald Green, 4GB/128GB)",11999.00,14,12,/static/default-item.png
+890123400304,864201060000304,"iQOO Neo 9 Pro (Sunset Gold, 8GB/128GB)",34999.00,12,12,/static/default-item.png
+890123400305,864201060000305,"Itel MagicX Pro 4G (Titanium Gray, Black)",2399.00,12,12,/static/default-item.png
+890123400306,864201060000306,"Samsung Galaxy F15 5G (Titanium Gray, 4GB/128GB)",11999.00,3,12,/static/default-item.png
+890123400307,864201060000307,"JioPhone Prima 4G (Starlight Blue, Yellow)",2499.00,15,12,/static/default-item.png
+890123400308,864201060000308,"Oppo F25 Pro 5G (Glacier White, 8GB/128GB)",23999.00,11,12,/static/default-item.png
+890123400309,864201060000309,"Nokia 110 4G (Starlight Blue, Rose Gold)",2399.00,3,12,/static/default-item.png
+890123400310,864201060000310,"Moto G34 5G (Glacier White, 8GB/128GB)",11999.00,4,12,/static/default-item.png
+890123400311,864201060000311,"Nokia 110 4G (Glacier White, Rose Gold)",2399.00,18,12,/static/default-item.png
+890123400312,864201060000312,"Samsung Galaxy S24 Ultra (Emerald Green, 12GB/512GB)",129999.00,12,12,/static/default-item.png
+890123400313,864201060000313,"Vivo V30 5G (Purple Mist, 8GB/256GB)",33999.00,10,12,/static/default-item.png
+890123400314,864201060000314,"Apple iPhone 15 Pro Max (Starlight Blue, 512GB)",164999.00,14,12,/static/default-item.png
+890123400315,864201060000315,"Moto G34 5G (Starlight Blue, 4GB/128GB)",10999.00,10,12,/static/default-item.png
+890123400316,864201060000316,"Itel MagicX Pro 4G (Glacier White, Blue)",2399.00,9,12,/static/default-item.png
+890123400317,864201060000317,"Realme Narzo 70 Pro 5G (Midnight Black, 8GB/256GB)",19999.00,11,12,/static/default-item.png
+890123400318,864201060000318,"Infinix Hot 40i (Titanium Gray, 8GB/128GB)",8999.00,7,12,/static/default-item.png
+890123400319,864201060000319,"iQOO Neo 9 Pro (Emerald Green, 8GB/128GB)",34999.00,6,12,/static/default-item.png
+890123400320,864201060000320,"Realme 12 Pro 5G (Titanium Gray, 8GB/128GB)",21999.00,4,12,/static/default-item.png
+890123400321,864201060000321,"Realme 12 Pro Plus 5G (Midnight Black, 12GB/256GB)",31999.00,12,12,/static/default-item.png
+890123400322,864201060000322,"Samsung Guru Music 2 (Midnight Black, Gold)",2199.00,17,12,/static/default-item.png
+890123400323,864201060000323,"iQOO Z9 5G (Starlight Blue, 8GB/128GB)",17999.00,4,12,/static/default-item.png
+890123400324,864201060000324,"Infinix Hot 40i (Sunset Gold, 8GB/256GB)",9999.00,14,12,/static/default-item.png
+890123400325,864201060000325,"Samsung Guru Music 2 (Glacier White, Gold)",2199.00,7,12,/static/default-item.png
+890123400326,864201060000326,"Apple iPhone 13 (Titanium Gray, 256GB)",57999.00,5,12,/static/default-item.png
+890123400327,864201060000327,"OnePlus Nord CE4 Lite 5G (Midnight Black, 8GB/256GB)",20999.00,12,12,/static/default-item.png
+890123400328,864201060000328,"Vivo Y28 5G (Titanium Gray, 6GB/128GB)",14999.00,13,12,/static/default-item.png
+890123400329,864201060000329,"Infinix Hot 40i (Glacier White, 8GB/128GB)",8999.00,16,12,/static/default-item.png
+890123400330,864201060000330,"Nokia 105 Single SIM (Purple Mist, Cyan)",1249.00,8,12,/static/default-item.png
+890123400331,864201060000331,"Poco X6 Pro 5G (Emerald Green, 12GB/512GB)",25999.00,9,12,/static/default-item.png
+890123400332,864201060000332,"iQOO Z9 5G (Emerald Green, 8GB/128GB)",17999.00,7,12,/static/default-item.png
+890123400333,864201060000333,"Redmi Note 13 Pro 5G (Midnight Black, 8GB/256GB)",25999.00,20,12,/static/default-item.png
+890123400334,864201060000334,"Nokia 105 Dual SIM (Emerald Green, Charcoal)",1399.00,14,12,/static/default-item.png
+890123400335,864201060000335,"Realme C65 5G (Midnight Black, 4GB/64GB)",9999.00,19,12,/static/default-item.png
+890123400336,864201060000336,"Samsung Galaxy A35 5G (Sunset Gold, 8GB/256GB)",30999.00,19,12,/static/default-item.png
+890123400337,864201060000337,"JioPhone Prima 4G (Purple Mist, Yellow)",2499.00,11,12,/static/default-item.png
+890123400338,864201060000338,"JioPhone Prima 4G (Purple Mist, Blue)",2499.00,8,12,/static/default-item.png
+890123400339,864201060000339,"Samsung Galaxy A55 5G (Titanium Gray, 12GB/256GB)",42999.00,11,12,/static/default-item.png
+890123400340,864201060000340,"iQOO Neo 9 Pro (Titanium Gray, 12GB/256GB)",38999.00,18,12,/static/default-item.png
+890123400341,864201060000341,"Vivo V30 5G (Glacier White, 12GB/512GB)",39999.00,12,12,/static/default-item.png
+890123400342,864201060000342,"iQOO Neo 9 Pro (Glacier White, 8GB/256GB)",36999.00,13,12,/static/default-item.png
+890123400343,864201060000343,"Realme Narzo 70 Pro 5G (Emerald Green, 8GB/128GB)",17999.00,6,12,/static/default-item.png
+890123400344,864201060000344,"Redmi Note 13 Pro 5G (Midnight Black, 12GB/256GB)",27999.00,17,12,/static/default-item.png
+890123400345,864201060000345,"Apple iPhone 14 (Midnight Black, 128GB)",56999.00,5,12,/static/default-item.png
+890123400346,864201060000346,"Samsung Galaxy A35 5G (Titanium Gray, 8GB/256GB)",30999.00,7,12,/static/default-item.png
+890123400347,864201060000347,"iQOO Neo 9 Pro (Sunset Gold, 8GB/256GB)",36999.00,10,12,/static/default-item.png
+890123400348,864201060000348,"Vivo T3x 5G (Titanium Gray, 6GB/128GB)",13999.00,15,12,/static/default-item.png
+890123400349,864201060000349,"Samsung Galaxy M15 5G (Purple Mist, 6GB/128GB)",13499.00,20,12,/static/default-item.png
+890123400350,864201060000350,"Realme 12 Pro 5G (Starlight Blue, 8GB/256GB)",23999.00,14,12,/static/default-item.png
+890123400351,864201060000351,"Poco M6 Pro 5G (Starlight Blue, 8GB/256GB)",12499.00,5,12,/static/default-item.png
+890123400352,864201060000352,"Samsung Galaxy A55 5G (Starlight Blue, 8GB/256GB)",39999.00,15,12,/static/default-item.png
+890123400353,864201060000353,"Redmi Note 13 Pro 5G (Emerald Green, 8GB/256GB)",25999.00,3,12,/static/default-item.png
+890123400354,864201060000354,"Realme 12 Pro Plus 5G (Emerald Green, 8GB/256GB)",29999.00,11,12,/static/default-item.png
+890123400355,864201060000355,"Samsung Guru Music 2 (Starlight Blue, White)",2199.00,20,12,/static/default-item.png
+890123400356,864201060000356,"Moto G34 5G (Purple Mist, 4GB/128GB)",10999.00,6,12,/static/default-item.png
+890123400357,864201060000357,"Moto G64 5G (Starlight Blue, 12GB/256GB)",15999.00,17,12,/static/default-item.png
+890123400358,864201060000358,"Apple iPhone 15 Pro Max (Sunset Gold, 256GB)",144999.00,14,12,/static/default-item.png
+890123400359,864201060000359,"Apple iPhone 14 (Glacier White, 256GB)",66999.00,11,12,/static/default-item.png
+890123400360,864201060000360,"Vivo V30e 5G (Midnight Black, 8GB/128GB)",25999.00,15,12,/static/default-item.png
+890123400361,864201060000361,"Apple iPhone 15 Plus (Starlight Blue, 128GB)",75999.00,14,12,/static/default-item.png
+890123400362,864201060000362,"Apple iPhone 15 (Titanium Gray, 128GB)",65999.00,6,12,/static/default-item.png
+890123400363,864201060000363,"Realme 12 Pro 5G (Glacier White, 8GB/256GB)",23999.00,10,12,/static/default-item.png
+890123400364,864201060000364,"Vivo V30e 5G (Glacier White, 8GB/256GB)",27999.00,18,12,/static/default-item.png
+890123400365,864201060000365,"Vivo T3x 5G (Midnight Black, 8GB/128GB)",15499.00,3,12,/static/default-item.png
+890123400366,864201060000366,"OnePlus 12 (Sunset Gold, 12GB/256GB)",61999.00,20,12,/static/default-item.png
+890123400367,864201060000367,"Redmi 13C 5G (Midnight Black, 8GB/256GB)",13499.00,13,12,/static/default-item.png
+890123400368,864201060000368,"Samsung Galaxy S24 Ultra (Midnight Black, 12GB/512GB)",129999.00,10,12,/static/default-item.png
+890123400369,864201060000369,"Itel MagicX Pro 4G (Midnight Black, Black)",2399.00,5,12,/static/default-item.png
+890123400370,864201060000370,"OnePlus 12R (Sunset Gold, 8GB/128GB)",37999.00,17,12,/static/default-item.png
+890123400371,864201060000371,"Vivo T3 5G (Midnight Black, 8GB/128GB)",18999.00,12,12,/static/default-item.png
+890123400372,864201060000372,"Redmi Note 13 Pro 5G (Starlight Blue, 8GB/256GB)",25999.00,16,12,/static/default-item.png
+890123400373,864201060000373,"Samsung Galaxy A15 5G (Purple Mist, 6GB/128GB)",17499.00,6,12,/static/default-item.png
+890123400374,864201060000374,"Vivo T3 5G (Midnight Black, 8GB/256GB)",20999.00,7,12,/static/default-item.png
+890123400375,864201060000375,"Vivo V30e 5G (Sunset Gold, 8GB/128GB)",25999.00,4,12,/static/default-item.png
+890123400376,864201060000376,"OnePlus Nord 4 5G (Glacier White, 8GB/256GB)",32999.00,4,12,/static/default-item.png
+890123400377,864201060000377,"Lava Flip (Starlight Blue, Blue)",1999.00,12,12,/static/default-item.png
+890123400378,864201060000378,"iQOO Z9 5G (Titanium Gray, 8GB/256GB)",19999.00,18,12,/static/default-item.png
+890123400379,864201060000379,"Infinix Hot 40i (Starlight Blue, 8GB/128GB)",8999.00,6,12,/static/default-item.png
+890123400380,864201060000380,"Samsung Galaxy M15 5G (Midnight Black, 8GB/128GB)",14999.00,6,12,/static/default-item.png
+890123400381,864201060000381,"Samsung Galaxy A15 5G (Starlight Blue, 8GB/256GB)",21499.00,10,12,/static/default-item.png
+890123400382,864201060000382,"Vivo V30e 5G (Titanium Gray, 8GB/256GB)",27999.00,20,12,/static/default-item.png
+890123400383,864201060000383,"Apple iPhone 13 (Emerald Green, 256GB)",57999.00,7,12,/static/default-item.png
+890123400384,864201060000384,"Samsung Galaxy F15 5G (Titanium Gray, 6GB/128GB)",13499.00,15,12,/static/default-item.png
+890123400385,864201060000385,"Nokia 110 4G (Sunset Gold, Rose Gold)",2399.00,17,12,/static/default-item.png
+890123400386,864201060000386,"Moto G64 5G (Titanium Gray, 12GB/256GB)",15999.00,14,12,/static/default-item.png
+890123400387,864201060000387,"Samsung Galaxy S24 (Purple Mist, 8GB/256GB)",69999.00,20,12,/static/default-item.png
+890123400388,864201060000388,"OnePlus Nord 4 5G (Titanium Gray, 12GB/256GB)",35999.00,16,12,/static/default-item.png
+890123400389,864201060000389,"Samsung Galaxy F15 5G (Starlight Blue, 6GB/128GB)",13499.00,7,12,/static/default-item.png
+890123400390,864201060000390,"Poco F6 5G (Titanium Gray, 8GB/256GB)",29999.00,16,12,/static/default-item.png
+890123400391,864201060000391,"Apple iPhone 13 (Glacier White, 256GB)",57999.00,6,12,/static/default-item.png
+890123400392,864201060000392,"Poco M6 Pro 5G (Purple Mist, 6GB/128GB)",10999.00,18,12,/static/default-item.png
+890123400393,864201060000393,"Apple iPhone 15 Pro (Sunset Gold, 128GB)",124999.00,16,12,/static/default-item.png
+890123400394,864201060000394,"Samsung Galaxy A55 5G (Emerald Green, 8GB/128GB)",36999.00,11,12,/static/default-item.png
+890123400395,864201060000395,"Nokia 110 4G (Emerald Green, Rose Gold)",2399.00,4,12,/static/default-item.png
+890123400396,864201060000396,"Vivo T3x 5G (Glacier White, 8GB/128GB)",15499.00,14,12,/static/default-item.png
+890123400397,864201060000397,"Vivo V30 5G (Titanium Gray, 8GB/256GB)",33999.00,9,12,/static/default-item.png
+890123400398,864201060000398,"Samsung Galaxy A55 5G (Sunset Gold, 12GB/256GB)",42999.00,17,12,/static/default-item.png
+890123400399,864201060000399,"Samsung Galaxy A15 5G (Purple Mist, 8GB/256GB)",21499.00,17,12,/static/default-item.png
+890123400400,864201060000400,"Infinix Hot 40i (Midnight Black, 8GB/256GB)",9999.00,10,12,/static/default-item.png
+890123400401,864201060000401,"OnePlus Nord 4 5G (Titanium Gray, 8GB/256GB)",32999.00,14,12,/static/default-item.png
+890123400402,864201060000402,"Samsung Galaxy A55 5G (Purple Mist, 12GB/256GB)",42999.00,6,12,/static/default-item.png
+890123400403,864201060000403,"Samsung Galaxy M15 5G (Midnight Black, 6GB/128GB)",13499.00,14,12,/static/default-item.png
+890123400404,864201060000404,"Redmi 13C 5G (Sunset Gold, 6GB/128GB)",11999.00,20,12,/static/default-item.png
+890123400405,864201060000405,"Infinix Hot 40i (Starlight Blue, 8GB/256GB)",9999.00,14,12,/static/default-item.png
+890123400406,864201060000406,"Samsung Galaxy M15 5G (Purple Mist, 4GB/128GB)",11999.00,4,12,/static/default-item.png
+890123400407,864201060000407,"Poco X6 Pro 5G (Purple Mist, 12GB/512GB)",25999.00,15,12,/static/default-item.png
+890123400408,864201060000408,"Vivo T3x 5G (Emerald Green, 4GB/128GB)",12999.00,11,12,/static/default-item.png
+890123400409,864201060000409,"OnePlus Nord CE4 Lite 5G (Purple Mist, 8GB/128GB)",17999.00,9,12,/static/default-item.png
+890123400410,864201060000410,"Vivo T3 5G (Sunset Gold, 8GB/128GB)",18999.00,6,12,/static/default-item.png
+890123400411,864201060000411,"Realme 12 Pro Plus 5G (Emerald Green, 12GB/256GB)",31999.00,17,12,/static/default-item.png
+890123400412,864201060000412,"Infinix Hot 40i (Sunset Gold, 8GB/128GB)",8999.00,5,12,/static/default-item.png
+890123400413,864201060000413,"Realme Narzo 70 Pro 5G (Purple Mist, 8GB/256GB)",19999.00,9,12,/static/default-item.png
+890123400414,864201060000414,"iQOO Z9 5G (Starlight Blue, 8GB/256GB)",19999.00,3,12,/static/default-item.png
+890123400415,864201060000415,"Moto G64 5G (Purple Mist, 12GB/256GB)",15999.00,4,12,/static/default-item.png
+890123400416,864201060000416,"Realme 12x 5G (Glacier White, 6GB/128GB)",12999.00,13,12,/static/default-item.png
+890123400417,864201060000417,"OnePlus Nord CE4 5G (Starlight Blue, 8GB/256GB)",26999.00,10,12,/static/default-item.png
+890123400418,864201060000418,"JioPhone Prima 4G (Titanium Gray, Blue)",2499.00,7,12,/static/default-item.png
+890123400419,864201060000419,"Samsung Galaxy A35 5G (Purple Mist, 8GB/128GB)",27999.00,9,12,/static/default-item.png
+890123400420,864201060000420,"OnePlus Nord CE4 Lite 5G (Emerald Green, 8GB/128GB)",17999.00,5,12,/static/default-item.png
+890123400421,864201060000421,"Poco M6 Pro 5G (Starlight Blue, 4GB/128GB)",9999.00,20,12,/static/default-item.png
+890123400422,864201060000422,"Redmi 13C 5G (Purple Mist, 8GB/256GB)",13499.00,9,12,/static/default-item.png
+890123400423,864201060000423,"Vivo V30 5G (Starlight Blue, 8GB/128GB)",31999.00,9,12,/static/default-item.png
+890123400424,864201060000424,"Poco M6 Pro 5G (Titanium Gray, 4GB/128GB)",9999.00,10,12,/static/default-item.png
+890123400425,864201060000425,"Moto G34 5G (Glacier White, 4GB/128GB)",10999.00,13,12,/static/default-item.png
+890123400426,864201060000426,"Samsung Galaxy S24 Plus (Emerald Green, 12GB/256GB)",84999.00,7,12,/static/default-item.png
+890123400427,864201060000427,"Samsung Galaxy S24 Plus (Titanium Gray, 12GB/256GB)",84999.00,3,12,/static/default-item.png
+890123400428,864201060000428,"Itel MagicX Pro 4G (Sunset Gold, Blue)",2399.00,11,12,/static/default-item.png
+890123400429,864201060000429,"Samsung Guru Music 2 (Sunset Gold, Gold)",2199.00,7,12,/static/default-item.png
+890123400430,864201060000430,"Oppo F25 Pro 5G (Emerald Green, 8GB/128GB)",23999.00,7,12,/static/default-item.png
+890123400431,864201060000431,"Realme 12 Pro 5G (Titanium Gray, 8GB/256GB)",23999.00,20,12,/static/default-item.png
+890123400432,864201060000432,"OnePlus Nord 4 5G (Midnight Black, 8GB/256GB)",32999.00,11,12,/static/default-item.png
+890123400433,864201060000433,"Oppo A59 5G (Midnight Black, 4GB/128GB)",13999.00,8,12,/static/default-item.png
+890123400434,864201060000434,"Redmi 13C 5G (Titanium Gray, 8GB/256GB)",13499.00,6,12,/static/default-item.png
+890123400435,864201060000435,"Realme Narzo 70 Pro 5G (Purple Mist, 8GB/128GB)",17999.00,3,12,/static/default-item.png
+890123400436,864201060000436,"Realme C65 5G (Purple Mist, 4GB/128GB)",10999.00,7,12,/static/default-item.png
+890123400437,864201060000437,"Samsung Galaxy A35 5G (Glacier White, 8GB/256GB)",30999.00,3,12,/static/default-item.png
+890123400438,864201060000438,"Redmi 12 5G (Glacier White, 8GB/256GB)",13999.00,14,12,/static/default-item.png
+890123400439,864201060000439,"Nokia 105 Single SIM (Glacier White, Charcoal)",1249.00,10,12,/static/default-item.png
+890123400440,864201060000440,"iQOO Neo 9 Pro (Starlight Blue, 8GB/128GB)",34999.00,13,12,/static/default-item.png
+890123400441,864201060000441,"Realme 12 Pro 5G (Midnight Black, 8GB/128GB)",21999.00,3,12,/static/default-item.png
+890123400442,864201060000442,"OnePlus Nord 4 5G (Emerald Green, 12GB/256GB)",35999.00,8,12,/static/default-item.png
+890123400443,864201060000443,"Samsung Galaxy A55 5G (Titanium Gray, 8GB/128GB)",36999.00,11,12,/static/default-item.png
+890123400444,864201060000444,"Realme Narzo 70 Pro 5G (Emerald Green, 8GB/256GB)",19999.00,4,12,/static/default-item.png
+890123400445,864201060000445,"Infinix Note 40X 5G (Emerald Green, 12GB/256GB)",14999.00,7,12,/static/default-item.png
+890123400446,864201060000446,"Itel Power 450 (Sunset Gold, Deep Blue)",1199.00,16,12,/static/default-item.png
+890123400447,864201060000447,"Samsung Galaxy S24 Ultra (Sunset Gold, 12GB/256GB)",119999.00,19,12,/static/default-item.png
+890123400448,864201060000448,"Poco X6 Pro 5G (Titanium Gray, 8GB/256GB)",23999.00,6,12,/static/default-item.png
+890123400449,864201060000449,"Samsung Galaxy A15 5G (Titanium Gray, 6GB/128GB)",17499.00,5,12,/static/default-item.png
+890123400450,864201060000450,"Realme C65 5G (Glacier White, 4GB/64GB)",9999.00,18,12,/static/default-item.png
+890123400451,864201060000451,"Apple iPhone 15 Plus (Emerald Green, 128GB)",75999.00,17,12,/static/default-item.png
+890123400452,864201060000452,"iQOO Neo 9 Pro (Titanium Gray, 8GB/128GB)",34999.00,14,12,/static/default-item.png
+890123400453,864201060000453,"Redmi 13C 5G (Starlight Blue, 4GB/128GB)",10499.00,19,12,/static/default-item.png
+890123400454,864201060000454,"Redmi 12 5G (Starlight Blue, 4GB/128GB)",11999.00,6,12,/static/default-item.png
+890123400455,864201060000455,"Apple iPhone 15 Pro (Starlight Blue, 128GB)",124999.00,17,12,/static/default-item.png
+890123400456,864201060000456,"Vivo V30 5G (Titanium Gray, 12GB/512GB)",39999.00,19,12,/static/default-item.png
+890123400457,864201060000457,"Samsung Galaxy S24 Ultra (Emerald Green, 12GB/256GB)",119999.00,10,12,/static/default-item.png
+890123400458,864201060000458,"Oppo Reno 11 5G (Titanium Gray, 8GB/256GB)",29999.00,4,12,/static/default-item.png
+890123400459,864201060000459,"Realme 12x 5G (Sunset Gold, 4GB/128GB)",11999.00,19,12,/static/default-item.png
+890123400460,864201060000460,"Redmi 12 5G (Sunset Gold, 4GB/128GB)",11999.00,12,12,/static/default-item.png
+890123400461,864201060000461,"iQOO Z9 5G (Titanium Gray, 8GB/128GB)",17999.00,17,12,/static/default-item.png
+890123400462,864201060000462,"Samsung Guru Music 2 (Emerald Green, Gold)",2199.00,3,12,/static/default-item.png
+890123400463,864201060000463,"Nokia 105 Dual SIM (Midnight Black, Charcoal)",1399.00,4,12,/static/default-item.png
+890123400464,864201060000464,"Redmi Note 13 Pro 5G (Purple Mist, 8GB/128GB)",23999.00,18,12,/static/default-item.png
+890123400465,864201060000465,"OnePlus Nord CE4 Lite 5G (Sunset Gold, 8GB/256GB)",20999.00,15,12,/static/default-item.png
+890123400466,864201060000466,"Oppo A59 5G (Emerald Green, 6GB/128GB)",15499.00,16,12,/static/default-item.png
+890123400467,864201060000467,"Samsung Galaxy A15 5G (Emerald Green, 6GB/128GB)",17499.00,6,12,/static/default-item.png
+890123400468,864201060000468,"Samsung Galaxy A35 5G (Starlight Blue, 8GB/256GB)",30999.00,18,12,/static/default-item.png
+890123400469,864201060000469,"Itel MagicX Pro 4G (Emerald Green, Blue)",2399.00,17,12,/static/default-item.png
+890123400470,864201060000470,"Nokia 105 Dual SIM (Glacier White, Charcoal)",1399.00,5,12,/static/default-item.png
+890123400471,864201060000471,"Itel MagicX Pro 4G (Sunset Gold, Black)",2399.00,5,12,/static/default-item.png
+890123400472,864201060000472,"Samsung Galaxy F15 5G (Emerald Green, 4GB/128GB)",11999.00,13,12,/static/default-item.png
+890123400473,864201060000473,"Realme 12 Pro Plus 5G (Starlight Blue, 8GB/256GB)",29999.00,7,12,/static/default-item.png
+890123400474,864201060000474,"Vivo Y28 5G (Titanium Gray, 4GB/128GB)",13499.00,5,12,/static/default-item.png
+890123400475,864201060000475,"Vivo T3x 5G (Purple Mist, 8GB/128GB)",15499.00,7,12,/static/default-item.png
+890123400476,864201060000476,"Realme C65 5G (Emerald Green, 6GB/128GB)",11999.00,11,12,/static/default-item.png
+890123400477,864201060000477,"OnePlus Nord CE4 5G (Purple Mist, 8GB/128GB)",24999.00,20,12,/static/default-item.png
+890123400478,864201060000478,"Vivo T3 5G (Emerald Green, 8GB/128GB)",18999.00,13,12,/static/default-item.png
+890123400479,864201060000479,"Realme 12x 5G (Sunset Gold, 6GB/128GB)",12999.00,15,12,/static/default-item.png
+890123400480,864201060000480,"Oppo Reno 11 5G (Midnight Black, 8GB/128GB)",27999.00,19,12,/static/default-item.png
+890123400481,864201060000481,"Apple iPhone 15 Pro (Emerald Green, 256GB)",134999.00,12,12,/static/default-item.png
+890123400482,864201060000482,"Apple iPhone 15 Pro Max (Titanium Gray, 256GB)",144999.00,17,12,/static/default-item.png
+890123400483,864201060000483,"Realme C65 5G (Sunset Gold, 4GB/64GB)",9999.00,19,12,/static/default-item.png
+890123400484,864201060000484,"Oppo F25 Pro 5G (Starlight Blue, 8GB/256GB)",25999.00,16,12,/static/default-item.png
+890123400485,864201060000485,"OnePlus Nord CE4 Lite 5G (Titanium Gray, 8GB/256GB)",20999.00,6,12,/static/default-item.png
+890123400486,864201060000486,"Realme 12x 5G (Titanium Gray, 6GB/128GB)",12999.00,6,12,/static/default-item.png
+890123400487,864201060000487,"Samsung Galaxy A15 5G (Glacier White, 8GB/256GB)",21499.00,20,12,/static/default-item.png
+890123400488,864201060000488,"OnePlus Nord 4 5G (Purple Mist, 8GB/256GB)",32999.00,9,12,/static/default-item.png
+890123400489,864201060000489,"Vivo Y28 5G (Purple Mist, 6GB/128GB)",14999.00,16,12,/static/default-item.png
+890123400490,864201060000490,"Realme Narzo 70 Pro 5G (Glacier White, 8GB/256GB)",19999.00,17,12,/static/default-item.png
+890123400491,864201060000491,"Vivo V30 5G (Sunset Gold, 8GB/256GB)",33999.00,10,12,/static/default-item.png
+890123400492,864201060000492,"Samsung Galaxy A15 5G (Sunset Gold, 8GB/256GB)",21499.00,16,12,/static/default-item.png
+890123400493,864201060000493,"Redmi 13C 5G (Titanium Gray, 4GB/128GB)",10499.00,13,12,/static/default-item.png
+890123400494,864201060000494,"Itel MagicX Pro 4G (Emerald Green, Black)",2399.00,17,12,/static/default-item.png
+890123400495,864201060000495,"Samsung Galaxy A15 5G (Sunset Gold, 8GB/128GB)",19499.00,15,12,/static/default-item.png
+890123400496,864201060000496,"Poco F6 5G (Glacier White, 8GB/256GB)",29999.00,16,12,/static/default-item.png
+890123400497,864201060000497,"Realme 12 Pro Plus 5G (Sunset Gold, 8GB/256GB)",29999.00,6,12,/static/default-item.png
+890123400498,864201060000498,"Moto G34 5G (Midnight Black, 4GB/128GB)",10999.00,13,12,/static/default-item.png
+890123400499,864201060000499,"Samsung Galaxy A55 5G (Glacier White, 8GB/128GB)",36999.00,16,12,/static/default-item.png
+890123400500,864201060000500,"Realme Narzo 70 Pro 5G (Sunset Gold, 8GB/128GB)",17999.00,13,12,/static/default-item.png
+890123400501,864201060000501,"Vivo V30 5G (Purple Mist, 12GB/512GB)",39999.00,11,12,/static/default-item.png
+890123400502,864201060000502,"Apple iPhone 15 Pro (Emerald Green, 128GB)",124999.00,14,12,/static/default-item.png
+890123400503,864201060000503,"Apple iPhone 13 (Emerald Green, 128GB)",47999.00,7,12,/static/default-item.png
+890123400504,864201060000504,"Vivo Y28 5G (Sunset Gold, 4GB/128GB)",13499.00,18,12,/static/default-item.png
+890123400505,864201060000505,"Poco M6 Pro 5G (Midnight Black, 6GB/128GB)",10999.00,5,12,/static/default-item.png
+890123400506,864201060000506,"Vivo T3x 5G (Purple Mist, 4GB/128GB)",12999.00,5,12,/static/default-item.png
+890123400507,864201060000507,"Oppo F25 Pro 5G (Emerald Green, 8GB/256GB)",25999.00,5,12,/static/default-item.png
+890123400508,864201060000508,"Redmi 12 5G (Midnight Black, 8GB/256GB)",13999.00,5,12,/static/default-item.png
+890123400509,864201060000509,"Oppo F25 Pro 5G (Glacier White, 8GB/256GB)",25999.00,16,12,/static/default-item.png
+890123400510,864201060000510,"Moto G64 5G (Glacier White, 12GB/256GB)",15999.00,6,12,/static/default-item.png
+890123400511,864201060000511,"OnePlus Nord CE4 Lite 5G (Starlight Blue, 8GB/256GB)",20999.00,14,12,/static/default-item.png
+890123400512,864201060000512,"OnePlus 12 (Glacier White, 16GB/512GB)",67999.00,7,12,/static/default-item.png
+890123400513,864201060000513,"Poco X6 Pro 5G (Purple Mist, 8GB/256GB)",23999.00,20,12,/static/default-item.png
+890123400514,864201060000514,"Samsung Galaxy S24 Plus (Midnight Black, 12GB/256GB)",84999.00,4,12,/static/default-item.png
+890123400515,864201060000515,"Realme C65 5G (Sunset Gold, 4GB/128GB)",10999.00,20,12,/static/default-item.png
+890123400516,864201060000516,"Samsung Galaxy M15 5G (Titanium Gray, 8GB/128GB)",14999.00,20,12,/static/default-item.png
+890123400517,864201060000517,"Apple iPhone 15 Pro Max (Starlight Blue, 256GB)",144999.00,13,12,/static/default-item.png
+890123400518,864201060000518,"Redmi 13C 5G (Emerald Green, 6GB/128GB)",11999.00,6,12,/static/default-item.png
+890123400519,864201060000519,"Realme C65 5G (Titanium Gray, 4GB/128GB)",10999.00,16,12,/static/default-item.png
+890123400520,864201060000520,"Samsung Galaxy S24 Plus (Emerald Green, 12GB/512GB)",94999.00,14,12,/static/default-item.png
+890123400521,864201060000521,"Oppo Reno 11 5G (Purple Mist, 8GB/256GB)",29999.00,16,12,/static/default-item.png
+890123400522,864201060000522,"Realme 12 Pro Plus 5G (Purple Mist, 8GB/128GB)",27999.00,4,12,/static/default-item.png
+890123400523,864201060000523,"Vivo T3x 5G (Starlight Blue, 8GB/128GB)",15499.00,12,12,/static/default-item.png
+890123400524,864201060000524,"Apple iPhone 15 Pro Max (Glacier White, 256GB)",144999.00,12,12,/static/default-item.png
+890123400525,864201060000525,"iQOO Z9 5G (Midnight Black, 8GB/256GB)",19999.00,14,12,/static/default-item.png
+890123400526,864201060000526,"Redmi Note 13 5G (Purple Mist, 8GB/256GB)",17999.00,6,12,/static/default-item.png
+890123400527,864201060000527,"OnePlus 12R (Midnight Black, 8GB/128GB)",37999.00,19,12,/static/default-item.png
+890123400528,864201060000528,"Infinix Hot 40i (Purple Mist, 8GB/128GB)",8999.00,9,12,/static/default-item.png
+890123400529,864201060000529,"Redmi Note 13 Pro 5G (Starlight Blue, 12GB/256GB)",27999.00,7,12,/static/default-item.png
+890123400530,864201060000530,"Nokia 105 Single SIM (Midnight Black, Charcoal)",1249.00,18,12,/static/default-item.png
+890123400531,864201060000531,"Lava Flip (Titanium Gray, Red)",1999.00,10,12,/static/default-item.png
+890123400532,864201060000532,"Realme C65 5G (Purple Mist, 6GB/128GB)",11999.00,6,12,/static/default-item.png
+890123400533,864201060000533,"Redmi 12 5G (Sunset Gold, 8GB/256GB)",13999.00,14,12,/static/default-item.png
+890123400534,864201060000534,"Apple iPhone 15 Pro (Titanium Gray, 256GB)",134999.00,20,12,/static/default-item.png
+890123400535,864201060000535,"Vivo T3x 5G (Glacier White, 4GB/128GB)",12999.00,14,12,/static/default-item.png
+890123400536,864201060000536,"Vivo V30 5G (Midnight Black, 8GB/256GB)",33999.00,6,12,/static/default-item.png
+890123400537,864201060000537,"Redmi Note 13 5G (Emerald Green, 8GB/256GB)",17999.00,11,12,/static/default-item.png
+890123400538,864201060000538,"Samsung Galaxy S24 (Purple Mist, 8GB/128GB)",64999.00,10,12,/static/default-item.png
+890123400539,864201060000539,"Samsung Galaxy S24 Ultra (Purple Mist, 12GB/512GB)",129999.00,16,12,/static/default-item.png
+890123400540,864201060000540,"Poco M6 Pro 5G (Starlight Blue, 6GB/128GB)",10999.00,20,12,/static/default-item.png
+890123400541,864201060000541,"Realme C65 5G (Sunset Gold, 6GB/128GB)",11999.00,20,12,/static/default-item.png
+890123400542,864201060000542,"Poco X6 Pro 5G (Emerald Green, 8GB/256GB)",23999.00,3,12,/static/default-item.png
+890123400543,864201060000543,"Poco F6 5G (Emerald Green, 12GB/512GB)",33999.00,11,12,/static/default-item.png
+890123400544,864201060000544,"Apple iPhone 15 (Sunset Gold, 128GB)",65999.00,3,12,/static/default-item.png
+890123400545,864201060000545,"Apple iPhone 14 (Starlight Blue, 128GB)",56999.00,8,12,/static/default-item.png
+890123400546,864201060000546,"OnePlus Nord 4 5G (Glacier White, 12GB/256GB)",35999.00,11,12,/static/default-item.png
+890123400547,864201060000547,"OnePlus Nord CE4 5G (Sunset Gold, 8GB/128GB)",24999.00,12,12,/static/default-item.png
+890123400548,864201060000548,"iQOO Neo 9 Pro (Emerald Green, 8GB/256GB)",36999.00,13,12,/static/default-item.png
+890123400549,864201060000549,"Realme 12x 5G (Emerald Green, 8GB/128GB)",13999.00,14,12,/static/default-item.png
+890123400550,864201060000550,"Realme 12 Pro Plus 5G (Purple Mist, 12GB/256GB)",31999.00,3,12,/static/default-item.png
+890123400551,864201060000551,"OnePlus 12R (Midnight Black, 16GB/256GB)",42999.00,8,12,/static/default-item.png
+890123400552,864201060000552,"Nokia 105 Dual SIM (Midnight Black, Blue)",1399.00,7,12,/static/default-item.png
+890123400553,864201060000553,"Infinix Note 40X 5G (Sunset Gold, 8GB/256GB)",13499.00,15,12,/static/default-item.png
+890123400554,864201060000554,"Realme 12 Pro Plus 5G (Emerald Green, 8GB/128GB)",27999.00,5,12,/static/default-item.png
+890123400555,864201060000555,"OnePlus 12R (Starlight Blue, 8GB/128GB)",37999.00,7,12,/static/default-item.png
+890123400556,864201060000556,"Moto G34 5G (Titanium Gray, 4GB/128GB)",10999.00,3,12,/static/default-item.png
+890123400557,864201060000557,"OnePlus Nord 4 5G (Starlight Blue, 8GB/128GB)",29999.00,5,12,/static/default-item.png
+890123400558,864201060000558,"OnePlus 12R (Sunset Gold, 16GB/256GB)",42999.00,19,12,/static/default-item.png
+890123400559,864201060000559,"Realme 12 Pro 5G (Sunset Gold, 8GB/128GB)",21999.00,9,12,/static/default-item.png
+890123400560,864201060000560,"Oppo Reno 11 5G (Glacier White, 8GB/256GB)",29999.00,15,12,/static/default-item.png
+890123400561,864201060000561,"Nokia 105 Dual SIM (Titanium Gray, Charcoal)",1399.00,16,12,/static/default-item.png
+890123400562,864201060000562,"Vivo V30e 5G (Midnight Black, 8GB/256GB)",27999.00,17,12,/static/default-item.png
+890123400563,864201060000563,"Redmi 13C 5G (Emerald Green, 4GB/128GB)",10499.00,13,12,/static/default-item.png
+890123400564,864201060000564,"Nokia 105 Single SIM (Titanium Gray, Cyan)",1249.00,8,12,/static/default-item.png
+890123400565,864201060000565,"Moto G64 5G (Midnight Black, 8GB/128GB)",13999.00,14,12,/static/default-item.png
+890123400566,864201060000566,"Samsung Galaxy S24 (Starlight Blue, 8GB/256GB)",69999.00,12,12,/static/default-item.png
+890123400567,864201060000567,"Apple iPhone 15 Pro Max (Purple Mist, 512GB)",164999.00,13,12,/static/default-item.png
+890123400568,864201060000568,"Infinix Note 40X 5G (Starlight Blue, 8GB/256GB)",13499.00,5,12,/static/default-item.png
+890123400569,864201060000569,"OnePlus Nord CE4 5G (Emerald Green, 8GB/256GB)",26999.00,4,12,/static/default-item.png
+890123400570,864201060000570,"OnePlus 12 (Purple Mist, 16GB/512GB)",67999.00,7,12,/static/default-item.png
+890123400571,864201060000571,"OnePlus 12 (Titanium Gray, 12GB/256GB)",61999.00,8,12,/static/default-item.png
+890123400572,864201060000572,"Moto G64 5G (Emerald Green, 8GB/128GB)",13999.00,4,12,/static/default-item.png
+890123400573,864201060000573,"Redmi Note 13 5G (Titanium Gray, 8GB/256GB)",17999.00,5,12,/static/default-item.png
+890123400574,864201060000574,"Samsung Guru Music 2 (Emerald Green, White)",2199.00,11,12,/static/default-item.png
+890123400575,864201060000575,"Redmi 13C 5G (Starlight Blue, 8GB/256GB)",13499.00,17,12,/static/default-item.png
+890123400576,864201060000576,"iQOO Z9 5G (Midnight Black, 8GB/128GB)",17999.00,16,12,/static/default-item.png
+890123400577,864201060000577,"Realme 12x 5G (Emerald Green, 6GB/128GB)",12999.00,18,12,/static/default-item.png
+890123400578,864201060000578,"OnePlus 12R (Starlight Blue, 16GB/256GB)",42999.00,17,12,/static/default-item.png
+890123400579,864201060000579,"iQOO Z9 5G (Glacier White, 8GB/256GB)",19999.00,16,12,/static/default-item.png
+890123400580,864201060000580,"Oppo F25 Pro 5G (Sunset Gold, 8GB/256GB)",25999.00,11,12,/static/default-item.png
+890123400581,864201060000581,"Realme C65 5G (Midnight Black, 6GB/128GB)",11999.00,9,12,/static/default-item.png
+890123400582,864201060000582,"Redmi Note 13 Pro 5G (Glacier White, 8GB/128GB)",23999.00,19,12,/static/default-item.png
+890123400583,864201060000583,"Nokia 105 Single SIM (Sunset Gold, Cyan)",1249.00,6,12,/static/default-item.png
+890123400584,864201060000584,"Lava Flip (Sunset Gold, Blue)",1999.00,14,12,/static/default-item.png
+890123400585,864201060000585,"Poco M6 Pro 5G (Sunset Gold, 4GB/128GB)",9999.00,16,12,/static/default-item.png
+890123400586,864201060000586,"Apple iPhone 15 Plus (Sunset Gold, 128GB)",75999.00,6,12,/static/default-item.png
+890123400587,864201060000587,"Vivo Y28 5G (Glacier White, 4GB/128GB)",13499.00,12,12,/static/default-item.png
+890123400588,864201060000588,"Lava Flip (Emerald Green, Red)",1999.00,18,12,/static/default-item.png
+890123400589,864201060000589,"Nokia 105 Dual SIM (Starlight Blue, Blue)",1399.00,19,12,/static/default-item.png
+890123400590,864201060000590,"OnePlus 12 (Glacier White, 12GB/256GB)",61999.00,12,12,/static/default-item.png
+890123400591,864201060000591,"JioPhone Prima 4G (Emerald Green, Yellow)",2499.00,4,12,/static/default-item.png
+890123400592,864201060000592,"Redmi Note 13 Pro 5G (Emerald Green, 8GB/128GB)",23999.00,10,12,/static/default-item.png
+890123400593,864201060000593,"Samsung Galaxy F15 5G (Purple Mist, 4GB/128GB)",11999.00,15,12,/static/default-item.png
+890123400594,864201060000594,"Samsung Galaxy A35 5G (Titanium Gray, 8GB/128GB)",27999.00,4,12,/static/default-item.png
+890123400595,864201060000595,"Vivo V30 5G (Purple Mist, 8GB/128GB)",31999.00,3,12,/static/default-item.png
+890123400596,864201060000596,"Realme 12x 5G (Purple Mist, 8GB/128GB)",13999.00,9,12,/static/default-item.png
+890123400597,864201060000597,"Samsung Galaxy M15 5G (Emerald Green, 8GB/128GB)",14999.00,12,12,/static/default-item.png
+890123400598,864201060000598,"Realme 12x 5G (Purple Mist, 6GB/128GB)",12999.00,9,12,/static/default-item.png
+890123400599,864201060000599,"OnePlus Nord CE4 Lite 5G (Emerald Green, 8GB/256GB)",20999.00,7,12,/static/default-item.png
+890123400600,864201060000600,"Vivo V30 5G (Midnight Black, 12GB/512GB)",39999.00,11,12,/static/default-item.png
+890123400601,864201060000601,"Samsung Galaxy S24 Ultra (Glacier White, 12GB/256GB)",119999.00,12,12,/static/default-item.png
+890123400602,864201060000602,"Samsung Galaxy A55 5G (Sunset Gold, 8GB/128GB)",36999.00,13,12,/static/default-item.png
+890123400603,864201060000603,"Oppo F25 Pro 5G (Midnight Black, 8GB/128GB)",23999.00,6,12,/static/default-item.png
+890123400604,864201060000604,"Itel MagicX Pro 4G (Purple Mist, Black)",2399.00,3,12,/static/default-item.png
+890123400605,864201060000605,"Samsung Galaxy M15 5G (Sunset Gold, 6GB/128GB)",13499.00,18,12,/static/default-item.png
+890123400606,864201060000606,"Poco M6 Pro 5G (Sunset Gold, 6GB/128GB)",10999.00,16,12,/static/default-item.png
+890123400607,864201060000607,"Vivo V30 5G (Glacier White, 8GB/256GB)",33999.00,8,12,/static/default-item.png
+890123400608,864201060000608,"OnePlus 12 (Midnight Black, 16GB/512GB)",67999.00,7,12,/static/default-item.png
+890123400609,864201060000609,"Redmi Note 13 5G (Glacier White, 12GB/256GB)",19999.00,15,12,/static/default-item.png
+890123400610,864201060000610,"OnePlus Nord CE4 5G (Starlight Blue, 8GB/128GB)",24999.00,20,12,/static/default-item.png
+890123400611,864201060000611,"OnePlus 12R (Emerald Green, 8GB/128GB)",37999.00,10,12,/static/default-item.png
+890123400612,864201060000612,"iQOO Neo 9 Pro (Glacier White, 12GB/256GB)",38999.00,19,12,/static/default-item.png
+890123400613,864201060000613,"Vivo T3x 5G (Emerald Green, 8GB/128GB)",15499.00,20,12,/static/default-item.png
+890123400614,864201060000614,"Samsung Galaxy S24 Ultra (Starlight Blue, 12GB/256GB)",119999.00,14,12,/static/default-item.png
+890123400615,864201060000615,"Infinix Note 40X 5G (Emerald Green, 8GB/256GB)",13499.00,5,12,/static/default-item.png
+890123400616,864201060000616,"Apple iPhone 15 Pro Max (Emerald Green, 256GB)",144999.00,15,12,/static/default-item.png
+890123400617,864201060000617,"Realme Narzo 70 Pro 5G (Sunset Gold, 8GB/256GB)",19999.00,4,12,/static/default-item.png
+890123400618,864201060000618,"Redmi Note 13 5G (Sunset Gold, 8GB/256GB)",17999.00,16,12,/static/default-item.png
+890123400619,864201060000619,"Poco X6 Pro 5G (Starlight Blue, 12GB/512GB)",25999.00,3,12,/static/default-item.png
+890123400620,864201060000620,"Samsung Galaxy S24 (Emerald Green, 8GB/256GB)",69999.00,17,12,/static/default-item.png
+890123400621,864201060000621,"Samsung Galaxy A15 5G (Emerald Green, 8GB/256GB)",21499.00,5,12,/static/default-item.png
+890123400622,864201060000622,"Nokia 105 Single SIM (Starlight Blue, Charcoal)",1249.00,13,12,/static/default-item.png
+890123400623,864201060000623,"Realme C65 5G (Purple Mist, 4GB/64GB)",9999.00,16,12,/static/default-item.png
+890123400624,864201060000624,"Nokia 105 Single SIM (Emerald Green, Charcoal)",1249.00,15,12,/static/default-item.png
+890123400625,864201060000625,"Realme 12x 5G (Titanium Gray, 8GB/128GB)",13999.00,16,12,/static/default-item.png
+890123400626,864201060000626,"Realme C65 5G (Emerald Green, 4GB/128GB)",10999.00,12,12,/static/default-item.png
+890123400627,864201060000627,"Redmi 13C 5G (Midnight Black, 6GB/128GB)",11999.00,6,12,/static/default-item.png
+890123400628,864201060000628,"Lava Flip (Glacier White, Red)",1999.00,15,12,/static/default-item.png
+890123400629,864201060000629,"Samsung Galaxy S24 Plus (Starlight Blue, 12GB/256GB)",84999.00,3,12,/static/default-item.png
+890123400630,864201060000630,"Redmi Note 13 5G (Titanium Gray, 6GB/128GB)",15999.00,13,12,/static/default-item.png
+890123400631,864201060000631,"iQOO Neo 9 Pro (Midnight Black, 8GB/128GB)",34999.00,8,12,/static/default-item.png
+890123400632,864201060000632,"OnePlus 12 (Midnight Black, 12GB/256GB)",61999.00,17,12,/static/default-item.png
+890123400633,864201060000633,"Redmi 12 5G (Midnight Black, 4GB/128GB)",11999.00,14,12,/static/default-item.png
+890123400634,864201060000634,"Samsung Galaxy A35 5G (Glacier White, 8GB/128GB)",27999.00,5,12,/static/default-item.png
+890123400635,864201060000635,"Apple iPhone 15 Plus (Glacier White, 128GB)",75999.00,16,12,/static/default-item.png
+890123400636,864201060000636,"Infinix Note 40X 5G (Purple Mist, 12GB/256GB)",14999.00,6,12,/static/default-item.png
+890123400637,864201060000637,"Redmi Note 13 Pro 5G (Starlight Blue, 8GB/128GB)",23999.00,10,12,/static/default-item.png
+890123400638,864201060000638,"Vivo T3x 5G (Titanium Gray, 4GB/128GB)",12999.00,16,12,/static/default-item.png
+890123400639,864201060000639,"Oppo Reno 11 5G (Midnight Black, 8GB/256GB)",29999.00,15,12,/static/default-item.png
+890123400640,864201060000640,"Poco X6 Pro 5G (Titanium Gray, 12GB/512GB)",25999.00,19,12,/static/default-item.png
+890123400641,864201060000641,"Oppo F25 Pro 5G (Midnight Black, 8GB/256GB)",25999.00,5,12,/static/default-item.png
+890123400642,864201060000642,"Apple iPhone 14 (Titanium Gray, 128GB)",56999.00,15,12,/static/default-item.png
+890123400643,864201060000643,"Apple iPhone 15 Pro (Titanium Gray, 128GB)",124999.00,12,12,/static/default-item.png
+890123400644,864201060000644,"Realme 12 Pro Plus 5G (Titanium Gray, 12GB/256GB)",31999.00,13,12,/static/default-item.png
+890123400645,864201060000645,"Infinix Hot 40i (Emerald Green, 8GB/128GB)",8999.00,10,12,/static/default-item.png
+890123400646,864201060000646,"Apple iPhone 14 (Emerald Green, 128GB)",56999.00,13,12,/static/default-item.png
+890123400647,864201060000647,"Apple iPhone 15 Pro Max (Glacier White, 512GB)",164999.00,8,12,/static/default-item.png
+890123400648,864201060000648,"Oppo A59 5G (Purple Mist, 4GB/128GB)",13999.00,5,12,/static/default-item.png
+890123400649,864201060000649,"Samsung Galaxy S24 (Sunset Gold, 8GB/128GB)",64999.00,19,12,/static/default-item.png
+890123400650,864201060000650,"Poco F6 5G (Starlight Blue, 12GB/256GB)",31999.00,6,12,/static/default-item.png
+890123400651,864201060000651,"Apple iPhone 15 Pro (Purple Mist, 256GB)",134999.00,19,12,/static/default-item.png
+890123400652,864201060000652,"Moto G64 5G (Starlight Blue, 8GB/128GB)",13999.00,19,12,/static/default-item.png
+890123400653,864201060000653,"iQOO Z9 5G (Emerald Green, 8GB/256GB)",19999.00,9,12,/static/default-item.png
+890123400654,864201060000654,"OnePlus Nord CE4 5G (Glacier White, 8GB/128GB)",24999.00,14,12,/static/default-item.png
+890123400655,864201060000655,"Vivo T3x 5G (Sunset Gold, 6GB/128GB)",13999.00,14,12,/static/default-item.png
+890123400656,864201060000656,"Vivo T3x 5G (Emerald Green, 6GB/128GB)",13999.00,7,12,/static/default-item.png
+890123400657,864201060000657,"Poco F6 5G (Purple Mist, 12GB/256GB)",31999.00,10,12,/static/default-item.png
+890123400658,864201060000658,"Realme C65 5G (Midnight Black, 4GB/128GB)",10999.00,6,12,/static/default-item.png
+890123400659,864201060000659,"OnePlus Nord 4 5G (Midnight Black, 8GB/128GB)",29999.00,7,12,/static/default-item.png
+890123400660,864201060000660,"Samsung Galaxy M15 5G (Glacier White, 4GB/128GB)",11999.00,11,12,/static/default-item.png
+890123400661,864201060000661,"JioPhone Prima 4G (Emerald Green, Blue)",2499.00,9,12,/static/default-item.png
+890123400662,864201060000662,"Apple iPhone 15 Pro Max (Emerald Green, 512GB)",164999.00,8,12,/static/default-item.png
+890123400663,864201060000663,"Redmi Note 13 5G (Starlight Blue, 12GB/256GB)",19999.00,7,12,/static/default-item.png
+890123400664,864201060000664,"Realme 12x 5G (Glacier White, 8GB/128GB)",13999.00,5,12,/static/default-item.png
+890123400665,864201060000665,"Redmi Note 13 5G (Midnight Black, 12GB/256GB)",19999.00,8,12,/static/default-item.png
+890123400666,864201060000666,"Realme 12 Pro Plus 5G (Purple Mist, 8GB/256GB)",29999.00,18,12,/static/default-item.png
+890123400667,864201060000667,"Samsung Galaxy A55 5G (Midnight Black, 12GB/256GB)",42999.00,17,12,/static/default-item.png
+890123400668,864201060000668,"Apple iPhone 15 (Starlight Blue, 256GB)",75999.00,17,12,/static/default-item.png
+890123400669,864201060000669,"Redmi 13C 5G (Sunset Gold, 8GB/256GB)",13499.00,13,12,/static/default-item.png
+890123400670,864201060000670,"OnePlus Nord 4 5G (Glacier White, 8GB/128GB)",29999.00,13,12,/static/default-item.png
+890123400671,864201060000671,"Samsung Galaxy A15 5G (Emerald Green, 8GB/128GB)",19499.00,7,12,/static/default-item.png
+890123400672,864201060000672,"OnePlus 12 (Titanium Gray, 16GB/512GB)",67999.00,17,12,/static/default-item.png
+890123400673,864201060000673,"Redmi 13C 5G (Midnight Black, 4GB/128GB)",10499.00,5,12,/static/default-item.png
+890123400674,864201060000674,"Poco F6 5G (Titanium Gray, 12GB/256GB)",31999.00,18,12,/static/default-item.png
+890123400675,864201060000675,"Poco F6 5G (Purple Mist, 12GB/512GB)",33999.00,17,12,/static/default-item.png
+890123400676,864201060000676,"Moto G34 5G (Titanium Gray, 8GB/128GB)",11999.00,12,12,/static/default-item.png
+890123400677,864201060000677,"Vivo T3 5G (Titanium Gray, 8GB/128GB)",18999.00,11,12,/static/default-item.png
+890123400678,864201060000678,"Apple iPhone 15 Plus (Emerald Green, 256GB)",85999.00,4,12,/static/default-item.png
+890123400679,864201060000679,"Lava Flip (Emerald Green, Blue)",1999.00,14,12,/static/default-item.png
+890123400680,864201060000680,"Nokia 105 Dual SIM (Sunset Gold, Charcoal)",1399.00,19,12,/static/default-item.png
+890123400681,864201060000681,"Apple iPhone 14 (Purple Mist, 256GB)",66999.00,5,12,/static/default-item.png
+890123400682,864201060000682,"Samsung Guru Music 2 (Purple Mist, Black)",2199.00,12,12,/static/default-item.png
+890123400683,864201060000683,"Realme 12 Pro Plus 5G (Titanium Gray, 8GB/128GB)",27999.00,17,12,/static/default-item.png
+890123400684,864201060000684,"Samsung Galaxy S24 Plus (Glacier White, 12GB/512GB)",94999.00,17,12,/static/default-item.png
+890123400685,864201060000685,"Samsung Galaxy F15 5G (Glacier White, 4GB/128GB)",11999.00,4,12,/static/default-item.png
+890123400686,864201060000686,"Poco X6 Pro 5G (Starlight Blue, 8GB/256GB)",23999.00,4,12,/static/default-item.png
+890123400687,864201060000687,"Poco M6 Pro 5G (Midnight Black, 4GB/128GB)",9999.00,14,12,/static/default-item.png
+890123400688,864201060000688,"OnePlus Nord 4 5G (Starlight Blue, 12GB/256GB)",35999.00,12,12,/static/default-item.png
+890123400689,864201060000689,"Apple iPhone 15 Pro (Starlight Blue, 256GB)",134999.00,5,12,/static/default-item.png
+890123400690,864201060000690,"Redmi 13C 5G (Glacier White, 4GB/128GB)",10499.00,5,12,/static/default-item.png
+890123400691,864201060000691,"Itel MagicX Pro 4G (Titanium Gray, Blue)",2399.00,19,12,/static/default-item.png
+890123400692,864201060000692,"Moto G34 5G (Midnight Black, 8GB/128GB)",11999.00,15,12,/static/default-item.png
+890123400693,864201060000693,"Oppo F25 Pro 5G (Titanium Gray, 8GB/128GB)",23999.00,17,12,/static/default-item.png
+890123400694,864201060000694,"JioPhone Prima 4G (Midnight Black, Blue)",2499.00,20,12,/static/default-item.png
+890123400695,864201060000695,"Samsung Guru Music 2 (Sunset Gold, Black)",2199.00,4,12,/static/default-item.png
+890123400696,864201060000696,"Itel Power 450 (Starlight Blue, Deep Blue)",1199.00,17,12,/static/default-item.png
+890123400697,864201060000697,"Samsung Galaxy S24 Ultra (Sunset Gold, 12GB/512GB)",129999.00,9,12,/static/default-item.png
+890123400698,864201060000698,"Nokia 105 Dual SIM (Glacier White, Blue)",1399.00,13,12,/static/default-item.png
+890123400699,864201060000699,"JioPhone Prima 4G (Sunset Gold, Blue)",2499.00,18,12,/static/default-item.png
+890123400700,864201060000700,"Apple iPhone 15 (Sunset Gold, 256GB)",75999.00,19,12,/static/default-item.png
+890123400701,864201060000701,"Samsung Galaxy F15 5G (Sunset Gold, 6GB/128GB)",13499.00,7,12,/static/default-item.png
+890123400702,864201060000702,"Apple iPhone 15 Plus (Purple Mist, 128GB)",75999.00,4,12,/static/default-item.png
+890123400703,864201060000703,"Redmi 13C 5G (Titanium Gray, 6GB/128GB)",11999.00,17,12,/static/default-item.png
+890123400704,864201060000704,"iQOO Z9 5G (Purple Mist, 8GB/256GB)",19999.00,6,12,/static/default-item.png
+890123400705,864201060000705,"Redmi Note 13 Pro 5G (Sunset Gold, 8GB/128GB)",23999.00,13,12,/static/default-item.png
+890123400706,864201060000706,"Poco F6 5G (Emerald Green, 12GB/256GB)",31999.00,5,12,/static/default-item.png
+890123400707,864201060000707,"OnePlus Nord CE4 Lite 5G (Glacier White, 8GB/256GB)",20999.00,19,12,/static/default-item.png
+890123400708,864201060000708,"Apple iPhone 15 Plus (Titanium Gray, 128GB)",75999.00,8,12,/static/default-item.png
+890123400709,864201060000709,"Vivo T3 5G (Sunset Gold, 8GB/256GB)",20999.00,4,12,/static/default-item.png
+890123400710,864201060000710,"Vivo V30e 5G (Emerald Green, 8GB/128GB)",25999.00,10,12,/static/default-item.png
+890123400711,864201060000711,"Realme C65 5G (Emerald Green, 4GB/64GB)",9999.00,17,12,/static/default-item.png
+890123400712,864201060000712,"OnePlus 12 (Starlight Blue, 16GB/512GB)",67999.00,17,12,/static/default-item.png
+890123400713,864201060000713,"Itel Power 450 (Emerald Green, Deep Blue)",1199.00,19,12,/static/default-item.png
+890123400714,864201060000714,"Apple iPhone 15 (Glacier White, 256GB)",75999.00,19,12,/static/default-item.png
+890123400715,864201060000715,"Itel Power 450 (Titanium Gray, Deep Blue)",1199.00,8,12,/static/default-item.png
+890123400716,864201060000716,"Samsung Galaxy S24 Plus (Sunset Gold, 12GB/512GB)",94999.00,14,12,/static/default-item.png
+890123400717,864201060000717,"Moto G34 5G (Emerald Green, 4GB/128GB)",10999.00,14,12,/static/default-item.png
+890123400718,864201060000718,"Samsung Galaxy F15 5G (Midnight Black, 6GB/128GB)",13499.00,12,12,/static/default-item.png
+890123400719,864201060000719,"Realme 12x 5G (Purple Mist, 4GB/128GB)",11999.00,15,12,/static/default-item.png
+890123400720,864201060000720,"Samsung Galaxy M15 5G (Emerald Green, 6GB/128GB)",13499.00,16,12,/static/default-item.png
+890123400721,864201060000721,"OnePlus Nord 4 5G (Starlight Blue, 8GB/256GB)",32999.00,13,12,/static/default-item.png
+890123400722,864201060000722,"Poco X6 Pro 5G (Glacier White, 8GB/256GB)",23999.00,4,12,/static/default-item.png
+890123400723,864201060000723,"Vivo Y28 5G (Starlight Blue, 4GB/128GB)",13499.00,13,12,/static/default-item.png
+890123400724,864201060000724,"Nokia 105 Single SIM (Purple Mist, Charcoal)",1249.00,5,12,/static/default-item.png
+890123400725,864201060000725,"JioPhone Prima 4G (Titanium Gray, Yellow)",2499.00,13,12,/static/default-item.png
+890123400726,864201060000726,"Vivo V30 5G (Emerald Green, 8GB/128GB)",31999.00,6,12,/static/default-item.png
+890123400727,864201060000727,"OnePlus 12R (Emerald Green, 16GB/256GB)",42999.00,20,12,/static/default-item.png
+890123400728,864201060000728,"Oppo A59 5G (Titanium Gray, 6GB/128GB)",15499.00,15,12,/static/default-item.png
+890123400729,864201060000729,"OnePlus 12R (Glacier White, 16GB/256GB)",42999.00,12,12,/static/default-item.png
+890123400730,864201060000730,"Redmi Note 13 Pro 5G (Glacier White, 12GB/256GB)",27999.00,11,12,/static/default-item.png
+890123400731,864201060000731,"Poco F6 5G (Sunset Gold, 12GB/512GB)",33999.00,7,12,/static/default-item.png
+890123400732,864201060000732,"Lava Flip (Glacier White, Blue)",1999.00,13,12,/static/default-item.png
+890123400733,864201060000733,"Redmi Note 13 Pro 5G (Midnight Black, 8GB/128GB)",23999.00,5,12,/static/default-item.png
+890123400734,864201060000734,"Samsung Guru Music 2 (Purple Mist, Gold)",2199.00,7,12,/static/default-item.png
+890123400735,864201060000735,"Redmi Note 13 Pro 5G (Sunset Gold, 12GB/256GB)",27999.00,14,12,/static/default-item.png
+890123400736,864201060000736,"Vivo Y28 5G (Purple Mist, 4GB/128GB)",13499.00,12,12,/static/default-item.png
+890123400737,864201060000737,"OnePlus Nord CE4 Lite 5G (Midnight Black, 8GB/128GB)",17999.00,15,12,/static/default-item.png
+890123400738,864201060000738,"Apple iPhone 13 (Midnight Black, 128GB)",47999.00,7,12,/static/default-item.png
+890123400739,864201060000739,"Vivo V30e 5G (Purple Mist, 8GB/256GB)",27999.00,5,12,/static/default-item.png
+890123400740,864201060000740,"OnePlus Nord 4 5G (Midnight Black, 12GB/256GB)",35999.00,12,12,/static/default-item.png
+890123400741,864201060000741,"Apple iPhone 13 (Purple Mist, 256GB)",57999.00,20,12,/static/default-item.png
+890123400742,864201060000742,"Infinix Note 40X 5G (Midnight Black, 8GB/256GB)",13499.00,15,12,/static/default-item.png
+890123400743,864201060000743,"Samsung Galaxy A15 5G (Midnight Black, 6GB/128GB)",17499.00,13,12,/static/default-item.png
+890123400744,864201060000744,"Apple iPhone 15 Pro Max (Midnight Black, 256GB)",144999.00,7,12,/static/default-item.png
+890123400745,864201060000745,"iQOO Neo 9 Pro (Purple Mist, 8GB/256GB)",36999.00,19,12,/static/default-item.png
+890123400746,864201060000746,"Infinix Hot 40i (Purple Mist, 8GB/256GB)",9999.00,5,12,/static/default-item.png
+890123400747,864201060000747,"Realme C65 5G (Titanium Gray, 4GB/64GB)",9999.00,16,12,/static/default-item.png
+890123400748,864201060000748,"Realme Narzo 70 Pro 5G (Starlight Blue, 8GB/128GB)",17999.00,19,12,/static/default-item.png
+890123400749,864201060000749,"Vivo V30 5G (Titanium Gray, 8GB/128GB)",31999.00,14,12,/static/default-item.png
+890123400750,864201060000750,"Samsung Galaxy A15 5G (Starlight Blue, 6GB/128GB)",17499.00,3,12,/static/default-item.png
+890123400751,864201060000751,"Samsung Guru Music 2 (Titanium Gray, White)",2199.00,14,12,/static/default-item.png
+890123400752,864201060000752,"Redmi Note 13 5G (Glacier White, 6GB/128GB)",15999.00,12,12,/static/default-item.png
+890123400753,864201060000753,"Realme 12x 5G (Starlight Blue, 8GB/128GB)",13999.00,8,12,/static/default-item.png
+890123400754,864201060000754,"Samsung Galaxy A15 5G (Glacier White, 8GB/128GB)",19499.00,9,12,/static/default-item.png
+890123400755,864201060000755,"Apple iPhone 15 (Starlight Blue, 512GB)",95999.00,13,12,/static/default-item.png
+890123400756,864201060000756,"Infinix Note 40X 5G (Midnight Black, 12GB/256GB)",14999.00,18,12,/static/default-item.png
+890123400757,864201060000757,"iQOO Neo 9 Pro (Glacier White, 8GB/128GB)",34999.00,9,12,/static/default-item.png
+890123400758,864201060000758,"Apple iPhone 15 (Titanium Gray, 512GB)",95999.00,10,12,/static/default-item.png
+890123400759,864201060000759,"Samsung Galaxy S24 Ultra (Titanium Gray, 12GB/512GB)",129999.00,7,12,/static/default-item.png
+890123400760,864201060000760,"Realme Narzo 70 Pro 5G (Glacier White, 8GB/128GB)",17999.00,7,12,/static/default-item.png
+890123400761,864201060000761,"Vivo T3 5G (Glacier White, 8GB/256GB)",20999.00,5,12,/static/default-item.png
+890123400762,864201060000762,"OnePlus Nord CE4 Lite 5G (Titanium Gray, 8GB/128GB)",17999.00,12,12,/static/default-item.png
+890123400763,864201060000763,"Moto G34 5G (Purple Mist, 8GB/128GB)",11999.00,6,12,/static/default-item.png
+890123400764,864201060000764,"Samsung Guru Music 2 (Starlight Blue, Black)",2199.00,19,12,/static/default-item.png
+890123400765,864201060000765,"Apple iPhone 15 Pro Max (Titanium Gray, 512GB)",164999.00,20,12,/static/default-item.png
+890123400766,864201060000766,"Poco F6 5G (Midnight Black, 12GB/512GB)",33999.00,19,12,/static/default-item.png
+890123400767,864201060000767,"Moto G64 5G (Midnight Black, 12GB/256GB)",15999.00,4,12,/static/default-item.png
+890123400768,864201060000768,"Nokia 110 4G (Glacier White, Midnight Blue)",2399.00,13,12,/static/default-item.png
+890123400769,864201060000769,"Samsung Galaxy S24 (Midnight Black, 8GB/256GB)",69999.00,7,12,/static/default-item.png
+890123400770,864201060000770,"Realme C65 5G (Glacier White, 4GB/128GB)",10999.00,15,12,/static/default-item.png
+890123400771,864201060000771,"Apple iPhone 13 (Sunset Gold, 128GB)",47999.00,7,12,/static/default-item.png
+890123400772,864201060000772,"Apple iPhone 15 (Purple Mist, 256GB)",75999.00,8,12,/static/default-item.png
+890123400773,864201060000773,"Lava Flip (Purple Mist, Red)",1999.00,8,12,/static/default-item.png
+890123400774,864201060000774,"Realme Narzo 70 Pro 5G (Midnight Black, 8GB/128GB)",17999.00,8,12,/static/default-item.png
+890123400775,864201060000775,"Apple iPhone 15 (Midnight Black, 128GB)",65999.00,17,12,/static/default-item.png
+890123400776,864201060000776,"Infinix Hot 40i (Titanium Gray, 8GB/256GB)",9999.00,4,12,/static/default-item.png
+890123400777,864201060000777,"Samsung Galaxy A55 5G (Purple Mist, 8GB/128GB)",36999.00,16,12,/static/default-item.png
+890123400778,864201060000778,"Vivo T3 5G (Starlight Blue, 8GB/128GB)",18999.00,14,12,/static/default-item.png
+890123400779,864201060000779,"Moto G34 5G (Sunset Gold, 8GB/128GB)",11999.00,10,12,/static/default-item.png
+890123400780,864201060000780,"Samsung Galaxy A55 5G (Emerald Green, 12GB/256GB)",42999.00,17,12,/static/default-item.png
+890123400781,-,Boat Airdopes 141 TWS Earbuds - Starlight Blue,1199.00,54,12,/static/default-item.png
+890123400782,-,Boat Airdopes 161 TWS Earbuds - Emerald Green,999.00,33,12,/static/default-item.png
+890123400783,-,Boat Rockerz 255 Pro+ Neckband,1299.00,43,12,/static/default-item.png
+890123400784,-,OnePlus Nord Buds 2 TWS,2499.00,29,12,/static/default-item.png
+890123400785,-,OnePlus Bullets Z2 Wireless Neckband,1799.00,49,12,/static/default-item.png
+890123400786,-,Realme Buds Air 5 Pro TWS,4499.00,30,12,/static/default-item.png
+890123400787,-,Realme Buds Wireless 3 Neckband,1699.00,34,12,/static/default-item.png
+890123400788,-,Noise ColorFit Pulse 2 Max Smartwatch,1499.00,45,12,/static/default-item.png
+890123400789,-,Fire-Boltt Ninja Call Pro Plus,1299.00,27,12,/static/default-item.png
+890123400790,-,Fastrack Limitless FS1 Smartwatch,1699.00,38,12,/static/default-item.png
+890123400791,-,Boat Wave Call Smartwatch,1399.00,58,12,/static/default-item.png
+890123400792,-,Mi 22.5W Fast Charging Power Bank 10000mAh,1299.00,51,6,/static/default-item.png
+890123400793,-,Ambrane 20000mAh Power Bank 20W Fast Charge,1799.00,43,6,/static/default-item.png
+890123400794,-,Realme 33W SuperVOOC Charger Adapter,899.00,44,6,/static/default-item.png
+890123400795,-,OnePlus 65W Warp Charge Power Adapter,1999.00,33,6,/static/default-item.png
+890123400796,-,Samsung 25W Type-C Original Fast Adapter,1299.00,39,6,/static/default-item.png
+890123400797,-,Apple 20W USB-C Power Adapter,1899.00,47,6,/static/default-item.png
+890123400798,-,Portronics Konnect Type-C Braided Cable 1M,199.00,48,6,/static/default-item.png
+890123400799,-,Boat Deuce USB-C to Lightning Cable,399.00,41,6,/static/default-item.png
+890123400800,-,Universal 11D Edge-to-Edge Tempered Glass - Purple Mist,99.00,25,0,/static/default-item.png
+890123400801,-,Matte Finish Shockproof Silicone Back Case - Midnight Black,149.00,27,0,/static/default-item.png
+890123400802,-,Ultra-Clear Transparent Gel Bumper Case - Starlight Blue,99.00,53,0,/static/default-item.png
+890123400803,-,Metal Ring Magnetic Car Phone Holder,249.00,23,3,/static/default-item.png
+890123400804,-,Sandisk 64GB Ultra MicroSDXC Memory Card,499.00,31,60,/static/default-item.png
+890123400805,-,Sandisk 128GB Ultra MicroSDXC Memory Card,899.00,18,60,/static/default-item.png
+890123400806,-,Boat Airdopes 141 TWS Earbuds - Sunset Gold,1199.00,56,12,/static/default-item.png
+890123400807,-,Boat Airdopes 161 TWS Earbuds - Purple Mist,999.00,45,12,/static/default-item.png
+890123400808,-,Boat Rockerz 255 Pro+ Neckband,1299.00,38,12,/static/default-item.png
+890123400809,-,OnePlus Nord Buds 2 TWS,2499.00,50,12,/static/default-item.png
+890123400810,-,OnePlus Bullets Z2 Wireless Neckband,1799.00,21,12,/static/default-item.png
+890123400811,-,Realme Buds Air 5 Pro TWS,4499.00,60,12,/static/default-item.png
+890123400812,-,Realme Buds Wireless 3 Neckband,1699.00,48,12,/static/default-item.png
+890123400813,-,Noise ColorFit Pulse 2 Max Smartwatch,1499.00,22,12,/static/default-item.png
+890123400814,-,Fire-Boltt Ninja Call Pro Plus,1299.00,33,12,/static/default-item.png
+890123400815,-,Fastrack Limitless FS1 Smartwatch,1699.00,20,12,/static/default-item.png
+890123400816,-,Boat Wave Call Smartwatch,1399.00,25,12,/static/default-item.png
+890123400817,-,Mi 22.5W Fast Charging Power Bank 10000mAh,1299.00,32,6,/static/default-item.png
+890123400818,-,Ambrane 20000mAh Power Bank 20W Fast Charge,1799.00,43,6,/static/default-item.png
+890123400819,-,Realme 33W SuperVOOC Charger Adapter,899.00,47,6,/static/default-item.png
+890123400820,-,OnePlus 65W Warp Charge Power Adapter,1999.00,24,6,/static/default-item.png
+890123400821,-,Samsung 25W Type-C Original Fast Adapter,1299.00,42,6,/static/default-item.png
+890123400822,-,Apple 20W USB-C Power Adapter,1899.00,20,6,/static/default-item.png
+890123400823,-,Portronics Konnect Type-C Braided Cable 1M,199.00,29,6,/static/default-item.png
+890123400824,-,Boat Deuce USB-C to Lightning Cable,399.00,43,6,/static/default-item.png
+890123400825,-,Universal 11D Edge-to-Edge Tempered Glass - Glacier White,99.00,37,0,/static/default-item.png
+890123400826,-,Matte Finish Shockproof Silicone Back Case - Titanium Gray,149.00,16,0,/static/default-item.png
+890123400827,-,Ultra-Clear Transparent Gel Bumper Case - Sunset Gold,99.00,41,0,/static/default-item.png
+890123400828,-,Metal Ring Magnetic Car Phone Holder,249.00,18,3,/static/default-item.png
+890123400829,-,Sandisk 64GB Ultra MicroSDXC Memory Card,499.00,40,60,/static/default-item.png
+890123400830,-,Sandisk 128GB Ultra MicroSDXC Memory Card,899.00,47,60,/static/default-item.png
+890123400831,-,Boat Airdopes 141 TWS Earbuds - Emerald Green,1199.00,38,12,/static/default-item.png
+890123400832,-,Boat Airdopes 161 TWS Earbuds - Glacier White,999.00,30,12,/static/default-item.png
+890123400833,-,Boat Rockerz 255 Pro+ Neckband,1299.00,39,12,/static/default-item.png
+890123400834,-,OnePlus Nord Buds 2 TWS,2499.00,20,12,/static/default-item.png
+890123400835,-,OnePlus Bullets Z2 Wireless Neckband,1799.00,38,12,/static/default-item.png
+890123400836,-,Realme Buds Air 5 Pro TWS,4499.00,29,12,/static/default-item.png
+890123400837,-,Realme Buds Wireless 3 Neckband,1699.00,16,12,/static/default-item.png
+890123400838,-,Noise ColorFit Pulse 2 Max Smartwatch,1499.00,35,12,/static/default-item.png
+890123400839,-,Fire-Boltt Ninja Call Pro Plus,1299.00,21,12,/static/default-item.png
+890123400840,-,Fastrack Limitless FS1 Smartwatch,1699.00,60,12,/static/default-item.png
+890123400841,-,Boat Wave Call Smartwatch,1399.00,56,12,/static/default-item.png
+890123400842,-,Mi 22.5W Fast Charging Power Bank 10000mAh,1299.00,36,6,/static/default-item.png
+890123400843,-,Ambrane 20000mAh Power Bank 20W Fast Charge,1799.00,24,6,/static/default-item.png
+890123400844,-,Realme 33W SuperVOOC Charger Adapter,899.00,23,6,/static/default-item.png
+890123400845,-,OnePlus 65W Warp Charge Power Adapter,1999.00,17,6,/static/default-item.png
+890123400846,-,Samsung 25W Type-C Original Fast Adapter,1299.00,33,6,/static/default-item.png
+890123400847,-,Apple 20W USB-C Power Adapter,1899.00,45,6,/static/default-item.png
+890123400848,-,Portronics Konnect Type-C Braided Cable 1M,199.00,59,6,/static/default-item.png
+890123400849,-,Boat Deuce USB-C to Lightning Cable,399.00,23,6,/static/default-item.png
+890123400850,-,Universal 11D Edge-to-Edge Tempered Glass - Midnight Black,99.00,60,0,/static/default-item.png
+890123400851,-,Matte Finish Shockproof Silicone Back Case - Starlight Blue,149.00,45,0,/static/default-item.png
+890123400852,-,Ultra-Clear Transparent Gel Bumper Case - Emerald Green,99.00,43,0,/static/default-item.png
+890123400853,-,Metal Ring Magnetic Car Phone Holder,249.00,54,3,/static/default-item.png
+890123400854,-,Sandisk 64GB Ultra MicroSDXC Memory Card,499.00,15,60,/static/default-item.png
+890123400855,-,Sandisk 128GB Ultra MicroSDXC Memory Card,899.00,20,60,/static/default-item.png
+890123400856,-,Boat Airdopes 141 TWS Earbuds - Purple Mist,1199.00,16,12,/static/default-item.png
+890123400857,-,Boat Airdopes 161 TWS Earbuds - Midnight Black,999.00,31,12,/static/default-item.png
+890123400858,-,Boat Rockerz 255 Pro+ Neckband,1299.00,28,12,/static/default-item.png
+890123400859,-,OnePlus Nord Buds 2 TWS,2499.00,24,12,/static/default-item.png
+890123400860,-,OnePlus Bullets Z2 Wireless Neckband,1799.00,50,12,/static/default-item.png
+890123400861,-,Realme Buds Air 5 Pro TWS,4499.00,53,12,/static/default-item.png
+890123400862,-,Realme Buds Wireless 3 Neckband,1699.00,48,12,/static/default-item.png
+890123400863,-,Noise ColorFit Pulse 2 Max Smartwatch,1499.00,42,12,/static/default-item.png
+890123400864,-,Fire-Boltt Ninja Call Pro Plus,1299.00,22,12,/static/default-item.png
+890123400865,-,Fastrack Limitless FS1 Smartwatch,1699.00,33,12,/static/default-item.png
+890123400866,-,Boat Wave Call Smartwatch,1399.00,30,12,/static/default-item.png
+890123400867,-,Mi 22.5W Fast Charging Power Bank 10000mAh,1299.00,34,6,/static/default-item.png
+890123400868,-,Ambrane 20000mAh Power Bank 20W Fast Charge,1799.00,22,6,/static/default-item.png
+890123400869,-,Realme 33W SuperVOOC Charger Adapter,899.00,18,6,/static/default-item.png
+890123400870,-,OnePlus 65W Warp Charge Power Adapter,1999.00,30,6,/static/default-item.png
+890123400871,-,Samsung 25W Type-C Original Fast Adapter,1299.00,41,6,/static/default-item.png
+890123400872,-,Apple 20W USB-C Power Adapter,1899.00,55,6,/static/default-item.png
+890123400873,-,Portronics Konnect Type-C Braided Cable 1M,199.00,54,6,/static/default-item.png
+890123400874,-,Boat Deuce USB-C to Lightning Cable,399.00,44,6,/static/default-item.png
+890123400875,-,Universal 11D Edge-to-Edge Tempered Glass - Titanium Gray,99.00,19,0,/static/default-item.png
+890123400876,-,Matte Finish Shockproof Silicone Back Case - Sunset Gold,149.00,22,0,/static/default-item.png
+890123400877,-,Ultra-Clear Transparent Gel Bumper Case - Purple Mist,99.00,46,0,/static/default-item.png
+890123400878,-,Metal Ring Magnetic Car Phone Holder,249.00,53,3,/static/default-item.png
+890123400879,-,Sandisk 64GB Ultra MicroSDXC Memory Card,499.00,49,60,/static/default-item.png
+890123400880,-,Sandisk 128GB Ultra MicroSDXC Memory Card,899.00,16,60,/static/default-item.png
+890123400881,-,Boat Airdopes 141 TWS Earbuds - Glacier White,1199.00,55,12,/static/default-item.png
+890123400882,-,Boat Airdopes 161 TWS Earbuds - Titanium Gray,999.00,47,12,/static/default-item.png
+890123400883,-,Boat Rockerz 255 Pro+ Neckband,1299.00,51,12,/static/default-item.png
+890123400884,-,OnePlus Nord Buds 2 TWS,2499.00,30,12,/static/default-item.png
+890123400885,-,OnePlus Bullets Z2 Wireless Neckband,1799.00,60,12,/static/default-item.png
+890123400886,-,Realme Buds Air 5 Pro TWS,4499.00,24,12,/static/default-item.png
+890123400887,-,Realme Buds Wireless 3 Neckband,1699.00,33,12,/static/default-item.png
+890123400888,-,Noise ColorFit Pulse 2 Max Smartwatch,1499.00,42,12,/static/default-item.png
+890123400889,-,Fire-Boltt Ninja Call Pro Plus,1299.00,15,12,/static/default-item.png
+890123400890,-,Fastrack Limitless FS1 Smartwatch,1699.00,54,12,/static/default-item.png
+890123400891,-,Boat Wave Call Smartwatch,1399.00,37,12,/static/default-item.png
+890123400892,-,Mi 22.5W Fast Charging Power Bank 10000mAh,1299.00,30,6,/static/default-item.png
+890123400893,-,Ambrane 20000mAh Power Bank 20W Fast Charge,1799.00,51,6,/static/default-item.png
+890123400894,-,Realme 33W SuperVOOC Charger Adapter,899.00,41,6,/static/default-item.png
+890123400895,-,OnePlus 65W Warp Charge Power Adapter,1999.00,26,6,/static/default-item.png
+890123400896,-,Samsung 25W Type-C Original Fast Adapter,1299.00,57,6,/static/default-item.png
+890123400897,-,Apple 20W USB-C Power Adapter,1899.00,57,6,/static/default-item.png
+890123400898,-,Portronics Konnect Type-C Braided Cable 1M,199.00,20,6,/static/default-item.png
+890123400899,-,Boat Deuce USB-C to Lightning Cable,399.00,48,6,/static/default-item.png
+890123400900,-,Universal 11D Edge-to-Edge Tempered Glass - Starlight Blue,99.00,38,0,/static/default-item.png
+890123400901,-,Matte Finish Shockproof Silicone Back Case - Emerald Green,149.00,19,0,/static/default-item.png
+890123400902,-,Ultra-Clear Transparent Gel Bumper Case - Glacier White,99.00,48,0,/static/default-item.png
+890123400903,-,Metal Ring Magnetic Car Phone Holder,249.00,49,3,/static/default-item.png
+890123400904,-,Sandisk 64GB Ultra MicroSDXC Memory Card,499.00,47,60,/static/default-item.png
+890123400905,-,Sandisk 128GB Ultra MicroSDXC Memory Card,899.00,47,60,/static/default-item.png
+890123400906,-,Boat Airdopes 141 TWS Earbuds - Midnight Black,1199.00,50,12,/static/default-item.png
+890123400907,-,Boat Airdopes 161 TWS Earbuds - Starlight Blue,999.00,16,12,/static/default-item.png
+890123400908,-,Boat Rockerz 255 Pro+ Neckband,1299.00,39,12,/static/default-item.png
+890123400909,-,OnePlus Nord Buds 2 TWS,2499.00,45,12,/static/default-item.png
+890123400910,-,OnePlus Bullets Z2 Wireless Neckband,1799.00,17,12,/static/default-item.png
+890123400911,-,Realme Buds Air 5 Pro TWS,4499.00,55,12,/static/default-item.png
+890123400912,-,Realme Buds Wireless 3 Neckband,1699.00,39,12,/static/default-item.png
+890123400913,-,Noise ColorFit Pulse 2 Max Smartwatch,1499.00,38,12,/static/default-item.png
+890123400914,-,Fire-Boltt Ninja Call Pro Plus,1299.00,31,12,/static/default-item.png
+890123400915,-,Fastrack Limitless FS1 Smartwatch,1699.00,16,12,/static/default-item.png
+890123400916,-,Boat Wave Call Smartwatch,1399.00,37,12,/static/default-item.png
+890123400917,-,Mi 22.5W Fast Charging Power Bank 10000mAh,1299.00,19,6,/static/default-item.png
+890123400918,-,Ambrane 20000mAh Power Bank 20W Fast Charge,1799.00,37,6,/static/default-item.png
+890123400919,-,Realme 33W SuperVOOC Charger Adapter,899.00,30,6,/static/default-item.png
+890123400920,-,OnePlus 65W Warp Charge Power Adapter,1999.00,57,6,/static/default-item.png
+890123400921,-,Samsung 25W Type-C Original Fast Adapter,1299.00,55,6,/static/default-item.png
+890123400922,-,Apple 20W USB-C Power Adapter,1899.00,21,6,/static/default-item.png
+890123400923,-,Portronics Konnect Type-C Braided Cable 1M,199.00,52,6,/static/default-item.png
+890123400924,-,Boat Deuce USB-C to Lightning Cable,399.00,36,6,/static/default-item.png
+890123400925,-,Universal 11D Edge-to-Edge Tempered Glass - Sunset Gold,99.00,23,0,/static/default-item.png
+890123400926,-,Matte Finish Shockproof Silicone Back Case - Purple Mist,149.00,17,0,/static/default-item.png
+890123400927,-,Ultra-Clear Transparent Gel Bumper Case - Midnight Black,99.00,37,0,/static/default-item.png
+890123400928,-,Metal Ring Magnetic Car Phone Holder,249.00,49,3,/static/default-item.png
+890123400929,-,Sandisk 64GB Ultra MicroSDXC Memory Card,499.00,36,60,/static/default-item.png
+890123400930,-,Sandisk 128GB Ultra MicroSDXC Memory Card,899.00,56,60,/static/default-item.png
+890123400931,-,Boat Airdopes 141 TWS Earbuds - Titanium Gray,1199.00,26,12,/static/default-item.png
+890123400932,-,Boat Airdopes 161 TWS Earbuds - Sunset Gold,999.00,58,12,/static/default-item.png
+890123400933,-,Boat Rockerz 255 Pro+ Neckband,1299.00,44,12,/static/default-item.png
+890123400934,-,OnePlus Nord Buds 2 TWS,2499.00,59,12,/static/default-item.png
+890123400935,-,OnePlus Bullets Z2 Wireless Neckband,1799.00,45,12,/static/default-item.png
+890123400936,-,Realme Buds Air 5 Pro TWS,4499.00,55,12,/static/default-item.png
+890123400937,-,Realme Buds Wireless 3 Neckband,1699.00,26,12,/static/default-item.png
+890123400938,-,Noise ColorFit Pulse 2 Max Smartwatch,1499.00,23,12,/static/default-item.png
+890123400939,-,Fire-Boltt Ninja Call Pro Plus,1299.00,19,12,/static/default-item.png
+890123400940,-,Fastrack Limitless FS1 Smartwatch,1699.00,60,12,/static/default-item.png
+890123400941,-,Boat Wave Call Smartwatch,1399.00,44,12,/static/default-item.png
+890123400942,-,Mi 22.5W Fast Charging Power Bank 10000mAh,1299.00,17,6,/static/default-item.png
+890123400943,-,Ambrane 20000mAh Power Bank 20W Fast Charge,1799.00,33,6,/static/default-item.png
+890123400944,-,Realme 33W SuperVOOC Charger Adapter,899.00,27,6,/static/default-item.png
+890123400945,-,OnePlus 65W Warp Charge Power Adapter,1999.00,17,6,/static/default-item.png
+890123400946,-,Samsung 25W Type-C Original Fast Adapter,1299.00,27,6,/static/default-item.png
+890123400947,-,Apple 20W USB-C Power Adapter,1899.00,17,6,/static/default-item.png
+890123400948,-,Portronics Konnect Type-C Braided Cable 1M,199.00,35,6,/static/default-item.png
+890123400949,-,Boat Deuce USB-C to Lightning Cable,399.00,34,6,/static/default-item.png
+890123400950,-,Universal 11D Edge-to-Edge Tempered Glass - Emerald Green,99.00,47,0,/static/default-item.png
+890123400951,-,Matte Finish Shockproof Silicone Back Case - Glacier White,149.00,40,0,/static/default-item.png
+890123400952,-,Ultra-Clear Transparent Gel Bumper Case - Titanium Gray,99.00,49,0,/static/default-item.png
+890123400953,-,Metal Ring Magnetic Car Phone Holder,249.00,45,3,/static/default-item.png
+890123400954,-,Sandisk 64GB Ultra MicroSDXC Memory Card,499.00,31,60,/static/default-item.png
+890123400955,-,Sandisk 128GB Ultra MicroSDXC Memory Card,899.00,17,60,/static/default-item.png
+890123400956,-,Boat Airdopes 141 TWS Earbuds - Starlight Blue,1199.00,56,12,/static/default-item.png
+890123400957,-,Boat Airdopes 161 TWS Earbuds - Emerald Green,999.00,27,12,/static/default-item.png
+890123400958,-,Boat Rockerz 255 Pro+ Neckband,1299.00,33,12,/static/default-item.png
+890123400959,-,OnePlus Nord Buds 2 TWS,2499.00,37,12,/static/default-item.png
+890123400960,-,OnePlus Bullets Z2 Wireless Neckband,1799.00,18,12,/static/default-item.png
+890123400961,-,Realme Buds Air 5 Pro TWS,4499.00,56,12,/static/default-item.png
+890123400962,-,Realme Buds Wireless 3 Neckband,1699.00,36,12,/static/default-item.png
+890123400963,-,Noise ColorFit Pulse 2 Max Smartwatch,1499.00,32,12,/static/default-item.png
+890123400964,-,Fire-Boltt Ninja Call Pro Plus,1299.00,22,12,/static/default-item.png
+890123400965,-,Fastrack Limitless FS1 Smartwatch,1699.00,38,12,/static/default-item.png
+890123400966,-,Boat Wave Call Smartwatch,1399.00,42,12,/static/default-item.png
+890123400967,-,Mi 22.5W Fast Charging Power Bank 10000mAh,1299.00,40,6,/static/default-item.png
+890123400968,-,Ambrane 20000mAh Power Bank 20W Fast Charge,1799.00,43,6,/static/default-item.png
+890123400969,-,Realme 33W SuperVOOC Charger Adapter,899.00,39,6,/static/default-item.png
+890123400970,-,OnePlus 65W Warp Charge Power Adapter,1999.00,36,6,/static/default-item.png
+890123400971,-,Samsung 25W Type-C Original Fast Adapter,1299.00,26,6,/static/default-item.png
+890123400972,-,Apple 20W USB-C Power Adapter,1899.00,46,6,/static/default-item.png
+890123400973,-,Portronics Konnect Type-C Braided Cable 1M,199.00,59,6,/static/default-item.png
+890123400974,-,Boat Deuce USB-C to Lightning Cable,399.00,46,6,/static/default-item.png
+890123400975,-,Universal 11D Edge-to-Edge Tempered Glass - Purple Mist,99.00,38,0,/static/default-item.png
+890123400976,-,Matte Finish Shockproof Silicone Back Case - Midnight Black,149.00,48,0,/static/default-item.png
+890123400977,-,Ultra-Clear Transparent Gel Bumper Case - Starlight Blue,99.00,32,0,/static/default-item.png
+890123400978,-,Metal Ring Magnetic Car Phone Holder,249.00,20,3,/static/default-item.png
+890123400979,-,Sandisk 64GB Ultra MicroSDXC Memory Card,499.00,42,60,/static/default-item.png
+890123400980,-,Sandisk 128GB Ultra MicroSDXC Memory Card,899.00,20,60,/static/default-item.png
+890123400981,-,Boat Airdopes 141 TWS Earbuds - Sunset Gold,1199.00,42,12,/static/default-item.png
+890123400982,-,Boat Airdopes 161 TWS Earbuds - Purple Mist,999.00,53,12,/static/default-item.png
+890123400983,-,Boat Rockerz 255 Pro+ Neckband,1299.00,26,12,/static/default-item.png
+890123400984,-,OnePlus Nord Buds 2 TWS,2499.00,49,12,/static/default-item.png
+890123400985,-,OnePlus Bullets Z2 Wireless Neckband,1799.00,33,12,/static/default-item.png
+890123400986,-,Realme Buds Air 5 Pro TWS,4499.00,35,12,/static/default-item.png
+890123400987,-,Realme Buds Wireless 3 Neckband,1699.00,21,12,/static/default-item.png
+890123400988,-,Noise ColorFit Pulse 2 Max Smartwatch,1499.00,20,12,/static/default-item.png
+890123400989,-,Fire-Boltt Ninja Call Pro Plus,1299.00,35,12,/static/default-item.png
+890123400990,-,Fastrack Limitless FS1 Smartwatch,1699.00,57,12,/static/default-item.png
+890123400991,-,Boat Wave Call Smartwatch,1399.00,33,12,/static/default-item.png
+890123400992,-,Mi 22.5W Fast Charging Power Bank 10000mAh,1299.00,34,6,/static/default-item.png
+890123400993,-,Ambrane 20000mAh Power Bank 20W Fast Charge,1799.00,43,6,/static/default-item.png
+890123400994,-,Realme 33W SuperVOOC Charger Adapter,899.00,53,6,/static/default-item.png
+890123400995,-,OnePlus 65W Warp Charge Power Adapter,1999.00,60,6,/static/default-item.png
+890123400996,-,Samsung 25W Type-C Original Fast Adapter,1299.00,42,6,/static/default-item.png
+890123400997,-,Apple 20W USB-C Power Adapter,1899.00,25,6,/static/default-item.png
+890123400998,-,Portronics Konnect Type-C Braided Cable 1M,199.00,59,6,/static/default-item.png
+890123400999,-,Boat Deuce USB-C to Lightning Cable,399.00,43,6,/static/default-item.png
+890123401000,-,Universal 11D Edge-to-Edge Tempered Glass - Glacier White,99.00,37,0,/static/default-item.png
