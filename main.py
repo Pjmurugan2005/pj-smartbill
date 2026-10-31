@@ -28,29 +28,24 @@ import auth
 
 db.init_db()
 
-# Upload directory setup
 UPLOAD_DIR = os.path.join("static", "uploads")
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
-# Rate Limiter setup
 limiter = Limiter(key_func=get_remote_address)
-app = FastAPI(title="PJ SmartBill POS Enterprise")
+app = FastAPI(title="PJ SmartBill POS Multi-Enterprise")
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
-# Mount static folder for uploads and assets
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
-# Credentials & Environment Variables (Render-la irundhu load aagum, illana default use pannum)
 SMTP_EMAIL = os.getenv("SMTP_EMAIL", "jeyamuruganmurugan765@gmail.com")
 SMTP_PASSWORD = os.getenv("SMTP_PASSWORD", "luta yqru mqhw uobn")
 
-RAZORPAY_KEY_ID = os.getenv("RAZORPAY_KEY_ID", "rzp_test_1DP5mmOlF5G5ag")
-RAZORPAY_KEY_SECRET = os.getenv("RAZORPAY_KEY_SECRET", "dummy_secret_for_now")
+RAZORPAY_KEY_ID = os.getenv("RAZORPAY_KEY_ID", "rzp_live_TuNjkOUAdy8c23")
+RAZORPAY_KEY_SECRET = os.getenv("RAZORPAY_KEY_SECRET", "CNe327TPx4eAkaMsMpC3HIYW")
 rzp_client = razorpay.Client(auth=(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET))
 
-# ----------------- SECURITY HEADERS MIDDLEWARE -----------------
 @app.middleware("http")
 async def add_security_headers(request: Request, call_next):
     response = await call_next(request)
@@ -85,10 +80,10 @@ def send_real_email_otp(to_email: str, otp: str, shop_name: str):
         html_body = f"""
         <div style="font-family: Arial, sans-serif; max-width: 520px; margin: auto; padding: 25px; border: 1px solid #e2e8f0; border-radius: 16px; background: #ffffff;">
           <h2 style="color: #059669; text-align: center; margin-bottom: 4px;">🧾 PJ SmartBill POS</h2>
-          <p style="text-align: center; color: #64748b; font-size: 13px; margin-top: 0;">Departmental Store Retail System</p>
+          <p style="text-align: center; color: #64748b; font-size: 13px; margin-top: 0;">Multi-Enterprise Cloud Billing</p>
           <hr style="border: none; border-top: 1px solid #f1f5f9; margin: 20px 0;">
           <p style="font-size: 14px; color: #334155;">Hello,</p>
-          <p style="font-size: 14px; color: #334155;">Your verification code for <b>{shop_name}</b> store registration is:</p>
+          <p style="font-size: 14px; color: #334155;">Your verification code for <b>{shop_name}</b> is:</p>
           <div style="text-align: center; margin: 25px 0;">
             <span style="display: inline-block; font-size: 34px; font-weight: 900; letter-spacing: 8px; color: #0f172a; background: #ecfdf5; padding: 12px 28px; border-radius: 12px; border: 2px dashed #059669;">{otp}</span>
           </div>
@@ -106,7 +101,7 @@ def send_real_email_otp(to_email: str, otp: str, shop_name: str):
         print(f"[SMTP Error]: {e}")
         return False
 
-# ----------------- PYDANTIC SCHEMAS -----------------
+# ----------------- SCHEMAS -----------------
 class RegisterInitiatePayload(BaseModel):
     shop_name: str
     email: str
@@ -122,11 +117,9 @@ class LoginPayload(BaseModel):
     identifier: str
     password: str
 
-class ProductPayload(BaseModel):
-    barcode: Optional[str] = ""
-    name: str
-    price: float
-    stock: int
+class StoreSetupPayload(BaseModel):
+    address: str
+    store_type: str  # 'DEPARTMENT' or 'MOBILE'
 
 class CartItem(BaseModel):
     product_id: int
@@ -135,16 +128,18 @@ class CartItem(BaseModel):
 class BillPayload(BaseModel):
     customer_name: Optional[str] = "Walk-in"
     customer_phone: Optional[str] = ""
+    customer_address: Optional[str] = ""
+    customer_gstin: Optional[str] = ""
     discount: float = 0.0
     payment_mode: str = "Cash"
     items: List[CartItem]
 
-class SubscriptionVerifyPayload(BaseModel):
-    payment_id: str
-    plan: str
+class VerifyPaymentPayload(BaseModel):
+    razorpay_order_id: str
+    razorpay_payment_id: str
+    razorpay_signature: str
 
 # ----------------- ROUTES -----------------
-
 @app.get("/", response_class=HTMLResponse)
 def index(request: Request):
     return templates.TemplateResponse(
@@ -153,7 +148,6 @@ def index(request: Request):
         context={"rzp_key": RAZORPAY_KEY_ID}
     )
 
-# --- Register Step 1: Send Real Email OTP (Rate limited to prevent bot abuse) ---
 @app.post("/api/auth/register-initiate")
 @limiter.limit("3/minute")
 def register_initiate(request: Request, data: RegisterInitiatePayload, session: Session = Depends(get_db)):
@@ -198,7 +192,6 @@ def register_initiate(request: Request, data: RegisterInitiatePayload, session: 
     send_real_email_otp(email, otp, shop_name)
     return {"message": f"Verification code sent to {email}!", "email": email}
 
-# --- Register Step 2: Verify Real OTP ---
 @app.post("/api/auth/register-verify")
 def register_verify(data: VerifyRegisterOTPPayload, response: Response, session: Session = Depends(get_db)):
     email = data.email.strip().lower()
@@ -214,7 +207,6 @@ def register_verify(data: VerifyRegisterOTPPayload, response: Response, session:
     response.set_cookie(key="access_token", value=token, httponly=True, max_age=86400 * 7, samesite="lax")
     return {"shop_name": user.shop_name, "message": "Registered successfully!"}
 
-# --- Direct Login (Rate limited against brute-force) ---
 @app.post("/api/auth/login")
 @limiter.limit("5/minute")
 def login(request: Request, data: LoginPayload, response: Response, session: Session = Depends(get_db)):
@@ -250,7 +242,8 @@ def check_me(user: Optional[db.User] = Depends(get_current_user)):
         "shop_name": user.shop_name,
         "email": user.email,
         "phone": user.phone,
-        "address": getattr(user, "address", "Main Bazaar, Sayalgudi, Tamil Nadu"),
+        "address": user.address or "",
+        "store_type": user.store_type or "",
         "profile_image": getattr(user, "profile_image", "/static/default-shop.png"),
         "is_subscribed": is_active,
         "subscription_plan": user.subscription_plan,
@@ -258,13 +251,28 @@ def check_me(user: Optional[db.User] = Depends(get_current_user)):
         "subscription_end": user.subscription_end.strftime("%d %b %Y") if user.subscription_end else None
     }
 
-# --- Profile Update (Shop Name, Photo, Phone, Email, Address) ---
+# --- Onboarding Store Setup (Address + Store Type Selection) ---
+@app.post("/api/user/store-setup")
+def setup_store(data: StoreSetupPayload, user: db.User = Depends(get_current_user), session: Session = Depends(get_db)):
+    if not user:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+
+    if data.store_type not in ["DEPARTMENT", "MOBILE"]:
+        raise HTTPException(status_code=400, detail="Invalid store type selected")
+
+    user.address = data.address.strip()
+    user.store_type = data.store_type
+    session.commit()
+    return {"status": "success", "message": "Store configuration saved!", "store_type": user.store_type}
+
+# --- Profile Update ---
 @app.post("/api/user/profile-update")
 def update_profile(
     shop_name: str = Form(...),
     phone: str = Form(...),
     email: str = Form(...),
     address: str = Form(...),
+    store_type: Optional[str] = Form(None),
     photo: Optional[UploadFile] = File(None),
     user: db.User = Depends(get_current_user),
     session: Session = Depends(get_db)
@@ -275,8 +283,9 @@ def update_profile(
     user.shop_name = shop_name.strip()
     user.phone = phone.strip()
     user.email = email.strip()
-    if hasattr(user, "address"):
-        user.address = address.strip()
+    user.address = address.strip()
+    if store_type in ["DEPARTMENT", "MOBILE"]:
+        user.store_type = store_type
 
     profile_img_url = getattr(user, "profile_image", "/static/default-shop.png")
     if photo and photo.filename:
@@ -285,8 +294,7 @@ def update_profile(
         with open(filepath, "wb") as buffer:
             shutil.copyfileobj(photo.file, buffer)
         profile_img_url = f"/{filepath}"
-        if hasattr(user, "profile_image"):
-            user.profile_image = profile_img_url
+        user.profile_image = profile_img_url
 
     session.commit()
     session.refresh(user)
@@ -295,27 +303,71 @@ def update_profile(
         "status": "success",
         "message": "Store profile updated successfully",
         "shop_name": user.shop_name,
-        "profile_image": profile_img_url
+        "profile_image": profile_img_url,
+        "store_type": user.store_type
     }
 
-# --- Subscription Paywall Activation ---
-@app.post("/api/subscription/activate")
-def activate_subscription(data: SubscriptionVerifyPayload, user: db.User = Depends(get_current_user), session: Session = Depends(get_db)):
+# --- Razorpay Order & Verify ---
+@app.post("/api/subscription/create-order")
+def create_subscription_order(user: db.User = Depends(get_current_user)):
     if not user:
         raise HTTPException(status_code=401, detail="Unauthorized")
 
+    order_payload = {
+        "amount": 100,  # ₹1.00 in paise
+        "currency": "INR",
+        "receipt": f"sub_rcpt_{user.id}_{int(datetime.utcnow().timestamp())}",
+        "notes": {
+            "user_id": str(user.id),
+            "email": user.email,
+            "plan": "TRIAL_1RS_THEN_299",
+            "store_type": user.store_type or "DEPARTMENT"
+        }
+    }
+    try:
+        order = rzp_client.order.create(data=order_payload)
+        return {
+            "order_id": order["id"],
+            "amount": order["amount"],
+            "currency": order["currency"],
+            "key": RAZORPAY_KEY_ID
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Razorpay Order Error: {str(e)}")
+
+@app.post("/api/subscription/verify-payment")
+def verify_payment(
+    data: VerifyPaymentPayload,
+    user: db.User = Depends(get_current_user),
+    session: Session = Depends(get_db)
+):
+    if not user:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+
+    params_dict = {
+        'razorpay_order_id': data.razorpay_order_id,
+        'razorpay_payment_id': data.razorpay_payment_id,
+        'razorpay_signature': data.razorpay_signature
+    }
+
+    try:
+        rzp_client.utility.verify_payment_signature(params_dict)
+    except razorpay.errors.SignatureVerificationError:
+        raise HTTPException(status_code=400, detail="Payment signature verification failed!")
+
     user.is_subscribed = True
-    user.subscription_plan = data.plan
+    user.subscription_plan = "TRIAL_1RS"
     user.subscription_end = datetime.utcnow() + timedelta(days=30)
-    user.razorpay_subscription_id = data.payment_id
+    user.razorpay_subscription_id = data.razorpay_payment_id
     session.commit()
 
     return {
-        "message": "Subscription activated! Store is unlocked for 30 days.",
+        "status": "success",
+        "message": "Payment verified! Store unlocked for 30 days.",
         "subscription_end": user.subscription_end.strftime("%d %b %Y")
     }
 
-# --- Products APIs ---
+# --- Products APIs (With IMEI / Warranty for Mobile Shop) ---
 @app.get("/api/products")
 def get_products(user: db.User = Depends(get_current_user), session: Session = Depends(get_db)):
     if not user:
@@ -325,21 +377,24 @@ def get_products(user: db.User = Depends(get_current_user), session: Session = D
     for p in prods:
         results.append({
             "id": p.id,
-            "barcode": p.barcode,
+            "barcode": p.barcode or "",
+            "imei_serial": p.imei_serial or "",
             "name": p.name,
             "price": p.price,
             "stock": p.stock,
+            "warranty_months": p.warranty_months or 0,
             "image_url": getattr(p, "image_url", "/static/default-item.png")
         })
     return results
 
-# Add Product with Optional Image File
 @app.post("/api/products/create")
 def add_product_with_image(
     barcode: Optional[str] = Form(""),
+    imei_serial: Optional[str] = Form(""),
     name: str = Form(...),
     price: float = Form(...),
     stock: int = Form(...),
+    warranty_months: Optional[int] = Form(0),
     image: Optional[UploadFile] = File(None),
     user: db.User = Depends(get_current_user),
     session: Session = Depends(get_db)
@@ -348,10 +403,7 @@ def add_product_with_image(
         raise HTTPException(status_code=401, detail="Unauthorized")
 
     clean_barcode = barcode.strip() if barcode else None
-    if clean_barcode:
-        existing = session.query(db.Product).filter(db.Product.user_id == user.id, db.Product.barcode == clean_barcode).first()
-        if existing:
-            raise HTTPException(status_code=400, detail=f"Barcode ({clean_barcode}) already exists for '{existing.name}'!")
+    clean_imei = imei_serial.strip() if imei_serial else None
 
     image_url = "/static/default-item.png"
     if image and image.filename:
@@ -364,41 +416,27 @@ def add_product_with_image(
     prod = db.Product(
         user_id=user.id,
         barcode=clean_barcode,
+        imei_serial=clean_imei,
         name=name.strip(),
         price=price,
-        stock=stock
+        stock=stock,
+        warranty_months=warranty_months or 0,
+        image_url=image_url
     )
-    if hasattr(prod, "image_url"):
-        prod.image_url = image_url
-
     session.add(prod)
     session.commit()
     return {"message": "Product saved successfully!"}
 
-# Standard JSON Product Add
-@app.post("/api/products")
-def add_product(item: ProductPayload, user: db.User = Depends(get_current_user), session: Session = Depends(get_db)):
+@app.delete("/api/products/{prod_id}")
+def delete_product(prod_id: int, user: db.User = Depends(get_current_user), session: Session = Depends(get_db)):
     if not user:
         raise HTTPException(status_code=401, detail="Unauthorized")
-    
-    clean_barcode = item.barcode.strip() if item.barcode else None
-    if clean_barcode:
-        existing = session.query(db.Product).filter(db.Product.user_id == user.id, db.Product.barcode == clean_barcode).first()
-        if existing:
-            raise HTTPException(status_code=400, detail=f"Barcode ({clean_barcode}) already assigned to '{existing.name}'!")
+    prod = session.query(db.Product).filter(db.Product.id == prod_id, db.Product.user_id == user.id).first()
+    if prod:
+        session.delete(prod)
+        session.commit()
+    return {"message": "Deleted"}
 
-    prod = db.Product(
-        user_id=user.id,
-        barcode=clean_barcode,
-        name=item.name.strip(),
-        price=item.price,
-        stock=item.stock
-    )
-    session.add(prod)
-    session.commit()
-    return {"message": "Product added successfully!"}
-
-# Bulk CSV Dataset Upload API
 @app.post("/api/products/import-csv")
 async def import_products_csv(
     file: UploadFile = File(...),
@@ -417,65 +455,35 @@ async def import_products_csv(
     count = 0
     for row in reader:
         bcode = row.get("barcode", "").strip() or None
+        imei = row.get("imei_serial", "").strip() or None
         pname = row.get("name", "").strip()
         if not pname:
             continue
 
-        existing = None
-        if bcode:
-            existing = session.query(db.Product).filter(db.Product.user_id == user.id, db.Product.barcode == bcode).first()
-
-        if not existing:
-            new_p = db.Product(
-                user_id=user.id,
-                barcode=bcode,
-                name=pname,
-                price=float(row.get("price", 0.0) or 0.0),
-                stock=int(row.get("stock", 100) or 100)
-            )
-            if hasattr(new_p, "image_url"):
-                new_p.image_url = row.get("image_url", "/static/default-item.png").strip()
-            session.add(new_p)
-            count += 1
+        new_p = db.Product(
+            user_id=user.id,
+            barcode=bcode,
+            imei_serial=imei,
+            name=pname,
+            price=float(row.get("price", 0.0) or 0.0),
+            stock=int(row.get("stock", 100) or 100),
+            warranty_months=int(row.get("warranty_months", 0) or 0),
+            image_url=row.get("image_url", "/static/default-item.png").strip()
+        )
+        session.add(new_p)
+        count += 1
 
     session.commit()
     return {"status": "success", "message": f"Successfully imported {count} items into catalog!"}
 
-@app.put("/api/products/{prod_id}")
-def update_product(prod_id: int, item: ProductPayload, user: db.User = Depends(get_current_user), session: Session = Depends(get_db)):
-    if not user:
-        raise HTTPException(status_code=401, detail="Unauthorized")
-    prod = session.query(db.Product).filter(db.Product.id == prod_id, db.Product.user_id == user.id).first()
-    if not prod:
-        raise HTTPException(status_code=404, detail="Product not found!")
-    
-    clean_barcode = item.barcode.strip() if item.barcode else None
-    prod.barcode = clean_barcode
-    prod.name = item.name.strip()
-    prod.price = item.price
-    prod.stock = item.stock
-    session.commit()
-    return {"message": "Product updated successfully!"}
-
-@app.delete("/api/products/{prod_id}")
-def delete_product(prod_id: int, user: db.User = Depends(get_current_user), session: Session = Depends(get_db)):
-    if not user:
-        raise HTTPException(status_code=401, detail="Unauthorized")
-    prod = session.query(db.Product).filter(db.Product.id == prod_id, db.Product.user_id == user.id).first()
-    if prod:
-        session.delete(prod)
-        session.commit()
-    return {"message": "Deleted"}
-
-# --- POS Billing Checkout ---
+# --- POS Billing Checkout (Thermal or A4 Invoice with GST) ---
 @app.post("/api/checkout")
 def checkout(payload: BillPayload, user: db.User = Depends(get_current_user), session: Session = Depends(get_db)):
     if not user:
         raise HTTPException(status_code=401, detail="Unauthorized")
     
-    # 30-Day Paywall check
     if not user.is_subscribed or (user.subscription_end and datetime.utcnow() > user.subscription_end):
-        raise HTTPException(status_code=403, detail="Subscription expired! Please renew your plan to continue billing.")
+        raise HTTPException(status_code=403, detail="Subscription expired! Please renew your plan.")
 
     subtotal = 0.0
     items_to_save = []
@@ -483,18 +491,34 @@ def checkout(payload: BillPayload, user: db.User = Depends(get_current_user), se
     for itm in payload.items:
         p = session.query(db.Product).filter(db.Product.id == itm.product_id, db.Product.user_id == user.id).first()
         if not p:
-            raise HTTPException(status_code=404, detail="Product not found in store catalog!")
+            raise HTTPException(status_code=404, detail="Product not found!")
         if p.stock < itm.quantity:
             raise HTTPException(status_code=400, detail=f"Insufficient stock for '{p.name}'! (Available: {p.stock})")
         
         amt = round(p.price * itm.quantity, 2)
         subtotal += amt
-        items_to_save.append({"obj": p, "barcode": p.barcode or "-", "name": p.name, "price": p.price, "qty": itm.quantity, "amt": amt})
+        items_to_save.append({
+            "obj": p,
+            "barcode": p.barcode or "-",
+            "imei_serial": p.imei_serial or "-",
+            "warranty_months": p.warranty_months or 0,
+            "name": p.name,
+            "price": p.price,
+            "qty": itm.quantity,
+            "amt": amt
+        })
+
+    is_mobile_shop = (user.store_type == "MOBILE")
+    tax_amount = 0.0
+    if is_mobile_shop:
+        # 18% GST calculation (Included in selling price for standard billing: Price / 1.18)
+        base_subtotal = round(subtotal / 1.18, 2)
+        tax_amount = round(subtotal - base_subtotal, 2)
 
     total = max(0.0, round(subtotal - payload.discount, 2))
-    invoice_no = f"POS-{datetime.now().strftime('%y%m%d')}-{uuid4().hex[:4].upper()}"
+    prefix = "MOB" if is_mobile_shop else "POS"
+    invoice_no = f"{prefix}-{datetime.now().strftime('%y%m%d')}-{uuid4().hex[:4].upper()}"
 
-    # Deduct stock
     for itm in items_to_save:
         itm["obj"].stock -= itm["qty"]
 
@@ -503,11 +527,15 @@ def checkout(payload: BillPayload, user: db.User = Depends(get_current_user), se
         invoice_no=invoice_no,
         customer_name=payload.customer_name or "Walk-in Customer",
         customer_phone=payload.customer_phone or "N/A",
+        customer_address=payload.customer_address or "",
+        customer_gstin=payload.customer_gstin or "",
         subtotal=subtotal,
+        tax_amount=tax_amount,
         discount=payload.discount,
         total=total,
         payment_mode=payload.payment_mode,
-        payment_status="PAID"
+        payment_status="PAID",
+        invoice_type="A4" if is_mobile_shop else "THERMAL"
     )
     session.add(bill)
     session.commit()
@@ -517,6 +545,7 @@ def checkout(payload: BillPayload, user: db.User = Depends(get_current_user), se
         session.add(db.BillItem(
             bill_id=bill.id,
             barcode=itm["barcode"],
+            imei_serial=itm["imei_serial"],
             product_name=itm["name"],
             price=itm["price"],
             quantity=itm["qty"],
@@ -529,13 +558,27 @@ def checkout(payload: BillPayload, user: db.User = Depends(get_current_user), se
         "date": bill.created_at.strftime("%d-%m-%Y %I:%M %p"),
         "customer_name": bill.customer_name,
         "customer_phone": bill.customer_phone,
+        "customer_address": bill.customer_address,
+        "customer_gstin": bill.customer_gstin,
         "subtotal": subtotal,
+        "tax_amount": tax_amount,
         "discount": bill.discount,
         "total": total,
         "payment_mode": payload.payment_mode,
         "shop_name": user.shop_name,
+        "shop_address": user.address or "Tamil Nadu, India",
         "phone": user.phone,
-        "items": [{"barcode": i["barcode"], "name": i["name"], "price": i["price"], "qty": i["qty"], "amt": i["amt"]} for i in items_to_save]
+        "store_type": user.store_type,
+        "invoice_type": bill.invoice_type,
+        "items": [{
+            "barcode": i["barcode"],
+            "imei_serial": i["imei_serial"],
+            "warranty_months": i["warranty_months"],
+            "name": i["name"],
+            "price": i["price"],
+            "qty": i["qty"],
+            "amt": i["amt"]
+        } for i in items_to_save]
     }
 
 # --- Analytics Dashboard ---
@@ -559,13 +602,19 @@ def get_dashboard(user: db.User = Depends(get_current_user), session: Session = 
             "date": b.created_at.strftime("%d-%m-%Y %I:%M %p"),
             "customer_name": b.customer_name,
             "customer_phone": b.customer_phone,
+            "customer_address": b.customer_address,
+            "customer_gstin": b.customer_gstin,
             "subtotal": b.subtotal,
+            "tax_amount": b.tax_amount,
             "discount": b.discount,
             "total": b.total,
             "payment_mode": b.payment_mode,
             "shop_name": user.shop_name,
+            "shop_address": user.address or "Tamil Nadu, India",
             "phone": user.phone,
-            "items": [{"barcode": it.barcode or "-", "name": it.product_name, "price": it.price, "qty": it.quantity, "amt": it.amount} for it in items]
+            "store_type": user.store_type,
+            "invoice_type": b.invoice_type,
+            "items": [{"barcode": it.barcode or "-", "imei_serial": it.imei_serial or "-", "name": it.product_name, "price": it.price, "qty": it.quantity, "amt": it.amount} for it in items]
         })
 
     return {

@@ -6,7 +6,6 @@ from sqlalchemy.orm import sessionmaker, relationship
 
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./pj_smartbill.db")
 
-# SQLAlchemy 2.0 Render PostgreSQL fix
 if DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
@@ -24,7 +23,8 @@ class User(Base):
     shop_name = Column(String(150), default="PJ Smart Store")
     email = Column(String(120), unique=True, index=True, nullable=False)
     phone = Column(String(20), unique=True, index=True, nullable=True)
-    address = Column(Text, default="Main Bazaar, Sayalgudi, Tamil Nadu")
+    address = Column(Text, default="")
+    store_type = Column(String(50), default="")  # 'DEPARTMENT' or 'MOBILE'
     profile_image = Column(String(255), default="/static/default-shop.png")
     password_hash = Column(String(255), nullable=False)
     is_verified = Column(Boolean, default=False)
@@ -44,9 +44,11 @@ class Product(Base):
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
     barcode = Column(String(64), index=True, nullable=True)
+    imei_serial = Column(String(64), index=True, nullable=True)
     name = Column(String(200), nullable=False)
     price = Column(Float, default=0.0)
     stock = Column(Integer, default=0)
+    warranty_months = Column(Integer, default=0)
     image_url = Column(String(255), default="/static/default-item.png")
     created_at = Column(DateTime, default=datetime.utcnow)
 
@@ -59,11 +61,15 @@ class Bill(Base):
     invoice_no = Column(String(64), unique=True, index=True)
     customer_name = Column(String(100), default="Walk-in Customer")
     customer_phone = Column(String(20), default="N/A")
+    customer_address = Column(String(255), default="")
+    customer_gstin = Column(String(50), default="")
     subtotal = Column(Float, default=0.0)
+    tax_amount = Column(Float, default=0.0)
     discount = Column(Float, default=0.0)
     total = Column(Float, default=0.0)
     payment_mode = Column(String(20), default="Cash")
     payment_status = Column(String(20), default="PAID")
+    invoice_type = Column(String(20), default="THERMAL")  # 'THERMAL' or 'A4'
     created_at = Column(DateTime, default=datetime.utcnow)
 
     user = relationship("User", back_populates="bills")
@@ -74,6 +80,7 @@ class BillItem(Base):
     id = Column(Integer, primary_key=True, index=True)
     bill_id = Column(Integer, ForeignKey("bills.id"))
     barcode = Column(String(64), default="-")
+    imei_serial = Column(String(64), default="-")
     product_name = Column(String(200), nullable=False)
     price = Column(Float, default=0.0)
     quantity = Column(Integer, default=1)
