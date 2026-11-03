@@ -108,9 +108,17 @@ def require_active_subscription(user: db.User = Depends(get_current_user)):
     return user
 
 def send_real_email_otp(to_email: str, otp: str, shop_name: str) -> bool:
+    # Render-la irundhu runtime-la fresh-aa values edukkum (Rendu names-um check pannum)
+    smtp_email = (os.getenv("SMTP_EMAIL") or os.getenv("GMAIL_USER") or "").strip()
+    smtp_password = (os.getenv("SMTP_PASSWORD") or os.getenv("GMAIL_APP_PASSWORD") or "").strip().replace(" ", "")
+
+    if not smtp_email or not smtp_password:
+        logger.error(f"[SMTP Missing] Email set: {bool(smtp_email)}, Pwd set: {bool(smtp_password)}")
+        return False
+
     try:
         msg = MIMEMultipart("alternative")
-        msg["From"] = f"PJ SmartBill <{SMTP_EMAIL}>"
+        msg["From"] = f"PJ SmartBill <{smtp_email}>"
         msg["To"] = to_email
         msg["Subject"] = f"{otp} is your PJ SmartBill Verification Code"
 
@@ -126,14 +134,14 @@ def send_real_email_otp(to_email: str, otp: str, shop_name: str) -> bool:
         </div>
         """
         msg.attach(MIMEText(html_body, "html"))
-        server = smtplib.SMTP("smtp.gmail.com", 587, timeout=10)
+        server = smtplib.SMTP("smtp.gmail.com", 587, timeout=15)
         server.starttls()
-        server.login(SMTP_EMAIL.strip(), SMTP_PASSWORD.strip())
+        server.login(smtp_email, smtp_password)
         server.send_message(msg)
         server.quit()
         return True
     except Exception as e:
-        logger.error(f"[SMTP Error]: {e}")
+        logger.error(f"[SMTP Failure Details]: {type(e).__name__} - {str(e)}")
         return False
 
 # ----------------- VALIDATED SCHEMAS -----------------
