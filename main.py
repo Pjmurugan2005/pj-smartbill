@@ -107,10 +107,11 @@ def require_active_subscription(user: db.User = Depends(get_current_user)):
     return user
 
 def send_real_email_otp(to_email: str, otp: str, shop_name: str) -> bool:
-    resend_api_key = os.getenv("RESEND_API_KEY", "").strip()
+    brevo_api_key = os.getenv("BREVO_API_KEY", "").strip()
+    sender_email = os.getenv("SENDER_EMAIL", "").strip()
 
-    if not resend_api_key:
-        logger.error("[Resend Missing] RESEND_API_KEY environment variable is not set!")
+    if not brevo_api_key or not sender_email:
+        logger.error("[Brevo Missing] BREVO_API_KEY or SENDER_EMAIL is not set!")
         return False
 
     safe_shop_name = html.escape(shop_name)
@@ -126,30 +127,30 @@ def send_real_email_otp(to_email: str, otp: str, shop_name: str) -> bool:
     """
 
     payload = {
-        "from": "PJ SmartBill <onboarding@resend.dev>",
-        "to": [to_email],
+        "sender": {"name": "PJ SmartBill", "email": sender_email},
+        "to": [{"email": to_email}],
         "subject": f"{otp} is your PJ SmartBill Verification Code",
-        "html": html_body
+        "htmlContent": html_body
     }
 
     try:
         req = urllib.request.Request(
-            "https://api.resend.com/emails",
+            "https://api.brevo.com/v3/smtp/email",
             data=json.dumps(payload).encode("utf-8"),
             headers={
-                "Authorization": f"Bearer {resend_api_key}",
+                "api-key": brevo_api_key,
                 "Content-Type": "application/json",
-                "User-Agent": "PJSmartBill/1.0"
+                "Accept": "application/json"
             },
             method="POST"
         )
         with urllib.request.urlopen(req, timeout=10) as resp:
             if resp.status in [200, 201]:
-                logger.info(f"[Email Success] OTP sent via HTTP API to {to_email}")
+                logger.info(f"[Brevo Success] OTP sent to {to_email}")
                 return True
             return False
     except Exception as e:
-        logger.error(f"[Resend API Error]: {e}")
+        logger.error(f"[Brevo Error]: {e}")
         return False
 
 # ----------------- VALIDATED SCHEMAS -----------------
