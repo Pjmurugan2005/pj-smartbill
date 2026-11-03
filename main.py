@@ -108,12 +108,12 @@ def require_active_subscription(user: db.User = Depends(get_current_user)):
     return user
 
 def send_real_email_otp(to_email: str, otp: str, shop_name: str) -> bool:
-    # Render-la irundhu runtime-la fresh-aa values edukkum (Rendu names-um check pannum)
+    # Render env values-ai direct-aa runtime-la fetch pannum
     smtp_email = (os.getenv("SMTP_EMAIL") or os.getenv("GMAIL_USER") or "").strip()
     smtp_password = (os.getenv("SMTP_PASSWORD") or os.getenv("GMAIL_APP_PASSWORD") or "").strip().replace(" ", "")
 
     if not smtp_email or not smtp_password:
-        logger.error(f"[SMTP Missing] Email set: {bool(smtp_email)}, Pwd set: {bool(smtp_password)}")
+        print(f"[SMTP Missing] Email: {smtp_email}, Pwd length: {len(smtp_password)}")
         return False
 
     try:
@@ -134,14 +134,16 @@ def send_real_email_otp(to_email: str, otp: str, shop_name: str) -> bool:
         </div>
         """
         msg.attach(MIMEText(html_body, "html"))
-        server = smtplib.SMTP("smtp.gmail.com", 587, timeout=15)
-        server.starttls()
+
+        # Render outbound block thadukka direct SSL Port 465
+        server = smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=15)
         server.login(smtp_email, smtp_password)
         server.send_message(msg)
         server.quit()
+        print(f"[SMTP Success] OTP sent to {to_email}")
         return True
     except Exception as e:
-        logger.error(f"[SMTP Failure Details]: {type(e).__name__} - {str(e)}")
+        print(f"[SMTP Failure Details]: {type(e).__name__} - {str(e)}")
         return False
 
 # ----------------- VALIDATED SCHEMAS -----------------
