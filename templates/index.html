@@ -15,13 +15,12 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <!-- html2pdf for Direct A4 Invoice PDF Download -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
     .mono { font-family: 'JetBrains Mono', monospace; }
     @media print {
       body * { visibility: hidden !important; }
@@ -32,12 +31,10 @@
 </head>
 <body class="bg-slate-900 text-slate-100 h-screen flex flex-col overflow-hidden selection:bg-emerald-500 selection:text-white">
 
-  <!-- ================= ONBOARDING STEP: STORE ADDRESS & TYPE SELECTION ================= -->
+  <!-- ================= ONBOARDING STEP ================= -->
   <div id="onboarding-modal" class="hidden fixed inset-0 bg-slate-950/95 backdrop-blur-md flex items-center justify-center z-50 p-4">
     <div class="bg-slate-900 border border-slate-800 p-8 rounded-3xl max-w-xl w-full text-center shadow-2xl relative">
-      <div class="w-14 h-14 bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-3">
-        🏬
-      </div>
+      <div class="w-14 h-14 bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-3">🏬</div>
       <h2 class="text-2xl font-black text-white">Setup Your Store Profile</h2>
       <p class="text-slate-400 text-xs mt-1">Please enter your store address and choose your business model</p>
 
@@ -50,14 +47,12 @@
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-2">Select Your Business Category *</label>
           <div class="grid grid-cols-2 gap-4">
-            <!-- Option 1: Departmental Store -->
             <div id="card-type-dept" onclick="selectStoreType('DEPARTMENT')" class="cursor-pointer p-4 rounded-2xl border-2 border-slate-700 hover:border-emerald-500 bg-slate-800/60 transition flex flex-col items-center text-center group">
               <span class="text-3xl mb-2">🛒</span>
               <h4 class="font-bold text-sm text-white group-hover:text-emerald-400">Departmental Store</h4>
               <p class="text-[10px] text-slate-400 mt-1">Supermarket, FMCG Groceries, Barcode Gun & Thermal Receipts (80mm)</p>
             </div>
 
-            <!-- Option 2: Mobile & Electronics Showroom -->
             <div id="card-type-mob" onclick="selectStoreType('MOBILE')" class="cursor-pointer p-4 rounded-2xl border-2 border-slate-700 hover:border-indigo-500 bg-slate-800/60 transition flex flex-col items-center text-center group">
               <span class="text-3xl mb-2">📱</span>
               <h4 class="font-bold text-sm text-white group-hover:text-indigo-400">Mobile & Electronics</h4>
@@ -73,11 +68,10 @@
     </div>
   </div>
 
-  <!-- ================= SUBSCRIPTION PAYWALL (OPENS AFTER STORE TYPE IS CHOSEN) ================= -->
+  <!-- ================= SUBSCRIPTION PAYWALL ================= -->
   <div id="paywall-modal" class="hidden fixed inset-0 bg-slate-950/95 backdrop-blur-md flex items-center justify-center z-50 p-4">
     <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-emerald-500/30 p-8 rounded-3xl max-w-lg w-full text-center shadow-2xl relative overflow-hidden">
-      <div class="absolute -top-24 -right-24 w-48 h-48 bg-emerald-500/20 rounded-full blur-3xl"></div>
-      <div class="w-16 h-16 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4 shadow-inner">⚡</div>
+      <div class="w-16 h-16 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4">⚡</div>
       
       <span id="paywall-badge" class="px-3 py-1 bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs font-bold rounded-full uppercase tracking-wider">
         Retail Business Plan
@@ -95,7 +89,7 @@
           <span class="text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2.5 py-1 rounded-lg">99% OFF</span>
         </div>
         <p class="text-[11px] text-slate-400 mt-3 pt-3 border-t border-slate-700/60">
-          Recurring subscription of <b class="text-white">₹299/month</b> applies starting month 2. Cancel anytime from profile.
+          Monthly plan renewal at <b class="text-white">₹299/month</b>. Cancel anytime.
         </p>
         <ul id="paywall-feature-list" class="text-xs space-y-2 text-slate-300 mt-4 font-medium">
           <li class="flex items-center space-x-2"><span class="text-emerald-400 font-bold">✓</span> <span>High-Speed Barcode / IMEI Scanner Integration</span></li>
@@ -104,21 +98,21 @@
       </div>
 
       <button onclick="handleSubscriptionPayment()" class="w-full mt-6 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-black text-sm rounded-xl transition shadow-lg shadow-emerald-500/25 flex items-center justify-center space-x-2">
-        <span>🔒 Pay ₹1 & Setup ₹299 Autopay</span>
+        <span>🔒 Pay ₹1 & Activate 30-Day Access</span>
       </button>
 
       <div class="mt-4 flex justify-center space-x-3 text-[11px] text-slate-400">
         <button onclick="openPolicyModal('refund')" class="hover:underline">Refund Policy</button>
         <span>•</span>
-        <button onclick="openPolicyModal('terms')" class="hover:underline">Terms of Service</button>
+        <button onclick="openPolicyModal('terms')" class="hover:underline">Terms</button>
         <span>•</span>
-        <button onclick="openPolicyModal('contact')" class="hover:underline">Contact Support</button>
+        <button onclick="openPolicyModal('contact')" class="hover:underline">Support</button>
       </div>
       <p class="text-[10px] text-slate-500 mt-2">Powered by Razorpay Verified Gateway</p>
     </div>
   </div>
 
-  <!-- ================= AUTH MODAL (LOGIN / REGISTER) ================= -->
+  <!-- ================= AUTH MODAL ================= -->
   <div id="auth-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md flex items-center justify-center z-50 p-4">
     <div class="bg-slate-900 border border-slate-800 p-8 rounded-3xl shadow-2xl w-full max-w-md">
       <div class="text-center mb-6">
@@ -139,73 +133,62 @@
       <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Email or Phone Number</label>
-          <input type="text" id="login-identifier" required class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-sm text-white placeholder-slate-500" placeholder="store@gmail.com / 9876543210">
+          <input type="text" id="login-identifier" autocomplete="username" required class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-sm text-white" placeholder="store@gmail.com / 9876543210">
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Password</label>
-          <input type="password" id="login-password" required class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-sm text-white placeholder-slate-500" placeholder="••••••••">
+          <input type="password" id="login-password" autocomplete="current-password" required class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-sm text-white" placeholder="••••••••">
         </div>
         <button type="submit" class="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-xl font-bold transition text-sm shadow-lg shadow-emerald-500/20">Login to Terminal</button>
       </form>
 
-      <!-- Register Form Step 1 -->
+      <!-- Register Step 1 -->
       <form id="register-form-step1" onsubmit="handleRegisterInitiate(event)" class="hidden space-y-3">
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Store / Business Name</label>
-          <input type="text" id="reg-shop-name" required class="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none focus:ring-2 focus:ring-emerald-500" placeholder="PJ Mobile Care / Supermarket">
+          <input type="text" id="reg-shop-name" required class="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none focus:ring-2 focus:ring-emerald-500" placeholder="PJ Mobile Store">
         </div>
         <div class="grid grid-cols-2 gap-2">
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">Email Address</label>
-            <input type="email" id="reg-email" required class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none focus:ring-2 focus:ring-emerald-500" placeholder="store@mail.com">
+            <input type="email" id="reg-email" autocomplete="email" required class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none focus:ring-2 focus:ring-emerald-500" placeholder="store@mail.com">
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">Mobile Phone</label>
-            <input type="tel" id="reg-phone" maxlength="10" required class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none focus:ring-2 focus:ring-emerald-500" placeholder="10-digit number">
+            <input type="tel" id="reg-phone" autocomplete="tel" maxlength="10" required class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none focus:ring-2 focus:ring-emerald-500" placeholder="10-digit number">
           </div>
         </div>
         <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Password</label>
-          <input type="password" id="reg-password" required class="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Minimum 8 characters">
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Password (Min 8 Characters)</label>
+          <input type="password" id="reg-password" autocomplete="new-password" minlength="8" required class="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Minimum 8 characters">
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Confirm Password</label>
-          <input type="password" id="reg-cpassword" required class="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Re-type password">
+          <input type="password" id="reg-cpassword" autocomplete="new-password" minlength="8" required class="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Re-type password">
         </div>
         <button type="submit" class="w-full py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-sm transition">Send Verification Code</button>
       </form>
 
-      <!-- Register Form Step 2: OTP -->
+      <!-- Register Step 2 -->
       <form id="register-form-step2" onsubmit="handleRegisterVerify(event)" class="hidden space-y-4">
         <div>
           <div class="flex justify-between items-center mb-1">
             <label class="block text-xs font-semibold text-slate-300">Enter Verification Code (OTP)</label>
             <button type="button" onclick="backToRegisterStep1()" class="text-xs text-emerald-400 hover:underline">Change Email</button>
           </div>
-          <input type="text" id="reg-otp" maxlength="6" required class="w-full text-center tracking-[0.5em] text-2xl font-bold py-2.5 bg-slate-800 border border-slate-700 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-white mono" placeholder="••••••">
+          <input type="text" id="reg-otp" maxlength="6" autocomplete="one-time-code" required class="w-full text-center tracking-[0.5em] text-2xl font-bold py-2.5 bg-slate-800 border border-slate-700 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-white mono" placeholder="••••••">
         </div>
         <button type="submit" class="w-full py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-xl font-bold transition text-sm">Verify & Activate</button>
       </form>
-
-      <div class="mt-6 pt-4 border-t border-slate-800/80 flex justify-center space-x-3 text-[11px] text-slate-500">
-        <button onclick="openPolicyModal('refund')" class="hover:text-emerald-400">Refund Policy</button>
-        <span>•</span>
-        <button onclick="openPolicyModal('terms')" class="hover:text-emerald-400">Terms</button>
-        <span>•</span>
-        <button onclick="openPolicyModal('privacy')" class="hover:text-emerald-400">Privacy</button>
-        <span>•</span>
-        <button onclick="openPolicyModal('contact')" class="hover:text-emerald-400">Contact</button>
-      </div>
     </div>
   </div>
 
-  <!-- ================= MAIN DASHBOARD APP ================= -->
+  <!-- ================= MAIN APP ================= -->
   <div id="main-app" class="hidden flex-1 flex flex-col h-full bg-slate-950 text-slate-100">
-    <!-- Navbar -->
     <header class="bg-slate-900 border-b border-slate-800 px-6 py-3 flex justify-between items-center shadow-lg">
       <div class="flex items-center space-x-4">
         <div class="flex items-center space-x-3">
-          <img id="top-shop-logo" src="/static/default-shop.png" onerror="this.src='https://via.placeholder.com/40'" class="w-10 h-10 rounded-xl border border-emerald-500/30 object-cover bg-slate-800" alt="Logo">
+          <img id="top-shop-logo" src="/static/default-shop.png" class="w-10 h-10 rounded-xl border border-emerald-500/30 object-cover bg-slate-800" alt="Logo">
           <div>
             <div class="flex items-center space-x-2">
               <h1 id="top-shop-name" class="font-extrabold text-base text-white tracking-wide">PJ Smart Store</h1>
@@ -223,20 +206,18 @@
         </div>
       </div>
 
-      <!-- Navigation Tabs -->
       <nav class="flex space-x-1.5 bg-slate-950 p-1.5 rounded-2xl border border-slate-800/80 text-xs font-bold">
         <button onclick="navTo('billing')" id="btn-nav-billing" class="px-5 py-2 rounded-xl bg-emerald-500 text-slate-950 transition flex items-center space-x-2 shadow-md">
-          <span>⚡</span> <span id="tab-title-pos">POS Counter</span>
+          <span>⚡</span> <span>POS Counter</span>
         </button>
         <button onclick="navTo('stock')" id="btn-nav-stock" class="px-5 py-2 rounded-xl text-slate-400 hover:text-white transition flex items-center space-x-2">
-          <span>📦</span> <span id="tab-title-inventory">Inventory Catalog</span>
+          <span>📦</span> <span>Inventory</span>
         </button>
         <button onclick="navTo('dashboard')" id="btn-nav-dashboard" class="px-5 py-2 rounded-xl text-slate-400 hover:text-white transition flex items-center space-x-2">
-          <span>📊</span> <span>Sales & Invoices</span>
+          <span>📊</span> <span>Sales</span>
         </button>
       </nav>
 
-      <!-- Right Header Actions -->
       <div class="flex items-center space-x-3">
         <button onclick="toggleSideMenu()" class="p-2.5 bg-slate-800 hover:bg-slate-700 text-emerald-400 hover:text-white rounded-xl transition border border-slate-700 flex items-center space-x-2 text-xs font-bold shadow">
           <i class="fa-solid fa-bars text-sm"></i>
@@ -246,11 +227,9 @@
       </div>
     </header>
 
-    <!-- POS Content -->
     <main class="flex-1 overflow-hidden p-5 bg-gradient-to-b from-slate-950 to-slate-900">
-      <!-- PAGE 1: BILLING COUNTER -->
+      <!-- PAGE 1: BILLING -->
       <section id="page-billing" class="h-full grid grid-cols-12 gap-5">
-        <!-- Catalog & Scanner Column -->
         <div class="col-span-7 flex flex-col bg-slate-900/90 rounded-3xl border border-slate-800/80 overflow-hidden shadow-xl">
           <div class="p-4 bg-slate-900 border-b border-slate-800 flex items-center space-x-3">
             <div class="relative flex-1">
@@ -259,22 +238,18 @@
             </div>
             <div class="relative w-64">
               <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500 text-sm">🔍</span>
-              <input type="text" id="billing-search" onkeyup="filterBillingCatalog()" placeholder="Search item title..." class="w-full pl-9 pr-3 py-3 bg-slate-800 border border-slate-700 rounded-2xl outline-none text-xs text-white placeholder-slate-500">
+              <input type="text" id="billing-search" onkeyup="filterBillingCatalog()" placeholder="Search title..." class="w-full pl-9 pr-3 py-3 bg-slate-800 border border-slate-700 rounded-2xl outline-none text-xs text-white placeholder-slate-500">
             </div>
           </div>
           <div id="billing-catalog" class="p-4 flex-1 overflow-y-auto grid grid-cols-3 gap-3"></div>
         </div>
 
-        <!-- Checkout Cart Column -->
         <div class="col-span-5 flex flex-col bg-slate-900/90 rounded-3xl border border-slate-800/80 overflow-hidden shadow-xl">
           <div class="p-4 bg-slate-800/60 border-b border-slate-800 flex justify-between items-center">
-            <h3 class="font-extrabold text-sm text-white flex items-center space-x-2">
-              <span>🧾</span> <span>Live Customer Cart</span>
-            </h3>
+            <h3 class="font-extrabold text-sm text-white flex items-center space-x-2"><span>🧾</span> <span>Live Cart</span></h3>
             <button onclick="clearCart()" class="text-xs text-slate-400 hover:text-red-400 bg-slate-800 px-3 py-1 rounded-lg transition font-medium">Clear Cart</button>
           </div>
 
-          <!-- Customer Details Header -->
           <div class="p-3 bg-slate-950/40 border-b border-slate-800 space-y-2 text-xs">
             <div class="grid grid-cols-2 gap-2">
               <input type="text" id="cust-name" placeholder="Customer Name *" class="px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white outline-none">
@@ -288,7 +263,6 @@
 
           <div id="cart-items-container" class="flex-1 overflow-y-auto p-3 space-y-2"></div>
 
-          <!-- Summary & Totals -->
           <div class="p-4 bg-slate-950/80 border-t border-slate-800 space-y-3">
             <div class="flex justify-between text-xs text-slate-400">
               <span>Subtotal:</span>
@@ -307,19 +281,12 @@
               <span id="grandtotal-text" class="text-emerald-400 mono text-2xl">₹0.00</span>
             </div>
 
-            <!-- Payment Mode Selector -->
             <div>
-              <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Payment Received Via:</label>
+              <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Payment Method:</label>
               <div class="grid grid-cols-3 gap-2">
-                <button type="button" onclick="selectPaymentMode('Cash')" id="pay-mode-Cash" class="pay-mode-btn py-2.5 rounded-xl border border-emerald-500 bg-emerald-500/20 text-emerald-300 font-bold text-xs flex items-center justify-center space-x-1.5 transition">
-                  <span>💵</span> <span>Cash</span>
-                </button>
-                <button type="button" onclick="selectPaymentMode('UPI')" id="pay-mode-UPI" class="pay-mode-btn py-2.5 rounded-xl border border-slate-700 bg-slate-800/80 text-slate-300 hover:text-white font-bold text-xs flex items-center justify-center space-x-1.5 transition">
-                  <span>📱</span> <span>UPI / QR</span>
-                </button>
-                <button type="button" onclick="selectPaymentMode('Card')" id="pay-mode-Card" class="pay-mode-btn py-2.5 rounded-xl border border-slate-700 bg-slate-800/80 text-slate-300 hover:text-white font-bold text-xs flex items-center justify-center space-x-1.5 transition">
-                  <span>💳</span> <span>Card</span>
-                </button>
+                <button type="button" onclick="selectPaymentMode('Cash')" id="pay-mode-Cash" class="pay-mode-btn py-2.5 rounded-xl border border-emerald-500 bg-emerald-500/20 text-emerald-300 font-bold text-xs flex items-center justify-center space-x-1.5 transition"><span>💵</span> <span>Cash</span></button>
+                <button type="button" onclick="selectPaymentMode('UPI')" id="pay-mode-UPI" class="pay-mode-btn py-2.5 rounded-xl border border-slate-700 bg-slate-800/80 text-slate-300 hover:text-white font-bold text-xs flex items-center justify-center space-x-1.5 transition"><span>📱</span> <span>UPI</span></button>
+                <button type="button" onclick="selectPaymentMode('Card')" id="pay-mode-Card" class="pay-mode-btn py-2.5 rounded-xl border border-slate-700 bg-slate-800/80 text-slate-300 hover:text-white font-bold text-xs flex items-center justify-center space-x-1.5 transition"><span>💳</span> <span>Card</span></button>
               </div>
             </div>
 
@@ -330,61 +297,49 @@
         </div>
       </section>
 
-      <!-- PAGE 2: INVENTORY CATALOG -->
+      <!-- PAGE 2: INVENTORY -->
       <section id="page-stock" class="hidden space-y-5 h-full overflow-y-auto">
         <div class="grid grid-cols-12 gap-5">
           <div class="col-span-4 bg-slate-900 border border-slate-800 p-6 rounded-3xl shadow-xl">
-            <h3 class="text-base font-extrabold text-white mb-4 flex items-center space-x-2">
-              <span class="text-emerald-400">➕</span> <span id="add-item-header">Add Product to Catalog</span>
-            </h3>
+            <h3 class="text-base font-extrabold text-white mb-4 flex items-center space-x-2"><span class="text-emerald-400">➕</span> <span>Add Product</span></h3>
             <form onsubmit="handleProductAdd(event)" enctype="multipart/form-data" class="space-y-4">
-              <div id="field-barcode-container">
-                <label class="block text-xs font-semibold text-slate-300 mb-1">Barcode (EAN/UPC)</label>
-                <input type="text" id="add-prod-barcode" placeholder="Scan or enter barcode..." class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-sm mono text-emerald-400 outline-none focus:ring-2 focus:ring-emerald-500">
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">Barcode</label>
+                <input type="text" id="add-prod-barcode" placeholder="Barcode..." class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-sm mono text-emerald-400 outline-none">
               </div>
-
-              <!-- Mobile Shop Field: IMEI / Serial Number -->
               <div id="field-imei-container" class="hidden">
-                <label class="block text-xs font-semibold text-indigo-300 mb-1">IMEI / Serial Number (15 Digits)</label>
-                <input type="text" id="add-prod-imei" placeholder="Enter device IMEI or Serial number..." class="w-full px-3.5 py-2.5 bg-slate-950 border border-indigo-700 rounded-xl text-sm mono text-indigo-400 outline-none focus:ring-2 focus:ring-indigo-500">
+                <label class="block text-xs font-semibold text-indigo-300 mb-1">IMEI / Serial</label>
+                <input type="text" id="add-prod-imei" placeholder="IMEI number..." class="w-full px-3.5 py-2.5 bg-slate-950 border border-indigo-700 rounded-xl text-sm mono text-indigo-400 outline-none">
               </div>
-
               <div>
                 <label class="block text-xs font-semibold text-slate-300 mb-1">Product Title</label>
-                <input type="text" id="add-prod-name" required placeholder="e.g. Redmi Note 13 5G / Atta 1kg" class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none focus:ring-2 focus:ring-emerald-500">
+                <input type="text" id="add-prod-name" required placeholder="Name..." class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none">
               </div>
-
               <div class="grid grid-cols-2 gap-3">
                 <div>
                   <label class="block text-xs font-semibold text-slate-300 mb-1">Price (₹)</label>
-                  <input type="number" step="0.01" min="0.01" id="add-prod-price" required placeholder="0.00" class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none mono">
+                  <input type="number" step="0.01" min="0" id="add-prod-price" required placeholder="0.00" class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none mono">
                 </div>
                 <div>
-                  <label class="block text-xs font-semibold text-slate-300 mb-1">Stock Units</label>
-                  <input type="number" min="0" id="add-prod-stock" required placeholder="20" class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none mono">
+                  <label class="block text-xs font-semibold text-slate-300 mb-1">Stock</label>
+                  <input type="number" id="add-prod-stock" required placeholder="20" class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none mono">
                 </div>
               </div>
-
-              <!-- Warranty field for mobile electronics -->
               <div id="field-warranty-container" class="hidden">
                 <label class="block text-xs font-semibold text-slate-300 mb-1">Warranty (Months)</label>
                 <input type="number" min="0" id="add-prod-warranty" value="12" class="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white outline-none mono">
               </div>
-
               <div>
                 <label class="block text-xs font-semibold text-slate-300 mb-1">Product Photo</label>
-                <input type="file" id="add-prod-image" accept="image/*" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-xs text-slate-400 file:mr-3 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:bg-slate-700 file:text-emerald-400 file:font-semibold">
+                <input type="file" id="add-prod-image" accept="image/jpeg,image/png,image/webp" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-xs text-slate-400 file:mr-3 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:bg-slate-700 file:text-emerald-400">
               </div>
-
-              <button type="submit" class="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-sm transition shadow-lg mt-2">+ Save Item to Stock</button>
+              <button type="submit" class="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-sm transition shadow-lg mt-2">+ Save Item</button>
             </form>
           </div>
 
           <div class="col-span-8 bg-slate-900 border border-slate-800 p-6 rounded-3xl shadow-xl flex flex-col">
             <div class="flex justify-between items-center mb-4">
-              <h3 class="text-base font-extrabold text-white flex items-center space-x-2">
-                <span>📦</span> <span>Inventory Records</span>
-              </h3>
+              <h3 class="text-base font-extrabold text-white flex items-center space-x-2"><span>📦</span> <span>Inventory Records</span></h3>
               <input type="text" id="stock-search" onkeyup="filterStockTable()" placeholder="🔍 Search barcode, IMEI, name..." class="px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white outline-none w-64 focus:ring-2 focus:ring-emerald-500">
             </div>
             <div class="flex-1 overflow-x-auto max-h-[500px]">
@@ -405,7 +360,7 @@
         </div>
       </section>
 
-      <!-- PAGE 3: SALES & RECENT BILLS -->
+      <!-- PAGE 3: SALES -->
       <section id="page-dashboard" class="hidden space-y-5 h-full overflow-y-auto">
         <div class="grid grid-cols-4 gap-4">
           <div class="bg-slate-900 border border-slate-800 p-5 rounded-3xl shadow-md">
@@ -426,11 +381,11 @@
           </div>
         </div>
         <div class="bg-slate-900 border border-slate-800 p-5 rounded-3xl shadow-md">
-          <h3 class="text-sm font-bold text-white mb-3">📈 Live Sales Performance Graph</h3>
+          <h3 class="text-sm font-bold text-white mb-3">📈 Sales Performance</h3>
           <div class="h-56"><canvas id="salesChart"></canvas></div>
         </div>
         <div class="bg-slate-900 border border-slate-800 p-5 rounded-3xl shadow-md">
-          <h3 class="text-sm font-bold text-white mb-3">📚 Recent 15 Bills (Reprint & Preview)</h3>
+          <h3 class="text-sm font-bold text-white mb-3">📚 Recent Bills</h3>
           <div class="overflow-x-auto">
             <table class="w-full text-left text-xs border-collapse">
               <thead>
@@ -449,45 +404,29 @@
         </div>
       </section>
     </main>
-
-    <!-- Footer -->
-    <footer class="bg-slate-950 border-t border-slate-900 px-6 py-2 flex justify-between items-center text-[11px] text-slate-500">
-      <p>© 2026 PJ SmartBill SaaS. All rights reserved. Support: +91 7708081821</p>
-      <div class="flex space-x-4">
-        <button onclick="openPolicyModal('refund')" class="hover:text-emerald-400 transition">Cancellation & Refund</button>
-        <button onclick="openPolicyModal('terms')" class="hover:text-emerald-400 transition">Terms of Service</button>
-        <button onclick="openPolicyModal('privacy')" class="hover:text-emerald-400 transition">Privacy Policy</button>
-        <button onclick="openPolicyModal('contact')" class="hover:text-emerald-400 transition">Contact Us</button>
-      </div>
-    </footer>
   </div>
 
-  <!-- ================= INVOICE PREVIEW MODAL (A4 TAX INVOICE OR THERMAL) ================= -->
+  <!-- INVOICE MODAL -->
   <div id="invoice-modal" class="hidden fixed inset-0 bg-slate-950/85 backdrop-blur-sm flex items-center justify-center z-50 p-4">
     <div id="invoice-dialog-box" class="bg-white text-slate-900 rounded-3xl max-w-3xl w-full p-6 shadow-2xl flex flex-col max-h-[94vh] border border-slate-200">
       <div class="flex justify-between items-center pb-3 border-b border-slate-200">
         <h3 id="invoice-modal-title" class="font-black text-base text-slate-900">🧾 Tax Invoice Preview</h3>
         <button onclick="closeInvoiceModal()" class="text-slate-400 hover:text-slate-600 text-xl font-bold">×</button>
       </div>
-
-      <!-- Printable & PDF Printable Area -->
       <div class="flex-1 overflow-y-auto py-3" id="modal-invoice-preview"></div>
-
       <div class="flex space-x-3 pt-3 border-t border-slate-200">
         <button id="btn-download-pdf" onclick="downloadInvoicePDF()" class="hidden px-5 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow flex items-center space-x-2">
-          <i class="fa-solid fa-file-pdf"></i>
-          <span>DOWNLOAD PDF</span>
+          <i class="fa-solid fa-file-pdf"></i><span>DOWNLOAD PDF</span>
         </button>
         <button onclick="triggerPrintFromModal()" class="flex-1 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs rounded-xl shadow flex items-center justify-center space-x-1.5">
-          <i class="fa-solid fa-print"></i>
-          <span>PRINT INVOICE</span>
+          <i class="fa-solid fa-print"></i><span>PRINT INVOICE</span>
         </button>
         <button onclick="closeInvoiceModal()" class="px-5 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl">Close</button>
       </div>
     </div>
   </div>
 
-  <!-- RIGHT-SIDE MENU DRAWER & PROFILE MODAL -->
+  <!-- SIDE MENU -->
   <div id="sideMenuOverlay" onclick="toggleSideMenu()" class="fixed inset-0 bg-black/60 z-40 hidden transition-opacity"></div>
   <aside id="sideMenu" class="fixed top-0 right-0 h-full w-80 bg-slate-900 text-white z-50 transform translate-x-full transition-transform duration-300 flex flex-col justify-between shadow-2xl border-l border-slate-800">
     <div>
@@ -496,40 +435,23 @@
         <button onclick="toggleSideMenu()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
       </div>
       <nav class="p-4 space-y-1.5 text-xs font-semibold">
-        <button onclick="openProfileModal()" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition text-slate-200"><i class="fa-regular fa-id-badge text-indigo-400 w-5 text-sm"></i><span>Store Profile & Address</span></button>
+        <button onclick="openProfileModal()" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition text-slate-200"><i class="fa-regular fa-id-badge text-indigo-400 w-5 text-sm"></i><span>Store Profile</span></button>
         <button onclick="openSubscriptionModal()" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition text-slate-200"><i class="fa-solid fa-credit-card text-emerald-400 w-5 text-sm"></i><span>Subscription Details</span></button>
         <button onclick="openDatasetModal()" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition text-slate-200"><i class="fa-solid fa-file-csv text-amber-400 w-5 text-sm"></i><span>Upload Dataset (CSV)</span></button>
-        <button onclick="openHelpModal()" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition text-slate-200"><i class="fa-solid fa-headset text-sky-400 w-5 text-sm"></i><span>Help & Support</span></button>
-        <button onclick="openPolicyModal('refund')" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition text-slate-200"><i class="fa-solid fa-rotate-left text-rose-400 w-5 text-sm"></i><span>Refund Policy</span></button>
-        <button onclick="openPolicyModal('terms')" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition text-slate-200"><i class="fa-solid fa-shield-halved text-purple-400 w-5 text-sm"></i><span>Terms & Conditions</span></button>
       </nav>
     </div>
     <div class="p-4 border-t border-slate-800 text-[10px] text-slate-400 text-center">PJ SmartBill Multi-Store Edition © 2026 PJ Technologies.</div>
   </aside>
 
-  <!-- STORE PROFILE EDIT MODAL -->
+  <!-- PROFILE MODAL -->
   <div id="profileModal" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center p-4">
     <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-md p-6 shadow-2xl relative text-slate-100">
       <div class="flex justify-between items-center mb-4"><h3 class="text-base font-bold text-white">Merchant Store Profile</h3><button onclick="closeModal('profileModal')" class="text-slate-400 hover:text-white">✕</button></div>
       <form id="profileForm" onsubmit="saveProfile(event)" class="space-y-3 text-xs">
-        <div class="flex items-center space-x-4 pb-2 border-b border-slate-800">
-          <img id="profilePreview" src="/static/default-shop.png" class="w-14 h-14 rounded-2xl object-cover border border-slate-700 bg-slate-800" alt="Shop">
-          <div>
-            <label class="block text-[11px] font-semibold text-slate-400 mb-1">Store Logo</label>
-            <input type="file" name="photo" id="profilePhotoInput" accept="image/*" class="text-xs file:mr-2 file:py-1 file:px-3 file:rounded-lg file:border-0 file:bg-slate-800 file:text-emerald-400">
-          </div>
-        </div>
         <div><label class="block font-semibold text-slate-400 mb-1">Store Name</label><input type="text" name="shop_name" id="profShopName" required class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 outline-none text-white"></div>
         <div><label class="block font-semibold text-slate-400 mb-1">Phone</label><input type="text" name="phone" id="profPhone" required class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 outline-none text-white"></div>
         <div><label class="block font-semibold text-slate-400 mb-1">Email</label><input type="email" name="email" id="profEmail" required class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 outline-none text-white"></div>
         <div><label class="block font-semibold text-slate-400 mb-1">Full Address</label><textarea name="address" id="profAddress" rows="2" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 outline-none text-white"></textarea></div>
-        <div>
-          <label class="block font-semibold text-slate-400 mb-1">Business Store Category</label>
-          <select name="store_type" id="profStoreType" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 outline-none text-white">
-            <option value="DEPARTMENT">Departmental Store (Thermal 80mm)</option>
-            <option value="MOBILE">Mobile & Electronics (A4 Sheet + GST)</option>
-          </select>
-        </div>
         <div class="flex justify-end space-x-2 pt-2">
           <button type="button" onclick="closeModal('profileModal')" class="px-4 py-2 bg-slate-800 text-slate-400 rounded-xl">Cancel</button>
           <button type="submit" class="px-5 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl shadow">Save Changes</button>
@@ -538,16 +460,12 @@
     </div>
   </div>
 
-  <!-- CSV IMPORT MODAL -->
+  <!-- CSV MODAL -->
   <div id="datasetModal" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center p-4">
     <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-md p-6 shadow-2xl">
       <div class="flex justify-between items-center mb-2"><h3 class="text-base font-bold text-white">Bulk Dataset Ingestion</h3><button onclick="closeModal('datasetModal')" class="text-slate-400 hover:text-white">✕</button></div>
-      <p class="text-xs text-slate-400 mb-4">Upload pre-cataloged CSV file containing barcodes, names, prices, and stock units.</p>
       <form onsubmit="uploadDataset(event)" class="space-y-4">
-        <div class="border-2 border-dashed border-slate-700 rounded-2xl p-6 text-center hover:border-emerald-500 transition">
-          <i class="fa-solid fa-file-csv text-3xl text-emerald-400 mb-2"></i>
-          <input type="file" id="csvFileInput" accept=".csv" required class="block w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-slate-800 file:text-emerald-400">
-        </div>
+        <input type="file" id="csvFileInput" accept=".csv" required class="block w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-slate-800 file:text-emerald-400">
         <div class="flex justify-end space-x-3">
           <button type="button" onclick="closeModal('datasetModal')" class="px-4 py-2 bg-slate-800 text-slate-400 rounded-xl text-xs">Cancel</button>
           <button type="submit" class="px-5 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-xl text-xs font-bold">Import Dataset</button>
@@ -556,30 +474,9 @@
     </div>
   </div>
 
-  <!-- HELP & POLICY MODALS -->
-  <div id="helpModal" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-6 shadow-2xl text-center space-y-4">
-      <div class="w-12 h-12 bg-emerald-500/20 text-emerald-400 rounded-2xl flex items-center justify-center mx-auto text-xl"><i class="fa-solid fa-headset"></i></div>
-      <h3 class="font-bold text-white text-base">Terminal Help Desk</h3>
-      <div class="bg-slate-800/80 border border-slate-700/60 p-4 rounded-2xl text-left space-y-2 text-xs">
-        <div><span class="text-slate-400">Mobile Support:</span> <a href="tel:7708081821" class="text-emerald-400 font-bold block mt-0.5">+91 7708081821</a></div>
-        <div><span class="text-slate-400">Official Email:</span> <a href="mailto:jeyamuruganmurugan765@gmail.com" class="text-emerald-400 font-bold block mt-0.5">jeyamuruganmurugan765@gmail.com</a></div>
-      </div>
-      <button onclick="closeModal('helpModal')" class="w-full py-2.5 bg-emerald-500 text-slate-950 font-bold rounded-xl text-xs">Close</button>
-    </div>
-  </div>
-
-  <div id="policy-modal" class="hidden fixed inset-0 bg-slate-950/90 backdrop-blur-md flex items-center justify-center z-50 p-4">
-    <div class="bg-slate-900 border border-slate-800 p-8 rounded-3xl max-w-xl w-full max-h-[85vh] flex flex-col shadow-2xl">
-      <div class="flex justify-between items-center pb-3 border-b border-slate-800"><h3 id="policy-modal-title" class="text-lg font-black text-white">Policy</h3><button onclick="closePolicyModal()" class="text-slate-400 hover:text-white text-xl font-bold">×</button></div>
-      <div id="policy-modal-body" class="flex-1 overflow-y-auto py-4 text-xs text-slate-300 space-y-3 leading-relaxed"></div>
-      <div class="pt-3 border-t border-slate-800 flex justify-end"><button onclick="closePolicyModal()" class="px-5 py-2 bg-emerald-500 text-slate-950 font-bold rounded-xl text-xs">Close</button></div>
-    </div>
-  </div>
-
   <div id="printable-receipt" class="hidden font-mono text-sm"></div>
 
-  <!-- ================= JAVASCRIPT LOGIC ================= -->
+  <!-- ================= XSS-SAFE JAVASCRIPT ================= -->
   <script>
     const RZP_KEY = "{{ rzp_key }}";
     let allProducts = [];
@@ -590,13 +487,21 @@
     let currentPaymentMode = "Cash";
     let selectedStoreType = "DEPARTMENT";
     let currentInvoiceData = null;
+    window.billsCache = [];
+
+  // CRITICAL XSS ESCAPING UTILITY
+    const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    }[c]));
 
     function updateClock() {
       const now = new Date();
-      const dateStr = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-      const timeStr = now.toLocaleTimeString('en-US', { hour12: true });
       const clockEl = document.getElementById('liveClock');
-      if (clockEl) clockEl.innerText = `${dateStr} | ${timeStr}`;
+      if (clockEl) clockEl.innerText = now.toLocaleTimeString('en-US', { hour12: true });
     }
     setInterval(updateClock, 1000);
     updateClock();
@@ -611,7 +516,6 @@
       selectedStoreType = type;
       const deptCard = document.getElementById('card-type-dept');
       const mobCard = document.getElementById('card-type-mob');
-
       if (type === 'DEPARTMENT') {
         deptCard.className = "cursor-pointer p-4 rounded-2xl border-2 border-emerald-500 bg-emerald-500/10 transition flex flex-col items-center text-center shadow-lg";
         mobCard.className = "cursor-pointer p-4 rounded-2xl border-2 border-slate-700 bg-slate-800/60 transition flex flex-col items-center text-center";
@@ -623,48 +527,25 @@
 
     async function saveStoreSetup() {
       const address = document.getElementById('onboard-address').value.trim();
-      if (!address) return alert("Please enter your shop full address!");
+      if (!address) return alert("Please enter shop address!");
 
       const res = await fetch('/api/user/store-setup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ address, store_type: selectedStoreType })
       });
-      const data = await res.json();
       if (res.ok) {
         document.getElementById('onboarding-modal').classList.add('hidden');
         currentUser.address = address;
         currentUser.store_type = selectedStoreType;
         showPaywallScreen(currentUser);
       } else {
-        alert(data.detail || "Setup error");
+        const d = await res.json();
+        alert(d.detail || "Setup error");
       }
     }
 
     function showPaywallScreen(user) {
-      const title = document.getElementById('paywall-title');
-      const badge = document.getElementById('paywall-badge');
-      const featList = document.getElementById('paywall-feature-list');
-
-      if (user.store_type === 'MOBILE') {
-        badge.innerText = "Mobile & Electronics Business Plan";
-        badge.className = "px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 text-xs font-bold rounded-full uppercase tracking-wider";
-        title.innerText = "Unlock Mobile Showroom POS";
-        featList.innerHTML = `
-          <li class="flex items-center space-x-2"><span class="text-indigo-400 font-bold">✓</span> <span>IMEI & Serial Number Warranty Invoicing</span></li>
-          <li class="flex items-center space-x-2"><span class="text-indigo-400 font-bold">✓</span> <span>18% GST Calculation & A4 PDF Sheet Tax Invoices</span></li>
-          <li class="flex items-center space-x-2"><span class="text-indigo-400 font-bold">✓</span> <span>Customer Directory & Sales Analytics</span></li>
-        `;
-      } else {
-        badge.innerText = "Supermarket Retail Plan";
-        badge.className = "px-3 py-1 bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs font-bold rounded-full uppercase tracking-wider";
-        title.innerText = "Unlock Departmental Store POS";
-        featList.innerHTML = `
-          <li class="flex items-center space-x-2"><span class="text-emerald-400 font-bold">✓</span> <span>High-Speed Barcode Gun Counter Terminal</span></li>
-          <li class="flex items-center space-x-2"><span class="text-emerald-400 font-bold">✓</span> <span>80mm Thermal Slip Printer Support</span></li>
-          <li class="flex items-center space-x-2"><span class="text-emerald-400 font-bold">✓</span> <span>FMCG Product Catalog & Bulk CSV Import</span></li>
-        `;
-      }
       document.getElementById('paywall-modal').classList.remove('hidden');
     }
 
@@ -698,41 +579,34 @@
     function showApp(user) {
       document.getElementById('main-app').classList.remove('hidden');
       document.getElementById('top-shop-name').innerText = user.shop_name;
-      if (user.profile_image) document.getElementById('top-shop-logo').src = user.profile_image;
 
       const isMobile = (user.store_type === 'MOBILE');
       const badge = document.getElementById('top-store-type-badge');
       const subtext = document.getElementById('top-shop-subtext');
       const barcodeInput = document.getElementById('barcode-scanner-input');
-      const mobileCustFields = document.getElementById('mobile-cust-fields');
-      const taxRow = document.getElementById('tax-breakdown-row');
-      const btnSavePrint = document.getElementById('btn-save-print-text');
-      const fieldImei = document.getElementById('field-imei-container');
-      const fieldWarranty = document.getElementById('field-warranty-container');
-      const thCode = document.getElementById('th-code-col');
 
       if (isMobile) {
         badge.innerText = "Mobile & Electronics";
         badge.className = "px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-indigo-500/20 text-indigo-300 border border-indigo-500/30";
         subtext.innerText = "IMEI & GST Tax Invoicing (A4 Print)";
-        barcodeInput.placeholder = "Scan Barcode / Enter 15-Digit IMEI or Serial & Press Enter...";
-        mobileCustFields.classList.remove('hidden');
-        taxRow.classList.remove('hidden');
-        btnSavePrint.innerText = "SAVE & PRINT A4 TAX INVOICE";
-        fieldImei.classList.remove('hidden');
-        fieldWarranty.classList.remove('hidden');
-        thCode.innerText = "IMEI / Barcode";
+        barcodeInput.placeholder = "Scan Barcode / Enter IMEI & Press Enter...";
+        document.getElementById('mobile-cust-fields').classList.remove('hidden');
+        document.getElementById('tax-breakdown-row').classList.remove('hidden');
+        document.getElementById('btn-save-print-text').innerText = "SAVE & PRINT A4 TAX INVOICE";
+        document.getElementById('field-imei-container').classList.remove('hidden');
+        document.getElementById('field-warranty-container').classList.remove('hidden');
+        document.getElementById('th-code-col').innerText = "IMEI / Barcode";
       } else {
         badge.innerText = "Departmental Store";
         badge.className = "px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
         subtext.innerText = "Barcode Supermarket Counter (Thermal 80mm)";
         barcodeInput.placeholder = "Scan Barcode Gun & Press Enter...";
-        mobileCustFields.classList.add('hidden');
-        taxRow.classList.add('hidden');
-        btnSavePrint.innerText = "SAVE & PRINT THERMAL BILL";
-        fieldImei.classList.add('hidden');
-        fieldWarranty.classList.add('hidden');
-        thCode.innerText = "Barcode";
+        document.getElementById('mobile-cust-fields').classList.add('hidden');
+        document.getElementById('tax-breakdown-row').classList.add('hidden');
+        document.getElementById('btn-save-print-text').innerText = "SAVE & PRINT THERMAL BILL";
+        document.getElementById('field-imei-container').classList.add('hidden');
+        document.getElementById('field-warranty-container').classList.add('hidden');
+        document.getElementById('th-code-col').innerText = "Barcode";
       }
 
       refreshAllData();
@@ -753,7 +627,7 @@
           amount: orderData.amount,
           currency: orderData.currency,
           name: "PJ SmartBill POS",
-          description: currentUser.store_type === 'MOBILE' ? "Mobile Showroom Plan Activation" : "Departmental Store Activation",
+          description: "Store Plan Activation",
           image: "/static/default-shop.png",
           order_id: orderData.order_id,
           handler: async function (response) {
@@ -770,15 +644,16 @@
               alert("🎉 Payment Successful! Store unlocked for 30 days.");
               location.reload();
             } else {
-              alert("Signature verification error");
+              const err = await verifyRes.json();
+              alert(err.detail || "Payment Verification Failed!");
             }
           },
           prefill: {
-            name: currentUser ? currentUser.shop_name : "Store Admin",
-            email: currentUser ? currentUser.email : "store@pjsmartbill.com",
-            contact: currentUser ? currentUser.phone : "9876543210"
+            name: currentUser ? currentUser.shop_name : "",
+            email: currentUser ? currentUser.email : "",
+            contact: currentUser ? currentUser.phone : ""
           },
-          theme: { color: currentUser.store_type === 'MOBILE' ? "#6366f1" : "#10b981" }
+          theme: { color: "#2563eb" }
         };
         const rzp = new Razorpay(options);
         rzp.open();
@@ -796,9 +671,8 @@
         const prod = allProducts.find(p => p.barcode === code || p.imei_serial === code);
         if (prod) {
           addToCart(prod.id);
-          playBeep();
         } else {
-          alert(`Identifier (${code}) not found in inventory catalog!`);
+          alert(`Code (${esc(code)}) not found in catalog!`);
         }
         document.getElementById('barcode-scanner-input').value = '';
       }
@@ -806,17 +680,16 @@
 
     function addToCart(productId) {
       const prod = allProducts.find(p => p.id === productId);
-      if (!prod || prod.stock <= 0) return alert("Product is out of stock!");
+      if (!prod) return;
 
       const existing = cart.find(i => i.product_id === productId);
       if (existing) {
-        if (existing.quantity >= prod.stock) return alert("Available stock limit reached!");
         existing.quantity += 1;
       } else {
         cart.push({
           product_id: prod.id,
           name: prod.name,
-          price: prod.price,
+          price: Number(prod.price),
           barcode: prod.barcode || "-",
           imei_serial: prod.imei_serial || "-",
           warranty_months: prod.warranty_months || 0,
@@ -829,7 +702,7 @@
     function renderCart() {
       const c = document.getElementById('cart-items-container');
       if (!cart.length) {
-        c.innerHTML = `<p class="text-slate-500 text-center py-16 text-xs">Cart is empty. Scan barcode or IMEI to bill.</p>`;
+        c.innerHTML = `<p class="text-slate-500 text-center py-16 text-xs">Cart is empty. Scan barcode to bill.</p>`;
         calculateTotal();
         return;
       }
@@ -837,9 +710,9 @@
       c.innerHTML = cart.map((item, idx) => `
         <div class="flex justify-between items-center p-2.5 bg-slate-800/80 border border-slate-700/80 rounded-xl text-xs">
           <div class="flex-1 pr-2">
-            <h5 class="font-bold text-white text-xs">${item.name}</h5>
+            <h5 class="font-bold text-white text-xs">${esc(item.name)}</h5>
             <span class="text-[10px] text-slate-400 mono">
-              ${isMobile && item.imei_serial !== '-' ? 'IMEI: ' + item.imei_serial + ' | ' : ''}₹${item.price} x ${item.quantity}
+              ${isMobile && item.imei_serial !== '-' ? 'IMEI: ' + esc(item.imei_serial) + ' | ' : ''}₹${item.price} x ${item.quantity}
             </span>
           </div>
           <div class="flex items-center space-x-2">
@@ -862,7 +735,12 @@
 
     function calculateTotal() {
       const subtotal = cart.reduce((acc, i) => acc + (i.price * i.quantity), 0);
-      const discount = parseFloat(document.getElementById('discount-input').value) || 0;
+      let discount = parseFloat(document.getElementById('discount-input').value) || 0;
+      if (discount < 0) discount = 0;
+      if (discount > subtotal) {
+        discount = subtotal;
+        document.getElementById('discount-input').value = subtotal;
+      }
       const grandTotal = Math.max(0, subtotal - discount);
 
       document.getElementById('subtotal-text').innerText = `₹${subtotal.toFixed(2)}`;
@@ -890,19 +768,12 @@
     async function handleInstantCheckout() {
       if (!cart.length) return alert("The cart is currently empty!");
 
-      const total = calculateTotal();
-      const customer_name = document.getElementById('cust-name').value.trim() || "Walk-in Customer";
-      const customer_phone = document.getElementById('cust-phone').value.trim() || "N/A";
-      const customer_gstin = document.getElementById('cust-gstin').value.trim() || "";
-      const customer_address = document.getElementById('cust-address').value.trim() || "";
-      const discount = parseFloat(document.getElementById('discount-input').value) || 0;
-
       const payload = {
-        customer_name,
-        customer_phone,
-        customer_address,
-        customer_gstin,
-        discount,
+        customer_name: document.getElementById('cust-name').value.trim() || "Walk-in Customer",
+        customer_phone: document.getElementById('cust-phone').value.trim() || "N/A",
+        customer_address: document.getElementById('cust-address').value.trim() || "",
+        customer_gstin: document.getElementById('cust-gstin').value.trim() || "",
+        discount: parseFloat(document.getElementById('discount-input').value) || 0,
         payment_mode: currentPaymentMode,
         items: cart.map(i => ({ product_id: i.product_id, quantity: i.quantity }))
       };
@@ -924,24 +795,20 @@
         document.getElementById('cust-gstin').value = '';
         document.getElementById('cust-address').value = '';
         document.getElementById('discount-input').value = '0';
-        selectPaymentMode('Cash');
         refreshAllData();
-
-        setTimeout(() => document.getElementById('barcode-scanner-input').focus(), 300);
       } catch (err) {
-        alert("Server error occurred during checkout!");
+        alert("Server communication error occurred!");
       }
     }
 
+    // XSS-SAFE INVOICE RENDERING
     function openInvoiceModal(bill) {
       const preview = document.getElementById('modal-invoice-preview');
-      const modalTitle = document.getElementById('invoice-modal-title');
       const dialogBox = document.getElementById('invoice-dialog-box');
       const btnPdf = document.getElementById('btn-download-pdf');
       const printableArea = document.getElementById('printable-receipt');
 
       if (bill.invoice_type === 'A4') {
-        modalTitle.innerText = "📱 Mobile Showroom GST Tax Invoice (A4 Sheet)";
         dialogBox.className = "bg-white text-slate-900 rounded-3xl max-w-4xl w-full p-8 shadow-2xl flex flex-col max-h-[94vh] border border-slate-200";
         btnPdf.classList.remove('hidden');
 
@@ -953,29 +820,28 @@
           <div id="a4-invoice-container" class="p-6 bg-white border border-slate-300 rounded-xl font-sans text-slate-800 text-xs">
             <div class="flex justify-between items-start border-b-2 border-slate-800 pb-4">
               <div>
-                <h1 class="text-xl font-black text-slate-900 tracking-wide uppercase">${bill.shop_name}</h1>
-                <p class="text-slate-600 font-semibold text-[11px] mt-0.5">Mobile Phones, Gadgets & Electronic Showroom</p>
-                <p class="text-slate-500 text-[10px] max-w-sm mt-1">${bill.shop_address}</p>
-                <p class="text-slate-700 font-bold text-[10px] mt-0.5">Ph: +91 ${bill.phone || '7708081821'}</p>
+                <h1 class="text-xl font-black text-slate-900 uppercase">${esc(bill.shop_name)}</h1>
+                <p class="text-slate-600 font-semibold text-[11px] mt-0.5">${esc(bill.shop_address)}</p>
+                ${bill.phone ? `<p class="text-slate-700 font-bold text-[10px] mt-0.5">Ph: +91 ${esc(bill.phone)}</p>` : ''}
               </div>
               <div class="text-right">
                 <span class="inline-block bg-slate-900 text-white font-black text-xs px-3 py-1 rounded">GST TAX INVOICE</span>
-                <p class="mt-2 text-[11px]"><b>Invoice No:</b> <span class="mono font-bold text-slate-900">${bill.invoice_no}</span></p>
-                <p class="text-[11px]"><b>Date:</b> ${bill.date}</p>
+                <p class="mt-2 text-[11px]"><b>Invoice No:</b> <span class="mono font-bold">${esc(bill.invoice_no)}</span></p>
+                <p class="text-[11px]"><b>Date:</b> ${esc(bill.date)}</p>
               </div>
             </div>
 
             <div class="grid grid-cols-2 gap-4 py-3 border-b border-slate-200 text-[11px]">
               <div>
-                <p class="text-slate-400 font-bold uppercase text-[9px]">Billed To (Customer):</p>
-                <p class="font-bold text-slate-900 text-sm mt-0.5">${bill.customer_name}</p>
-                <p class="text-slate-600">Contact: +91 ${bill.customer_phone}</p>
-                ${bill.customer_address ? `<p class="text-slate-500">${bill.customer_address}</p>` : ''}
+                <p class="text-slate-400 font-bold uppercase text-[9px]">Billed To:</p>
+                <p class="font-bold text-slate-900 text-sm mt-0.5">${esc(bill.customer_name)}</p>
+                <p class="text-slate-600">Contact: +91 ${esc(bill.customer_phone)}</p>
+                ${bill.customer_address ? `<p class="text-slate-500">${esc(bill.customer_address)}</p>` : ''}
               </div>
               <div class="text-right">
-                <p class="text-slate-400 font-bold uppercase text-[9px]">Tax & Payment Details:</p>
-                <p class="mt-0.5"><b>Payment Mode:</b> <span class="font-bold text-emerald-600">${bill.payment_mode}</span></p>
-                ${bill.customer_gstin ? `<p><b>Customer GSTIN:</b> <span class="mono font-bold">${bill.customer_gstin}</span></p>` : '<p class="text-slate-400">Retail Consumer (B2C)</p>'}
+                <p class="text-slate-400 font-bold uppercase text-[9px]">Payment Mode:</p>
+                <p class="mt-0.5 font-bold text-emerald-600">${esc(bill.payment_mode)}</p>
+                ${bill.customer_gstin ? `<p>GSTIN: <span class="mono font-bold">${esc(bill.customer_gstin)}</span></p>` : ''}
               </div>
             </div>
 
@@ -983,7 +849,7 @@
               <thead>
                 <tr class="bg-slate-100 border-b border-t border-slate-300 text-slate-700">
                   <th class="py-2 px-2">#</th>
-                  <th class="py-2 px-2">Item Description & IMEI / Serial</th>
+                  <th class="py-2 px-2">Item Description & IMEI</th>
                   <th class="py-2 px-2 text-center">Warranty</th>
                   <th class="py-2 px-2 text-center">Qty</th>
                   <th class="py-2 px-2 text-right">Unit Rate</th>
@@ -995,90 +861,55 @@
                   <tr>
                     <td class="py-2 px-2 font-mono">${idx + 1}</td>
                     <td class="py-2 px-2">
-                      <b class="text-slate-900">${i.name}</b>
-                      ${i.imei_serial !== '-' ? `<div class="mono text-[10px] text-indigo-600 font-bold mt-0.5">IMEI: ${i.imei_serial}</div>` : ''}
+                      <b class="text-slate-900">${esc(i.name)}</b>
+                      ${i.imei_serial !== '-' ? `<div class="mono text-[10px] text-indigo-600 font-bold mt-0.5">IMEI: ${esc(i.imei_serial)}</div>` : ''}
                     </td>
-                    <td class="py-2 px-2 text-center font-bold text-slate-700">${i.warranty_months ? i.warranty_months + ' Mos' : 'Standard'}</td>
-                    <td class="py-2 px-2 text-center font-bold">${i.qty}</td>
-                    <td class="py-2 px-2 text-right mono">₹${i.price.toFixed(2)}</td>
-                    <td class="py-2 px-2 text-right mono font-bold">₹${i.amt.toFixed(2)}</td>
+                    <td class="py-2 px-2 text-center">${Number(i.warranty_months) ? i.warranty_months + ' Mos' : 'Standard'}</td>
+                    <td class="py-2 px-2 text-center font-bold">${Number(i.qty)}</td>
+                    <td class="py-2 px-2 text-right mono">₹${Number(i.price).toFixed(2)}</td>
+                    <td class="py-2 px-2 text-right mono font-bold">₹${Number(i.amt).toFixed(2)}</td>
                   </tr>
                 `).join('')}
               </tbody>
             </table>
 
-            <div class="grid grid-cols-2 gap-4 border-t border-slate-300 pt-3">
-              <div class="text-[10px] text-slate-500 space-y-1">
-                <p><b>Terms & Conditions:</b></p>
-                <p>1. Physical damage and liquid spillage are void of device manufacturer warranty.</p>
-                <p>2. Goods once sold can be serviced according to brand service center policies.</p>
-              </div>
-              <div class="space-y-1.5 text-right text-[11px]">
-                <div class="flex justify-between"><span>Taxable Value:</span> <span class="mono">₹${baseSubtotal.toFixed(2)}</span></div>
-                <div class="flex justify-between text-slate-600"><span>Central GST (CGST 9%):</span> <span class="mono">₹${cgst.toFixed(2)}</span></div>
-                <div class="flex justify-between text-slate-600"><span>State GST (SGST 9%):</span> <span class="mono">₹${sgst.toFixed(2)}</span></div>
-                ${bill.discount > 0 ? `<div class="flex justify-between text-rose-600"><span>Discount:</span> <span class="mono">-₹${bill.discount.toFixed(2)}</span></div>` : ''}
-                <div class="flex justify-between text-base font-black text-slate-900 border-t-2 border-slate-800 pt-1">
-                  <span>NET PAYABLE:</span>
-                  <span class="mono text-lg text-indigo-700">₹${bill.total.toFixed(2)}</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="flex justify-between items-end mt-8 pt-4 border-t border-dashed border-slate-300 text-[10px] text-slate-400">
-              <p>Customer Signature</p>
-              <p class="text-right font-bold text-slate-700">For ${bill.shop_name}<br><br><span class="font-normal text-slate-400">Authorized Signatory</span></p>
+            <div class="space-y-1 text-right text-[11px] border-t border-slate-300 pt-3">
+              <p>Taxable Value: <span class="mono">₹${baseSubtotal.toFixed(2)}</span></p>
+              <p>CGST (9%): <span class="mono">₹${cgst.toFixed(2)}</span> | SGST (9%): <span class="mono">₹${sgst.toFixed(2)}</span></p>
+              ${bill.discount > 0 ? `<p class="text-rose-600">Discount: -₹${Number(bill.discount).toFixed(2)}</p>` : ''}
+              <h2 class="text-base font-black text-slate-900 border-t-2 pt-1">NET PAYABLE: ₹${Number(bill.total).toFixed(2)}</h2>
             </div>
           </div>
         `;
         preview.innerHTML = a4Html;
         printableArea.innerHTML = a4Html;
-
       } else {
-        modalTitle.innerText = "🛒 Supermarket Thermal Bill Receipt (80mm)";
-        dialogBox.className = "bg-white text-slate-900 rounded-3xl max-w-md w-full p-6 shadow-2xl flex flex-col max-h-[92vh] border border-slate-200";
         btnPdf.classList.add('hidden');
-
         const thermalHtml = `
           <div class="mono text-xs">
-            <div class="text-center pb-3 border-b-2 border-dashed border-slate-300">
-              <h2 class="text-base font-black uppercase text-slate-900 tracking-wide">${bill.shop_name}</h2>
-              <p class="text-[10px] text-slate-600 font-bold">DEPARTMENTAL & RETAIL SUPERMARKET</p>
-              <p class="text-[10px] text-slate-500">${bill.shop_address}</p>
-              <p class="text-[10px] text-slate-500">Ph: +91 ${bill.phone || '7708081821'}</p>
-            </div>
-            <div class="py-2.5 border-b border-dashed border-slate-200 text-[11px] grid grid-cols-2">
-              <div><p><b>Inv:</b> ${bill.invoice_no}</p><p><b>Date:</b> ${bill.date}</p></div>
-              <div class="text-right"><p><b>Cust:</b> ${bill.customer_name}</p><p><b>Mode:</b> ${bill.payment_mode}</p></div>
-            </div>
-            <table class="w-full my-3 text-[11px]">
-              <thead><tr class="border-b border-slate-400 text-slate-700"><th class="text-left py-1">Item</th><th class="text-center py-1">Qty</th><th class="text-right py-1">Rate</th><th class="text-right py-1">Amt</th></tr></thead>
-              <tbody class="divide-y divide-slate-100">
-                ${bill.items.map(i => `
-                  <tr>
-                    <td class="py-1"><b>${i.name}</b><div class="text-[9px] text-slate-400">${i.barcode !== '-' ? 'Code: ' + i.barcode : ''}</div></td>
-                    <td class="text-center py-1">${i.qty}</td>
-                    <td class="text-right py-1">₹${i.price.toFixed(2)}</td>
-                    <td class="text-right py-1 font-bold">₹${i.amt.toFixed(2)}</td>
-                  </tr>
-                `).join('')}
-              </tbody>
-            </table>
-            <div class="border-t-2 border-dashed border-slate-300 pt-2 space-y-1 text-right text-[11px]">
-              <p class="flex justify-between"><span>Subtotal:</span> <span>₹${bill.subtotal.toFixed(2)}</span></p>
-              <p class="flex justify-between"><span>Discount:</span> <span>-₹${bill.discount.toFixed(2)}</span></p>
-              <p class="flex justify-between text-sm font-black text-slate-900 border-t pt-1"><span>NET PAYABLE:</span> <span>₹${bill.total.toFixed(2)}</span></p>
-            </div>
-            <div class="text-center mt-5 pt-3 border-t border-dashed border-slate-300 text-[10px] text-slate-500">
-              <p>*** Thank You! Visit Again ***</p>
-            </div>
+            <center>
+              <h2 class="text-base font-black uppercase">${esc(bill.shop_name)}</h2>
+              <p class="text-[10px]">${esc(bill.shop_address)}</p>
+              <p>--------------------------------</p>
+            </center>
+            <p>Inv: ${esc(bill.invoice_no)} | ${esc(bill.date)}</p>
+            <p>Cust: ${esc(bill.customer_name)}</p>
+            <p>--------------------------------</p>
+            ${bill.items.map(i => `<div>${esc(i.name)} <br> ${i.qty} x ₹${Number(i.price).toFixed(2)} = ₹${Number(i.amt).toFixed(2)}</div>`).join('')}
+            <p>--------------------------------</p>
+            <b>NET PAYABLE: ₹${Number(bill.total).toFixed(2)}</b>
           </div>
         `;
         preview.innerHTML = thermalHtml;
         printableArea.innerHTML = thermalHtml;
       }
-
       document.getElementById('invoice-modal').classList.remove('hidden');
+    }
+
+    function openInvoiceModalFromCache(idx) {
+      if (window.billsCache && window.billsCache[idx]) {
+        openInvoiceModal(window.billsCache[idx]);
+      }
     }
 
     function closeInvoiceModal() { document.getElementById('invoice-modal').classList.add('hidden'); }
@@ -1087,14 +918,13 @@
     function downloadInvoicePDF() {
       const element = document.getElementById('a4-invoice-container');
       if (!element) return;
-      const opt = {
+      html2pdf().set({
         margin: 5,
         filename: `${currentInvoiceData ? currentInvoiceData.invoice_no : 'Invoice'}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2 },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      };
-      html2pdf().set(opt).from(element).save();
+      }).from(element).save();
     }
 
     function switchAuth(mode) {
@@ -1117,13 +947,13 @@
 
     async function handleLogin(e) {
       e.preventDefault();
-      const identifier = document.getElementById('login-identifier').value.trim();
-      const password = document.getElementById('login-password').value.trim();
-
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ identifier, password })
+        body: JSON.stringify({
+          identifier: document.getElementById('login-identifier').value.trim(),
+          password: document.getElementById('login-password').value
+        })
       });
       const data = await res.json();
       if (!res.ok) {
@@ -1136,16 +966,16 @@
 
     async function handleRegisterInitiate(e) {
       e.preventDefault();
-      const shop_name = document.getElementById('reg-shop-name').value.trim();
-      const email = document.getElementById('reg-email').value.trim();
-      const phone = document.getElementById('reg-phone').value.trim();
-      const password = document.getElementById('reg-password').value.trim();
-      const confirm_password = document.getElementById('reg-cpassword').value.trim();
-
       const res = await fetch('/api/auth/register-initiate', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ shop_name, email, phone, password, confirm_password })
+        body: JSON.stringify({
+          shop_name: document.getElementById('reg-shop-name').value.trim(),
+          email: document.getElementById('reg-email').value.trim(),
+          phone: document.getElementById('reg-phone').value.trim(),
+          password: document.getElementById('reg-password').value,
+          confirm_password: document.getElementById('reg-cpassword').value
+        })
       });
       const data = await res.json();
       if (!res.ok) {
@@ -1167,11 +997,13 @@
 
     async function handleRegisterVerify(e) {
       e.preventDefault();
-      const otp = document.getElementById('reg-otp').value.trim();
       const res = await fetch('/api/auth/register-verify', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ email: pendingRegisterEmail, otp })
+        body: JSON.stringify({
+          email: pendingRegisterEmail,
+          otp: document.getElementById('reg-otp').value.trim()
+        })
       });
       if (!res.ok) {
         const d = await res.json();
@@ -1209,34 +1041,36 @@
 
     async function loadProducts() {
       const res = await fetch('/api/products');
-      allProducts = await res.json();
-      renderStockTable(allProducts);
-      renderBillingCatalog(allProducts);
+      if (res.ok) {
+        allProducts = await res.json();
+        renderStockTable(allProducts);
+        renderBillingCatalog(allProducts);
+      }
     }
 
     function renderStockTable(list) {
       const tbody = document.getElementById('stock-table-body');
       if (!list.length) {
-        tbody.innerHTML = `<tr><td colspan="5" class="text-center py-8 text-slate-500">No inventory products registered yet.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="5" class="text-center py-8 text-slate-500">No inventory products registered.</td></tr>`;
         return;
       }
       const isMobile = (currentUser && currentUser.store_type === 'MOBILE');
       tbody.innerHTML = list.map(p => `
         <tr class="hover:bg-slate-800/40 transition">
           <td class="py-3 px-3 flex items-center space-x-3">
-            <img src="${p.image_url || '/static/default-item.png'}" onerror="this.src='https://via.placeholder.com/32'" class="w-8 h-8 rounded-lg object-cover border border-slate-700 bg-slate-800" alt="">
+            <img src="${(p.image_url.startsWith('/static/') || p.image_url.startsWith('https://')) ? esc(p.image_url) : '/static/default-item.png'}" class="w-8 h-8 rounded-lg object-cover border border-slate-700 bg-slate-800" alt="">
             <div>
-              <span class="font-semibold text-white block">${p.name}</span>
-              ${p.warranty_months ? `<span class="text-[10px] text-indigo-400">${p.warranty_months} Months Warranty</span>` : ''}
+              <span class="font-semibold text-white block">${esc(p.name)}</span>
+              ${Number(p.warranty_months) ? `<span class="text-[10px] text-indigo-400">${p.warranty_months} Mos Warranty</span>` : ''}
             </div>
           </td>
           <td class="py-3 px-3 mono font-bold ${isMobile ? 'text-indigo-400' : 'text-emerald-400'}">
-            ${isMobile && p.imei_serial ? p.imei_serial : (p.barcode || '<span class="text-slate-600">None</span>')}
+            ${isMobile && p.imei_serial !== '-' ? esc(p.imei_serial) : esc(p.barcode)}
           </td>
-          <td class="py-3 px-3 text-right mono font-bold">₹${p.price.toFixed(2)}</td>
-          <td class="py-3 px-3 text-center mono font-bold ${p.stock <= 5 ? 'text-amber-400' : 'text-slate-300'}">${p.stock}</td>
+          <td class="py-3 px-3 text-right mono font-bold">₹${Number(p.price).toFixed(2)}</td>
+          <td class="py-3 px-3 text-center mono font-bold ${Number(p.stock) <= 5 ? 'text-amber-400' : 'text-slate-300'}">${Number(p.stock)}</td>
           <td class="py-3 px-3 text-center">
-            <button onclick="deleteProductItem(${p.id})" class="text-red-400 hover:underline">Delete</button>
+            <button onclick="deleteProductItem(${Number(p.id)})" class="text-red-400 hover:underline">Delete</button>
           </td>
         </tr>
       `).join('');
@@ -1249,38 +1083,30 @@
 
     async function handleProductAdd(e) {
       e.preventDefault();
-      const barcode = document.getElementById('add-prod-barcode').value.trim();
-      const imei = document.getElementById('add-prod-imei').value.trim();
-      const name = document.getElementById('add-prod-name').value.trim();
-      const price = parseFloat(document.getElementById('add-prod-price').value);
-      const stock = parseInt(document.getElementById('add-prod-stock').value);
-      const warranty = parseInt(document.getElementById('add-prod-warranty').value) || 0;
-      const imageFile = document.getElementById('add-prod-image').files[0];
-
       const formData = new FormData();
-      formData.append("barcode", barcode);
-      formData.append("imei_serial", imei);
-      formData.append("name", name);
-      formData.append("price", price);
-      formData.append("stock", stock);
-      formData.append("warranty_months", warranty);
-      if (imageFile) formData.append("image", imageFile);
+      formData.append("barcode", document.getElementById('add-prod-barcode').value.trim());
+      formData.append("imei_serial", document.getElementById('add-prod-imei').value.trim());
+      formData.append("name", document.getElementById('add-prod-name').value.trim());
+      formData.append("price", parseFloat(document.getElementById('add-prod-price').value));
+      formData.append("stock", parseInt(document.getElementById('add-prod-stock').value));
+      formData.append("warranty_months", parseInt(document.getElementById('add-prod-warranty').value) || 0);
+      const img = document.getElementById('add-prod-image').files[0];
+      if (img) formData.append("image", img);
 
       const res = await fetch('/api/products/create', { method: 'POST', body: formData });
       const data = await res.json();
-      if (!res.ok) return alert(data.detail || data.message);
+      if (!res.ok) return alert(data.detail || "Error adding item");
 
       document.getElementById('add-prod-barcode').value = '';
       document.getElementById('add-prod-imei').value = '';
       document.getElementById('add-prod-name').value = '';
       document.getElementById('add-prod-price').value = '';
       document.getElementById('add-prod-stock').value = '';
-      document.getElementById('add-prod-image').value = '';
       refreshAllData();
     }
 
     async function deleteProductItem(id) {
-      if (!confirm("Are you sure you want to delete this product?")) return;
+      if (!confirm("Are you sure?")) return;
       await fetch(`/api/products/${id}`, { method: 'DELETE' });
       refreshAllData();
     }
@@ -1291,20 +1117,17 @@
         c.innerHTML = `<p class="col-span-3 text-center py-10 text-slate-500">Catalog is empty.</p>`;
         return;
       }
-      const isMobile = (currentUser && currentUser.store_type === 'MOBILE');
       c.innerHTML = list.map(p => `
-        <div onclick="addToCart(${p.id})" class="p-3.5 bg-slate-800/70 border border-slate-700/60 hover:border-emerald-500 rounded-2xl cursor-pointer transition shadow hover:shadow-emerald-500/10 flex flex-col justify-between">
+        <div onclick="addToCart(${Number(p.id)})" class="p-3.5 bg-slate-800/70 border border-slate-700/60 hover:border-emerald-500 rounded-2xl cursor-pointer transition shadow flex flex-col justify-between">
           <div>
             <div class="flex justify-between items-start">
-              <h4 class="font-bold text-white text-xs leading-snug">${p.name}</h4>
-              <span class="text-[10px] mono font-bold ${p.stock <= 5 ? 'text-amber-400' : 'text-slate-400'}">${p.stock} left</span>
+              <h4 class="font-bold text-white text-xs leading-snug">${esc(p.name)}</h4>
+              <span class="text-[10px] mono font-bold ${Number(p.stock) <= 5 ? 'text-amber-400' : 'text-slate-400'}">${Number(p.stock)} left</span>
             </div>
-            <p class="text-[10px] mono text-slate-500 mt-1">
-              ${isMobile && p.imei_serial ? 'IMEI: ' + p.imei_serial : (p.barcode ? 'Code: ' + p.barcode : 'SKU #' + p.id)}
-            </p>
+            <p class="text-[10px] mono text-slate-500 mt-1">${esc(p.imei_serial !== '-' ? p.imei_serial : p.barcode)}</p>
           </div>
           <div class="mt-3 flex justify-between items-center">
-            <span class="text-sm font-black text-emerald-400 mono">₹${p.price.toFixed(2)}</span>
+            <span class="text-sm font-black text-emerald-400 mono">₹${Number(p.price).toFixed(2)}</span>
             <span class="text-[10px] bg-emerald-500/20 text-emerald-300 font-bold px-2 py-0.5 rounded-lg border border-emerald-500/30">+ ADD</span>
           </div>
         </div>
@@ -1316,114 +1139,43 @@
       renderBillingCatalog(allProducts.filter(p => p.name.toLowerCase().includes(q) || (p.barcode && p.barcode.includes(q)) || (p.imei_serial && p.imei_serial.includes(q))));
     }
 
-    function openProfileModal() {
-      toggleSideMenu();
-      if (currentUser) {
-        document.getElementById('profShopName').value = currentUser.shop_name || '';
-        document.getElementById('profPhone').value = currentUser.phone || '';
-        document.getElementById('profEmail').value = currentUser.email || '';
-        document.getElementById('profAddress').value = currentUser.address || '';
-        document.getElementById('profStoreType').value = currentUser.store_type || 'DEPARTMENT';
-        if (currentUser.profile_image) document.getElementById('profilePreview').src = currentUser.profile_image;
-      }
-      document.getElementById('profileModal').classList.remove('hidden');
-    }
-
-    async function saveProfile(e) {
-      e.preventDefault();
-      const form = document.getElementById('profileForm');
-      const formData = new FormData(form);
-
-      const res = await fetch('/api/user/profile-update', { method: 'POST', body: formData });
-      const data = await res.json();
-      if (res.ok && data.status === 'success') {
-        document.getElementById('top-shop-name').innerText = data.shop_name;
-        currentUser.shop_name = data.shop_name;
-        currentUser.store_type = data.store_type;
-        if (data.profile_image) {
-          currentUser.profile_image = data.profile_image;
-          document.getElementById('top-shop-logo').src = data.profile_image;
-        }
-        closeModal('profileModal');
-        showApp(currentUser);
-        alert("Store Profile updated successfully!");
-      }
-    }
-
-    function openSubscriptionModal() {
-      toggleSideMenu();
-      alert(`Subscription Tier: Monthly Business Plan (₹299/mo)\nCategory: ${currentUser.store_type}\nDays Remaining: ${currentUser.days_left || 30} Days`);
-    }
-    function openDatasetModal() { toggleSideMenu(); document.getElementById('datasetModal').classList.remove('hidden'); }
-    function openHelpModal() { toggleSideMenu(); document.getElementById('helpModal').classList.remove('hidden'); }
-
-    async function uploadDataset(e) {
-      e.preventDefault();
-      const fileInput = document.getElementById('csvFileInput');
-      if (!fileInput.files[0]) return;
-      const formData = new FormData();
-      formData.append('file', fileInput.files[0]);
-
-      const res = await fetch('/api/products/import-csv', { method: 'POST', body: formData });
-      const data = await res.json();
-      alert(data.message);
-      closeModal('datasetModal');
-      refreshAllData();
-    }
-
-    function playBeep() {
-      try {
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.frequency.setValueAtTime(1200, audioCtx.currentTime);
-        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.08);
-      } catch (e) {}
-    }
-
     async function loadDashboard() {
       const res = await fetch('/api/dashboard');
       if (!res.ok) return;
       const data = await res.json();
-      document.getElementById('stat-revenue').innerText = `₹${data.stats.total_sales.toFixed(2)}`;
-      document.getElementById('stat-bills').innerText = data.stats.total_bills;
-      document.getElementById('stat-low-stock').innerText = data.stats.low_stock_count;
-      document.getElementById('stat-products').innerText = data.stats.total_products;
+      document.getElementById('stat-revenue').innerText = `₹${Number(data.stats.total_sales).toFixed(2)}`;
+      document.getElementById('stat-bills').innerText = Number(data.stats.total_bills);
+      document.getElementById('stat-low-stock').innerText = Number(data.stats.low_stock_count);
+      document.getElementById('stat-products').innerText = Number(data.stats.total_products);
 
+      window.billsCache = data.recent_bills;
       const tb = document.getElementById('history-table-body');
       if (!data.recent_bills.length) {
         tb.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-500">No invoices generated yet.</td></tr>`;
       } else {
-        tb.innerHTML = data.recent_bills.map(b => `
+        tb.innerHTML = data.recent_bills.map((b, idx) => `
           <tr class="hover:bg-slate-800/40 transition">
-            <td class="py-3 px-3 mono font-bold text-emerald-400">${b.invoice_no}</td>
-            <td class="py-3 px-3 text-slate-400">${b.date}</td>
-            <td class="py-3 px-3 text-white font-medium">${b.customer_name}</td>
-            <td class="py-3 px-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-300">${b.payment_mode}</span></td>
-            <td class="py-3 px-3 text-right mono font-black text-white">₹${b.total.toFixed(2)}</td>
+            <td class="py-3 px-3 mono font-bold text-emerald-400">${esc(b.invoice_no)}</td>
+            <td class="py-3 px-3 text-slate-400">${esc(b.date)}</td>
+            <td class="py-3 px-3 text-white font-medium">${esc(b.customer_name)}</td>
+            <td class="py-3 px-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-300">${esc(b.payment_mode)}</span></td>
+            <td class="py-3 px-3 text-right mono font-black text-white">₹${Number(b.total).toFixed(2)}</td>
             <td class="py-3 px-3 text-center">
-              <button onclick='openInvoiceModal(${JSON.stringify(b)})' class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-emerald-400 rounded-lg font-bold">View</button>
+              <button onclick="openInvoiceModalFromCache(${idx})" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-emerald-400 rounded-lg font-bold">View</button>
             </td>
           </tr>
         `).join('');
       }
 
       const canvas = document.getElementById('salesChart');
-      const chartLabels = data.recent_bills.slice().reverse().map(b => b.invoice_no.split('-')[2] || b.invoice_no);
-      const chartData = data.recent_bills.slice().reverse().map(b => b.total);
-
       if (salesChartInstance) salesChartInstance.destroy();
       salesChartInstance = new Chart(canvas, {
         type: 'line',
         data: {
-          labels: chartLabels.length ? chartLabels : ['No Bills'],
+          labels: data.recent_bills.slice().reverse().map(b => b.invoice_no.split('-')[2] || b.invoice_no),
           datasets: [{
             label: 'Sales (₹)',
-            data: chartData.length ? chartData : [0],
+            data: data.recent_bills.slice().reverse().map(b => b.total),
             borderColor: '#10b981',
             backgroundColor: 'rgba(16, 185, 129, 0.1)',
             fill: true,
@@ -1443,20 +1195,30 @@
       });
     }
 
-    function openPolicyModal(type) {
-      const modal = document.getElementById('policy-modal');
-      const title = document.getElementById('policy-modal-title');
-      const body = document.getElementById('policy-modal-body');
-      if (type === 'refund') {
-        title.innerText = "Cancellation and Refund Policy";
-        body.innerHTML = "<p>Subscriptions cancelled within 7 days of initiation are eligible for prorated refunds. Hardware integration licenses and processed transaction fees are non-refundable.</p>";
-      } else {
-        title.innerText = "Terms of Service";
-        body.innerHTML = "<p>By using PJ SmartBill POS, retailers agree to comply with Indian GST billing regulations. All store customer data is securely processed under strict privacy protocols.</p>";
-      }
-      modal.classList.remove('hidden');
+    async function uploadDataset(e) {
+      e.preventDefault();
+      const fileInput = document.getElementById('csvFileInput');
+      if (!fileInput.files[0]) return;
+      const formData = new FormData();
+      formData.append('file', fileInput.files[0]);
+
+      const res = await fetch('/api/products/import-csv', { method: 'POST', body: formData });
+      const data = await res.json();
+      alert(data.message || data.detail);
+      closeModal('datasetModal');
+      refreshAllData();
     }
-    function closePolicyModal() { document.getElementById('policy-modal').classList.add('hidden'); }
+  </script>
+
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/static/sw.js')
+          .then((reg) => console.log('Service Worker registered successfully!', reg))
+          .catch((err) => console.log('Service Worker registration failed:', err));
+      });
+    }
   </script>
 </body>
 </html>

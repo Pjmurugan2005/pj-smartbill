@@ -1,0 +1,4 @@
+pj_smartbill.db
+__pycache__/
+*.pyc
+.env

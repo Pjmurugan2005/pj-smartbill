@@ -24,20 +24,25 @@ class User(Base):
     email = Column(String(120), unique=True, index=True, nullable=False)
     phone = Column(String(20), unique=True, index=True, nullable=True)
     address = Column(Text, default="")
-    store_type = Column(String(50), default="")  # 'DEPARTMENT' or 'MOBILE'
+    store_type = Column(String(50), default="MOBILE")  # 'DEPARTMENT' or 'MOBILE'
     profile_image = Column(String(255), default="/static/default-shop.png")
     password_hash = Column(String(255), nullable=False)
     is_verified = Column(Boolean, default=False)
     is_subscribed = Column(Boolean, default=False)
     subscription_plan = Column(String(50), default="TRIAL")
     subscription_end = Column(DateTime, nullable=True)
-    razorpay_subscription_id = Column(String(100), nullable=True)
+    razorpay_order_id = Column(String(100), nullable=True)
+    razorpay_subscription_id = Column(String(100), unique=True, nullable=True) # Re-use attack prevention
     otp = Column(String(6), nullable=True)
     otp_expiry = Column(DateTime, nullable=True)
+    otp_attempts = Column(Integer, default=0) # Brute-force block
     created_at = Column(DateTime, default=datetime.utcnow)
 
     products = relationship("Product", back_populates="user", cascade="all, delete-orphan")
     bills = relationship("Bill", back_populates="user", cascade="all, delete-orphan")
+    recharges = relationship("RechargeEntry", back_populates="user", cascade="all, delete-orphan")
+    repairs = relationship("RepairJob", back_populates="user", cascade="all, delete-orphan")
+    damages = relationship("DamageEntry", back_populates="user", cascade="all, delete-orphan")
 
 class Product(Base):
     __tablename__ = "products"
@@ -45,7 +50,8 @@ class Product(Base):
     user_id = Column(Integer, ForeignKey("users.id"))
     barcode = Column(String(64), index=True, nullable=True)
     imei_serial = Column(String(64), index=True, nullable=True)
-    name = Column(String(200), nullable=False)
+    name = Column(String(200), index=True, nullable=False)
+    category = Column(String(50), default="General")
     price = Column(Float, default=0.0)
     stock = Column(Integer, default=0)
     warranty_months = Column(Integer, default=0)
@@ -69,7 +75,7 @@ class Bill(Base):
     total = Column(Float, default=0.0)
     payment_mode = Column(String(20), default="Cash")
     payment_status = Column(String(20), default="PAID")
-    invoice_type = Column(String(20), default="THERMAL")  # 'THERMAL' or 'A4'
+    invoice_type = Column(String(20), default="A4")
     created_at = Column(DateTime, default=datetime.utcnow)
 
     user = relationship("User", back_populates="bills")
@@ -87,6 +93,47 @@ class BillItem(Base):
     amount = Column(Float, default=0.0)
 
     bill = relationship("Bill", back_populates="items")
+
+class RechargeEntry(Base):
+    __tablename__ = "recharges"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    mobile_number = Column(String(20), nullable=False)
+    operator = Column(String(50), nullable=False)
+    amount = Column(Float, nullable=False)
+    payment_mode = Column(String(20), default="Cash")
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    user = relationship("User", back_populates="recharges")
+
+class RepairJob(Base):
+    __tablename__ = "repairs"
+    id = Column(Integer, primary_key=True, index=True)
+    job_no = Column(String(64), unique=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    customer_name = Column(String(100), nullable=False)
+    customer_phone = Column(String(20), nullable=False)
+    device_model = Column(String(100), nullable=False)
+    problem_desc = Column(Text, nullable=False)
+    status = Column(String(50), default="Received")
+    estimated_cost = Column(Float, default=0.0)
+    advance_paid = Column(Float, default=0.0)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    user = relationship("User", back_populates="repairs")
+
+class DamageEntry(Base):
+    __tablename__ = "damages"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    category = Column(String(50), nullable=False)
+    item_name = Column(String(200), nullable=False)
+    quantity = Column(Integer, default=1)
+    loss_amount = Column(Float, default=0.0)
+    reason = Column(String(200), default="Physical Damage")
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    user = relationship("User", back_populates="damages")
 
 def init_db():
     Base.metadata.create_all(bind=engine)
