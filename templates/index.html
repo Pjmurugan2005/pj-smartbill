@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>PJ SmartBill Enterprise POS | Multi-Store Cloud SaaS</title>
   
-  <!-- ================= ANDROID PWA & MOBILE SUPPORT ================= -->
   <link rel="manifest" href="/static/manifest.json">
   <meta name="theme-color" content="#0f172a">
   <meta name="mobile-web-app-capable" content="yes">
@@ -22,6 +21,11 @@
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
     .mono { font-family: 'JetBrains Mono', monospace; }
+    .modal-enter { animation: modalFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.95) translateY(8px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
     @media print {
       body * { visibility: hidden !important; }
       #printable-receipt, #printable-receipt * { visibility: visible !important; }
@@ -31,9 +35,9 @@
 </head>
 <body class="bg-slate-900 text-slate-100 h-screen flex flex-col overflow-hidden selection:bg-emerald-500 selection:text-white">
 
-  <!-- ================= ONBOARDING STEP ================= -->
+  <!-- ONBOARDING MODAL -->
   <div id="onboarding-modal" class="hidden fixed inset-0 bg-slate-950/95 backdrop-blur-md flex items-center justify-center z-50 p-4">
-    <div class="bg-slate-900 border border-slate-800 p-8 rounded-3xl max-w-xl w-full text-center shadow-2xl relative">
+    <div class="bg-slate-900 border border-slate-800 p-8 rounded-3xl max-w-xl w-full text-center shadow-2xl relative modal-enter">
       <div class="w-14 h-14 bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-3">🏬</div>
       <h2 class="text-2xl font-black text-white">Setup Your Store Profile</h2>
       <p class="text-slate-400 text-xs mt-1">Please enter your store address and choose your business model</p>
@@ -68,9 +72,9 @@
     </div>
   </div>
 
-  <!-- ================= SUBSCRIPTION PAYWALL ================= -->
+  <!-- PAYWALL MODAL -->
   <div id="paywall-modal" class="hidden fixed inset-0 bg-slate-950/95 backdrop-blur-md flex items-center justify-center z-50 p-4">
-    <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-emerald-500/30 p-8 rounded-3xl max-w-lg w-full text-center shadow-2xl relative overflow-hidden">
+    <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-emerald-500/30 p-8 rounded-3xl max-w-lg w-full text-center shadow-2xl relative overflow-hidden modal-enter">
       <div class="w-16 h-16 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4">⚡</div>
       
       <span id="paywall-badge" class="px-3 py-1 bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs font-bold rounded-full uppercase tracking-wider">
@@ -89,11 +93,12 @@
           <span class="text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2.5 py-1 rounded-lg">99% OFF</span>
         </div>
         <p class="text-[11px] text-slate-400 mt-3 pt-3 border-t border-slate-700/60">
-          Monthly plan renewal at <b class="text-white">₹299/month</b>. Cancel anytime.
+          Monthly renewal after 30 days at <b class="text-white">₹299/month</b>. Cancel anytime.
         </p>
         <ul id="paywall-feature-list" class="text-xs space-y-2 text-slate-300 mt-4 font-medium">
           <li class="flex items-center space-x-2"><span class="text-emerald-400 font-bold">✓</span> <span>High-Speed Barcode / IMEI Scanner Integration</span></li>
           <li class="flex items-center space-x-2"><span class="text-emerald-400 font-bold">✓</span> <span>GST Tax Invoicing & PDF Downloads</span></li>
+          <li class="flex items-center space-x-2"><span class="text-emerald-400 font-bold">✓</span> <span>WhatsApp Instant Invoice Dispatch</span></li>
         </ul>
       </div>
 
@@ -112,9 +117,9 @@
     </div>
   </div>
 
-  <!-- ================= AUTH MODAL ================= -->
+  <!-- AUTH MODAL -->
   <div id="auth-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md flex items-center justify-center z-50 p-4">
-    <div class="bg-slate-900 border border-slate-800 p-8 rounded-3xl shadow-2xl w-full max-w-md">
+    <div class="bg-slate-900 border border-slate-800 p-8 rounded-3xl shadow-2xl w-full max-w-md modal-enter">
       <div class="text-center mb-6">
         <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 text-2xl mb-2">🧾</div>
         <h1 class="text-2xl font-black text-white">PJ SmartBill POS</h1>
@@ -129,20 +134,28 @@
       <div id="auth-error-box" class="hidden mb-4 p-3 bg-red-950/50 border border-red-500/30 text-red-400 text-xs rounded-xl font-medium"></div>
       <div id="auth-success-box" class="hidden mb-4 p-3 bg-emerald-950/50 border border-emerald-500/30 text-emerald-400 text-xs rounded-xl font-medium"></div>
 
-      <!-- Login Form -->
+      <!-- Login Form with Eye Icon -->
       <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Email or Phone Number</label>
           <input type="text" id="login-identifier" autocomplete="username" required class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-sm text-white" placeholder="store@gmail.com / 9876543210">
         </div>
         <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Password</label>
-          <input type="password" id="login-password" autocomplete="current-password" required class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-sm text-white" placeholder="••••••••">
+          <div class="flex justify-between items-center mb-1">
+            <label class="block text-xs font-semibold text-slate-300">Password</label>
+            <button type="button" onclick="openForgotPasswordModal()" class="text-[11px] text-emerald-400 hover:underline">Forgot Password?</button>
+          </div>
+          <div class="relative">
+            <input type="password" id="login-password" autocomplete="current-password" required class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-sm text-white pr-10" placeholder="••••••••">
+            <button type="button" onclick="togglePasswordVisibility('login-password', this)" class="absolute right-3 top-3 text-slate-400 hover:text-white text-xs">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
         </div>
         <button type="submit" class="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-xl font-bold transition text-sm shadow-lg shadow-emerald-500/20">Login to Terminal</button>
       </form>
 
-      <!-- Register Step 1 -->
+      <!-- Register Step 1 with Eye Icon -->
       <form id="register-form-step1" onsubmit="handleRegisterInitiate(event)" class="hidden space-y-3">
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Store / Business Name</label>
@@ -160,11 +173,21 @@
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Password (Min 8 Characters)</label>
-          <input type="password" id="reg-password" autocomplete="new-password" minlength="8" required class="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Minimum 8 characters">
+          <div class="relative">
+            <input type="password" id="reg-password" autocomplete="new-password" minlength="8" required class="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none focus:ring-2 focus:ring-emerald-500 pr-10" placeholder="Minimum 8 characters">
+            <button type="button" onclick="togglePasswordVisibility('reg-password', this)" class="absolute right-3 top-2.5 text-slate-400 hover:text-white text-xs">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Confirm Password</label>
-          <input type="password" id="reg-cpassword" autocomplete="new-password" minlength="8" required class="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Re-type password">
+          <div class="relative">
+            <input type="password" id="reg-cpassword" autocomplete="new-password" minlength="8" required class="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none focus:ring-2 focus:ring-emerald-500 pr-10" placeholder="Re-type password">
+            <button type="button" onclick="togglePasswordVisibility('reg-cpassword', this)" class="absolute right-3 top-2.5 text-slate-400 hover:text-white text-xs">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
         </div>
         <button type="submit" class="w-full py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-sm transition">Send Verification Code</button>
       </form>
@@ -183,7 +206,65 @@
     </div>
   </div>
 
-  <!-- ================= MAIN APP ================= -->
+  <!-- FORGOT PASSWORD MODAL -->
+  <div id="forgot-modal" class="hidden fixed inset-0 bg-slate-950/90 backdrop-blur-md flex items-center justify-center z-50 p-4">
+    <div class="bg-slate-900 border border-slate-800 p-8 rounded-3xl shadow-2xl w-full max-w-md modal-enter relative">
+      <button onclick="closeModal('forgot-modal')" class="absolute top-5 right-5 text-slate-400 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
+      
+      <div class="text-center mb-5">
+        <div class="w-12 h-12 bg-amber-500/20 text-amber-400 rounded-2xl flex items-center justify-center text-xl mx-auto mb-2"><i class="fa-solid fa-key"></i></div>
+        <h2 class="text-xl font-black text-white">Reset Account Password</h2>
+        <p class="text-xs text-slate-400 mt-1">We will send a 6-digit OTP to your registered email</p>
+      </div>
+
+      <div id="forgot-error-box" class="hidden mb-4 p-3 bg-red-950/50 border border-red-500/30 text-red-400 text-xs rounded-xl font-medium"></div>
+
+      <!-- Step 1: Send OTP -->
+      <form id="forgot-step-1" onsubmit="submitForgotPassword(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Registered Email Address</label>
+          <input type="email" id="forgot-email" required class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none focus:ring-2 focus:ring-emerald-500" placeholder="store@gmail.com">
+        </div>
+        <button type="submit" id="btn-forgot-otp" class="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-xl font-bold text-sm transition">
+          Send Recovery Code ➔
+        </button>
+      </form>
+
+      <!-- Step 2: Verify & Update -->
+      <form id="forgot-step-2" onsubmit="submitResetPassword(event)" class="hidden space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Enter 6-Digit Code</label>
+          <input type="text" id="forgot-otp" maxlength="6" required class="w-full text-center tracking-[0.4em] text-xl font-bold py-2 bg-slate-800 border border-slate-700 rounded-xl text-white mono outline-none focus:ring-2 focus:ring-emerald-500" placeholder="••••••">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">New Password (Min 8 Characters)</label>
+          <div class="relative">
+            <input type="password" id="forgot-new-pwd" minlength="8" required class="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white outline-none focus:ring-2 focus:ring-emerald-500 pr-10" placeholder="New password">
+            <button type="button" onclick="togglePasswordVisibility('forgot-new-pwd', this)" class="absolute right-3 top-2.5 text-slate-400 hover:text-white text-xs">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+        </div>
+        <button type="submit" class="w-full py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-xl font-bold text-sm transition">Save New Password</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- LEGAL & POLICIES MODAL -->
+  <div id="legal-modal" class="hidden fixed inset-0 bg-slate-950/85 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-lg w-full p-6 shadow-2xl relative modal-enter flex flex-col max-h-[85vh]">
+      <div class="flex justify-between items-center pb-3 border-b border-slate-800">
+        <h3 id="legal-title" class="font-extrabold text-base text-white">Policy</h3>
+        <button onclick="closeModal('legal-modal')" class="text-slate-400 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div id="legal-content" class="py-4 text-xs text-slate-300 leading-relaxed overflow-y-auto space-y-3"></div>
+      <div class="pt-3 border-t border-slate-800 flex justify-end">
+        <button onclick="closeModal('legal-modal')" class="px-5 py-2 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs rounded-xl">Got It</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN APP -->
   <div id="main-app" class="hidden flex-1 flex flex-col h-full bg-slate-950 text-slate-100">
     <header class="bg-slate-900 border-b border-slate-800 px-6 py-3 flex justify-between items-center shadow-lg">
       <div class="flex items-center space-x-4">
@@ -221,7 +302,7 @@
       <div class="flex items-center space-x-3">
         <button onclick="toggleSideMenu()" class="p-2.5 bg-slate-800 hover:bg-slate-700 text-emerald-400 hover:text-white rounded-xl transition border border-slate-700 flex items-center space-x-2 text-xs font-bold shadow">
           <i class="fa-solid fa-bars text-sm"></i>
-          <span class="hidden sm:inline">Menu</span>
+          <span class="hidden sm:inline">Settings</span>
         </button>
         <button onclick="logout()" class="px-3.5 py-2 bg-slate-800 hover:bg-red-500/20 hover:text-red-400 text-slate-400 text-xs font-bold rounded-xl transition border border-slate-700">Logout</button>
       </div>
@@ -253,7 +334,7 @@
           <div class="p-3 bg-slate-950/40 border-b border-slate-800 space-y-2 text-xs">
             <div class="grid grid-cols-2 gap-2">
               <input type="text" id="cust-name" placeholder="Customer Name *" class="px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white outline-none">
-              <input type="text" id="cust-phone" placeholder="Customer Phone *" class="px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white outline-none">
+              <input type="text" id="cust-phone" placeholder="Customer Phone (for WhatsApp) *" class="px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white outline-none">
             </div>
             <div id="mobile-cust-fields" class="hidden grid grid-cols-2 gap-2">
               <input type="text" id="cust-gstin" placeholder="GSTIN (Optional)" class="px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white outline-none uppercase font-mono text-[11px]">
@@ -408,25 +489,28 @@
 
   <!-- INVOICE MODAL -->
   <div id="invoice-modal" class="hidden fixed inset-0 bg-slate-950/85 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-    <div id="invoice-dialog-box" class="bg-white text-slate-900 rounded-3xl max-w-3xl w-full p-6 shadow-2xl flex flex-col max-h-[94vh] border border-slate-200">
+    <div id="invoice-dialog-box" class="bg-white text-slate-900 rounded-3xl max-w-3xl w-full p-6 shadow-2xl flex flex-col max-h-[94vh] border border-slate-200 modal-enter">
       <div class="flex justify-between items-center pb-3 border-b border-slate-200">
         <h3 id="invoice-modal-title" class="font-black text-base text-slate-900">🧾 Tax Invoice Preview</h3>
         <button onclick="closeInvoiceModal()" class="text-slate-400 hover:text-slate-600 text-xl font-bold">×</button>
       </div>
       <div class="flex-1 overflow-y-auto py-3" id="modal-invoice-preview"></div>
-      <div class="flex space-x-3 pt-3 border-t border-slate-200">
-        <button id="btn-download-pdf" onclick="downloadInvoicePDF()" class="hidden px-5 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow flex items-center space-x-2">
-          <i class="fa-solid fa-file-pdf"></i><span>DOWNLOAD PDF</span>
+      <div class="flex space-x-2 pt-3 border-t border-slate-200">
+        <button id="btn-share-whatsapp" onclick="shareInvoiceWhatsApp()" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow flex items-center space-x-1.5">
+          <i class="fa-brands fa-whatsapp text-sm"></i><span>WhatsApp</span>
         </button>
-        <button onclick="triggerPrintFromModal()" class="flex-1 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs rounded-xl shadow flex items-center justify-center space-x-1.5">
+        <button id="btn-download-pdf" onclick="downloadInvoicePDF()" class="hidden px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow flex items-center space-x-1.5">
+          <i class="fa-solid fa-file-pdf"></i><span>PDF</span>
+        </button>
+        <button onclick="triggerPrintFromModal()" class="flex-1 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-black text-xs rounded-xl shadow flex items-center justify-center space-x-1.5">
           <i class="fa-solid fa-print"></i><span>PRINT INVOICE</span>
         </button>
-        <button onclick="closeInvoiceModal()" class="px-5 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl">Close</button>
+        <button onclick="closeInvoiceModal()" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl">Close</button>
       </div>
     </div>
   </div>
 
-  <!-- SIDE MENU -->
+  <!-- SIDE MENU OVERLAY & DRAWER -->
   <div id="sideMenuOverlay" onclick="toggleSideMenu()" class="fixed inset-0 bg-black/60 z-40 hidden transition-opacity"></div>
   <aside id="sideMenu" class="fixed top-0 right-0 h-full w-80 bg-slate-900 text-white z-50 transform translate-x-full transition-transform duration-300 flex flex-col justify-between shadow-2xl border-l border-slate-800">
     <div>
@@ -434,23 +518,43 @@
         <div class="flex items-center space-x-2"><i class="fa-solid fa-sliders text-emerald-400"></i><h3 class="font-bold text-base tracking-wide">Terminal Settings</h3></div>
         <button onclick="toggleSideMenu()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
       </div>
+      
       <nav class="p-4 space-y-1.5 text-xs font-semibold">
-        <button onclick="openProfileModal()" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition text-slate-200"><i class="fa-regular fa-id-badge text-indigo-400 w-5 text-sm"></i><span>Store Profile</span></button>
-        <button onclick="openSubscriptionModal()" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition text-slate-200"><i class="fa-solid fa-credit-card text-emerald-400 w-5 text-sm"></i><span>Subscription Details</span></button>
-        <button onclick="openDatasetModal()" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition text-slate-200"><i class="fa-solid fa-file-csv text-amber-400 w-5 text-sm"></i><span>Upload Dataset (CSV)</span></button>
+        <button onclick="openProfileModal()" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition text-slate-200">
+          <i class="fa-regular fa-id-badge text-indigo-400 w-5 text-sm"></i><span>Store Profile</span>
+        </button>
+        <button onclick="openSubscriptionModal()" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition text-slate-200">
+          <i class="fa-solid fa-credit-card text-emerald-400 w-5 text-sm"></i><span>Subscription & Upgrade</span>
+        </button>
+        <button onclick="openDatasetModal()" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition text-slate-200">
+          <i class="fa-solid fa-file-csv text-amber-400 w-5 text-sm"></i><span>Upload Dataset (CSV)</span>
+        </button>
+        
+        <div class="border-t border-slate-800/80 my-3"></div>
+        <p class="text-[10px] uppercase font-bold text-slate-500 px-4">Compliance & Policies</p>
+
+        <button onclick="openPolicyModal('refund')" class="w-full flex items-center space-x-3 px-4 py-2.5 rounded-xl hover:bg-slate-800 transition text-slate-300">
+          <i class="fa-solid fa-rotate-left text-slate-400 w-5 text-sm"></i><span>Cancellation & Refund</span>
+        </button>
+        <button onclick="openPolicyModal('terms')" class="w-full flex items-center space-x-3 px-4 py-2.5 rounded-xl hover:bg-slate-800 transition text-slate-300">
+          <i class="fa-solid fa-scale-balanced text-slate-400 w-5 text-sm"></i><span>Terms & Conditions</span>
+        </button>
+        <button onclick="openPolicyModal('contact')" class="w-full flex items-center space-x-3 px-4 py-2.5 rounded-xl hover:bg-slate-800 transition text-slate-300">
+          <i class="fa-solid fa-headset text-slate-400 w-5 text-sm"></i><span>Customer Support</span>
+        </button>
       </nav>
     </div>
     <div class="p-4 border-t border-slate-800 text-[10px] text-slate-400 text-center">PJ SmartBill Multi-Store Edition © 2026 PJ Technologies.</div>
   </aside>
 
-  <!-- PROFILE MODAL -->
+  <!-- STORE PROFILE MODAL -->
   <div id="profileModal" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-md p-6 shadow-2xl relative text-slate-100">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-md p-6 shadow-2xl relative text-slate-100 modal-enter">
       <div class="flex justify-between items-center mb-4"><h3 class="text-base font-bold text-white">Merchant Store Profile</h3><button onclick="closeModal('profileModal')" class="text-slate-400 hover:text-white">✕</button></div>
       <form id="profileForm" onsubmit="saveProfile(event)" class="space-y-3 text-xs">
         <div><label class="block font-semibold text-slate-400 mb-1">Store Name</label><input type="text" name="shop_name" id="profShopName" required class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 outline-none text-white"></div>
         <div><label class="block font-semibold text-slate-400 mb-1">Phone</label><input type="text" name="phone" id="profPhone" required class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 outline-none text-white"></div>
-        <div><label class="block font-semibold text-slate-400 mb-1">Email</label><input type="email" name="email" id="profEmail" required class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 outline-none text-white"></div>
+        <div><label class="block font-semibold text-slate-400 mb-1">Email</label><input type="email" name="email" id="profEmail" readonly class="w-full bg-slate-800/50 border border-slate-700 rounded-xl p-2.5 outline-none text-slate-400 cursor-not-allowed"></div>
         <div><label class="block font-semibold text-slate-400 mb-1">Full Address</label><textarea name="address" id="profAddress" rows="2" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 outline-none text-white"></textarea></div>
         <div class="flex justify-end space-x-2 pt-2">
           <button type="button" onclick="closeModal('profileModal')" class="px-4 py-2 bg-slate-800 text-slate-400 rounded-xl">Cancel</button>
@@ -460,10 +564,40 @@
     </div>
   </div>
 
-  <!-- CSV MODAL -->
+  <!-- SUBSCRIPTION UPGRADE MODAL -->
+  <div id="subDetailsModal" class="fixed inset-0 bg-black/75 z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-md p-6 shadow-2xl relative text-slate-100 modal-enter text-center">
+      <div class="w-14 h-14 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-3">💳</div>
+      <h3 class="text-lg font-black text-white">Subscription & Plan Status</h3>
+      <p class="text-xs text-slate-400 mt-1">PJ SmartBill Multi-Store Cloud POS License</p>
+      
+      <div class="bg-slate-800/80 p-4 rounded-2xl border border-slate-700/80 text-left my-4 space-y-2 text-xs">
+        <div class="flex justify-between">
+          <span class="text-slate-400">Current Plan:</span>
+          <span id="sub-modal-plan" class="font-bold text-emerald-400">Retail Active</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-400">Days Remaining:</span>
+          <span id="sub-modal-days" class="font-bold text-white mono">30 Days</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-400">Renewal Validity:</span>
+          <span id="sub-modal-date" class="font-bold text-white mono">--</span>
+        </div>
+      </div>
+
+      <button onclick="handleSubscriptionPayment()" class="w-full py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-black text-sm rounded-xl transition shadow">
+        ⚡ Renew / Upgrade Subscription (₹1 / ₹299)
+      </button>
+      <button onclick="closeModal('subDetailsModal')" class="w-full mt-2 py-2 text-xs text-slate-400 hover:text-white">Close</button>
+    </div>
+  </div>
+
+  <!-- CSV DATASET MODAL -->
   <div id="datasetModal" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-md p-6 shadow-2xl">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-md p-6 shadow-2xl modal-enter">
       <div class="flex justify-between items-center mb-2"><h3 class="text-base font-bold text-white">Bulk Dataset Ingestion</h3><button onclick="closeModal('datasetModal')" class="text-slate-400 hover:text-white">✕</button></div>
+      <p class="text-[11px] text-slate-400 mb-3">Upload a CSV file containing columns: <code class="text-emerald-400 mono">barcode, name, price, stock</code></p>
       <form onsubmit="uploadDataset(event)" class="space-y-4">
         <input type="file" id="csvFileInput" accept=".csv" required class="block w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-slate-800 file:text-emerald-400">
         <div class="flex justify-end space-x-3">
@@ -476,7 +610,7 @@
 
   <div id="printable-receipt" class="hidden font-mono text-sm"></div>
 
-  <!-- ================= XSS-SAFE JAVASCRIPT ================= -->
+  <!-- JAVASCRIPT LOGIC -->
   <script>
     const RZP_KEY = "{{ rzp_key }}";
     let allProducts = [];
@@ -489,14 +623,29 @@
     let currentInvoiceData = null;
     window.billsCache = [];
 
-  // CRITICAL XSS ESCAPING UTILITY
-    const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#39;'
-    }[c]));
+    // Web Audio POS Beep Generator
+    function playBeepSound() {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(880, audioCtx.currentTime); // 880 Hz High-pitch beep
+        gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.12);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.12);
+      } catch (e) {}
+    }
+
+    function esc(s) {
+  if (!s) return "";
+  const d = document.createElement("div");
+  d.textContent = String(s);
+  return d.innerHTML;
+}
 
     function updateClock() {
       const now = new Date();
@@ -511,6 +660,160 @@
       document.getElementById('sideMenuOverlay').classList.toggle('hidden');
     }
     function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+    function togglePasswordVisibility(inputId, btn) {
+      const input = document.getElementById(inputId);
+      const icon = btn.querySelector('i');
+      if (input.type === "password") {
+        input.type = "text";
+        if (icon) { icon.className = "fa-regular fa-eye-slash"; }
+      } else {
+        input.type = "password";
+        if (icon) { icon.className = "fa-regular fa-eye"; }
+      }
+    }
+
+    function openForgotPasswordModal() {
+      document.getElementById('forgot-error-box').classList.add('hidden');
+      document.getElementById('forgot-step-1').classList.remove('hidden');
+      document.getElementById('forgot-step-2').classList.add('hidden');
+      document.getElementById('forgot-modal').classList.remove('hidden');
+    }
+
+    async function submitForgotPassword(e) {
+      e.preventDefault();
+      const email = document.getElementById('forgot-email').value.trim();
+      const btn = document.getElementById('btn-forgot-otp');
+      btn.innerText = "Dispatching Code...";
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('/api/auth/forgot-password', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ email })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          alert(data.message);
+          document.getElementById('forgot-step-1').classList.add('hidden');
+          document.getElementById('forgot-step-2').classList.remove('hidden');
+        } else {
+          document.getElementById('forgot-error-box').innerText = data.detail || "Error initiating recovery";
+          document.getElementById('forgot-error-box').classList.remove('hidden');
+        }
+      } catch (err) {
+        alert("Server communication error occurred");
+      } finally {
+        btn.innerText = "Send Recovery Code ➔";
+        btn.disabled = false;
+      }
+    }
+
+    async function submitResetPassword(e) {
+      e.preventDefault();
+      const email = document.getElementById('forgot-email').value.trim();
+      const otp = document.getElementById('forgot-otp').value.trim();
+      const new_password = document.getElementById('forgot-new-pwd').value;
+
+      const res = await fetch('/api/auth/reset-password', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ email, otp, new_password })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        alert("🎉 " + data.message);
+        closeModal('forgot-modal');
+      } else {
+        document.getElementById('forgot-error-box').innerText = data.detail || "Password reset failed";
+        document.getElementById('forgot-error-box').classList.remove('hidden');
+      }
+    }
+
+    function openPolicyModal(type) {
+      const modal = document.getElementById('legal-modal');
+      const title = document.getElementById('legal-title');
+      const content = document.getElementById('legal-content');
+
+      if (type === 'refund') {
+        title.innerText = "Cancellation & Refund Policy";
+        content.innerHTML = `
+          <p class="font-bold text-white">Digital Cloud Services Activation:</p>
+          <p>PJ SmartBill provides instant online deployment of POS terminal services with a 30-day initial trial/access period.</p>
+          <p class="font-bold text-white mt-2">Cancellation:</p>
+          <p>Merchants can cancel recurring subscriptions at any time through the terminal settings dashboard without penalty.</p>
+          <p class="font-bold text-white mt-2">Refund Processing:</p>
+          <p>Given the digital SaaS nature of cloud provisioning, fee refunds within 48 hours of billing are evaluated on genuine technical service failures reported to our support desk.</p>
+        `;
+      } else if (type === 'terms') {
+        title.innerText = "Terms and Conditions of Service";
+        content.innerHTML = `
+          <p class="font-bold text-white">1. Cloud POS Terminal Licensing</p>
+          <p>PJ SmartBill grants merchants a non-exclusive license to bill products, manage inventories, and generate sales tax invoices.</p>
+          <p class="font-bold text-white mt-2">2. Data Security & Storage</p>
+          <p>Product rates, customer invoices, and credentials are protected under authenticated sessions. Merchants are responsible for barcode pricing integrity.</p>
+          <p class="font-bold text-white mt-2">3. Subscription Access</p>
+          <p>Terminal features require active subscription status. Expired terminals allow database read access while locking active checkout operations.</p>
+        `;
+      } else if (type === 'contact') {
+        title.innerText = "Merchant Support & Operating Office";
+        content.innerHTML = `
+          <div class="space-y-2">
+            <p><b class="text-white">Developer / Merchant:</b> PJ Technologies</p>
+            <p><b class="text-white">Product:</b> PJ SmartBill Enterprise Multi-Store Cloud</p>
+            <p><b class="text-white">Customer Support:</b> pjmurugan2005@gmail.com</p>
+            <p><b class="text-white">Operating Location:</b> Sayalgudi, Ramanathapuram, Tamil Nadu, India</p>
+            <p><b class="text-white">Working Hours:</b> Monday - Saturday (9:00 AM - 7:00 PM IST)</p>
+          </div>
+        `;
+      }
+      modal.classList.remove('hidden');
+    }
+
+    function openProfileModal() {
+      if (currentUser) {
+        document.getElementById('profShopName').value = currentUser.shop_name || '';
+        document.getElementById('profPhone').value = currentUser.phone || '';
+        document.getElementById('profEmail').value = currentUser.email || '';
+        document.getElementById('profAddress').value = currentUser.address || '';
+      }
+      toggleSideMenu();
+      document.getElementById('profileModal').classList.remove('hidden');
+    }
+
+    async function saveProfile(e) {
+      e.preventDefault();
+      const shop_name = document.getElementById('profShopName').value.trim();
+      const phone = document.getElementById('profPhone').value.trim();
+      const address = document.getElementById('profAddress').value.trim();
+
+      const res = await fetch('/api/user/store-setup', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ address, store_type: currentUser.store_type || 'DEPARTMENT' })
+      });
+      if (res.ok) {
+        alert("Store Profile updated successfully!");
+        closeModal('profileModal');
+        location.reload();
+      }
+    }
+
+    function openSubscriptionModal() {
+      if (currentUser) {
+        document.getElementById('sub-modal-plan').innerText = currentUser.subscription_plan || "Retail Cloud";
+        document.getElementById('sub-modal-days').innerText = `${currentUser.days_left || 30} Days Active`;
+        document.getElementById('sub-modal-date').innerText = currentUser.subscription_end || "Active";
+      }
+      toggleSideMenu();
+      document.getElementById('subDetailsModal').classList.remove('hidden');
+    }
+
+    function openDatasetModal() {
+      toggleSideMenu();
+      document.getElementById('datasetModal').classList.remove('hidden');
+    }
 
     function selectStoreType(type) {
       selectedStoreType = type;
@@ -653,7 +956,7 @@
             email: currentUser ? currentUser.email : "",
             contact: currentUser ? currentUser.phone : ""
           },
-          theme: { color: "#2563eb" }
+          theme: { color: "#10b981" }
         };
         const rzp = new Razorpay(options);
         rzp.open();
@@ -671,6 +974,7 @@
         const prod = allProducts.find(p => p.barcode === code || p.imei_serial === code);
         if (prod) {
           addToCart(prod.id);
+          playBeepSound();
         } else {
           alert(`Code (${esc(code)}) not found in catalog!`);
         }
@@ -801,7 +1105,28 @@
       }
     }
 
-    // XSS-SAFE INVOICE RENDERING
+    function shareInvoiceWhatsApp() {
+      if (!currentInvoiceData) return;
+      const phone = (currentInvoiceData.customer_phone || '').replace(/[^0-9]/g, '');
+      const validPhone = phone.length >= 10 ? (phone.length === 10 ? '91' + phone : phone) : '';
+      
+      let text = `🧾 *Invoice from ${currentInvoiceData.shop_name}*\n`;
+      text += `Invoice No: ${currentInvoiceData.invoice_no}\n`;
+      text += `Date: ${currentInvoiceData.date}\n`;
+      text += `Customer: ${currentInvoiceData.customer_name}\n`;
+      text += `--------------------------\n`;
+      currentInvoiceData.items.forEach(i => {
+        text += `• ${i.name} (${i.qty} x ₹${i.price}) = ₹${i.amt}\n`;
+      });
+      text += `--------------------------\n`;
+      text += `*Grand Total: ₹${currentInvoiceData.total}*\n`;
+      text += `Payment: ${currentInvoiceData.payment_mode}\n\n`;
+      text += `Thank you for shopping with us!`;
+
+      const url = validPhone ? `https://wa.me/${validPhone}?text=${encodeURIComponent(text)}` : `https://wa.me/?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+    }
+
     function openInvoiceModal(bill) {
       const preview = document.getElementById('modal-invoice-preview');
       const dialogBox = document.getElementById('invoice-dialog-box');
@@ -809,7 +1134,7 @@
       const printableArea = document.getElementById('printable-receipt');
 
       if (bill.invoice_type === 'A4') {
-        dialogBox.className = "bg-white text-slate-900 rounded-3xl max-w-4xl w-full p-8 shadow-2xl flex flex-col max-h-[94vh] border border-slate-200";
+        dialogBox.className = "bg-white text-slate-900 rounded-3xl max-w-4xl w-full p-8 shadow-2xl flex flex-col max-h-[94vh] border border-slate-200 modal-enter";
         btnPdf.classList.remove('hidden');
 
         const baseSubtotal = (bill.subtotal / 1.18);
@@ -908,6 +1233,7 @@
 
     function openInvoiceModalFromCache(idx) {
       if (window.billsCache && window.billsCache[idx]) {
+        currentInvoiceData = window.billsCache[idx];
         openInvoiceModal(window.billsCache[idx]);
       }
     }
@@ -1068,7 +1394,11 @@
             ${isMobile && p.imei_serial !== '-' ? esc(p.imei_serial) : esc(p.barcode)}
           </td>
           <td class="py-3 px-3 text-right mono font-bold">₹${Number(p.price).toFixed(2)}</td>
-          <td class="py-3 px-3 text-center mono font-bold ${Number(p.stock) <= 5 ? 'text-amber-400' : 'text-slate-300'}">${Number(p.stock)}</td>
+          <td class="py-3 px-3 text-center">
+            <span class="px-2 py-0.5 rounded-md font-bold mono text-xs ${Number(p.stock) <= 5 ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'text-slate-300'}">
+              ${Number(p.stock)}
+            </span>
+          </td>
           <td class="py-3 px-3 text-center">
             <button onclick="deleteProductItem(${Number(p.id)})" class="text-red-400 hover:underline">Delete</button>
           </td>
@@ -1118,7 +1448,7 @@
         return;
       }
       c.innerHTML = list.map(p => `
-        <div onclick="addToCart(${Number(p.id)})" class="p-3.5 bg-slate-800/70 border border-slate-700/60 hover:border-emerald-500 rounded-2xl cursor-pointer transition shadow flex flex-col justify-between">
+        <div onclick="addToCart(${Number(p.id)}); playBeepSound();" class="p-3.5 bg-slate-800/70 border border-slate-700/60 hover:border-emerald-500 rounded-2xl cursor-pointer transition shadow flex flex-col justify-between">
           <div>
             <div class="flex justify-between items-start">
               <h4 class="font-bold text-white text-xs leading-snug">${esc(p.name)}</h4>
@@ -1210,7 +1540,6 @@
     }
   </script>
 
-  <!-- Service Worker Registration -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {

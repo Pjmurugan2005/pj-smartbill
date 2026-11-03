@@ -212,6 +212,63 @@ class DamageCreate(BaseModel):
     loss_amount: float = Field(..., ge=0.0)
     reason: str = "Physical Damage"
 
+# ----------------- FORGOT PASSWORD SCHEMAS -----------------
+class ForgotPasswordPayload(BaseModel):
+    email: str = Field(..., min_length=5, max_length=120)
+
+class ResetPasswordPayload(BaseModel):
+    email: str = Field(..., min_length=5, max_length=120)
+    otp: str = Field(..., min_length=6, max_length=6)
+    new_password: str = Field(..., min_length=8, max_length=128)
+
+# ----------------- FORGOT PASSWORD ROUTES -----------------
+@app.post("/api/auth/forgot-password")
+@limiter.limit("5/minute")
+def forgot_password_request(request: Request, data: ForgotPasswordPayload, session: Session = Depends(get_db)):
+    email_clean = data.email.strip().lower()
+    user = session.query(db.User).filter(db.User.email == email_clean).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="Email is not registered with us!")
+
+    # 6-Digit OTP generate pannudhu
+    otp = f"{secrets.randbelow(900000) + 100000}"
+    user.otp = otp
+    user.otp_expiry = datetime.utcnow() + timedelta(minutes=10)
+    user.otp_attempts = 0
+    session.commit()
+
+    if not send_real_email_otp(email_clean, otp, user.shop_name):
+        raise HTTPException(status_code=500, detail="Failed to send password recovery OTP via Brevo.")
+
+    return {"message": f"6-digit recovery OTP dispatched to {email_clean}!"}
+
+@app.post("/api/auth/reset-password")
+@limiter.limit("5/minute")
+def reset_password_confirm(request: Request, data: ResetPasswordPayload, session: Session = Depends(get_db)):
+    email_clean = data.email.strip().lower()
+    user = session.query(db.User).filter(db.User.email == email_clean).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="Account not found")
+
+    if user.otp_attempts >= 5:
+        user.otp = None
+        session.commit()
+        raise HTTPException(status_code=429, detail="Too many invalid attempts. Request a new OTP.")
+
+    if not user.otp_expiry or datetime.utcnow() > user.otp_expiry:
+        raise HTTPException(status_code=400, detail="Recovery code expired. Request a new code.")
+
+    if not secrets.compare_digest(user.otp or "", data.otp.strip()):
+        user.otp_attempts += 1
+        session.commit()
+        raise HTTPException(status_code=400, detail="Invalid verification code entered!")
+
+    user.password_hash = auth.hash_password(data.new_password)
+    user.otp = None
+    user.otp_attempts = 0
+    session.commit()
+
+    return {"message": "Your password has been successfully reset! You can login now."}
 # ----------------- ROUTES -----------------
 @app.get("/", response_class=HTMLResponse)
 def index(request: Request):
