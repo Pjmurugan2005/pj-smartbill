@@ -5,9 +5,8 @@ import io
 import html
 import secrets
 import logging
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
+import json
+import urllib.request
 from datetime import datetime, timedelta
 from uuid import uuid4
 from typing import List, Optional
@@ -108,42 +107,49 @@ def require_active_subscription(user: db.User = Depends(get_current_user)):
     return user
 
 def send_real_email_otp(to_email: str, otp: str, shop_name: str) -> bool:
-    # Render env values-ai direct-aa runtime-la fetch pannum
-    smtp_email = (os.getenv("SMTP_EMAIL") or os.getenv("GMAIL_USER") or "").strip()
-    smtp_password = (os.getenv("SMTP_PASSWORD") or os.getenv("GMAIL_APP_PASSWORD") or "").strip().replace(" ", "")
+    resend_api_key = os.getenv("RESEND_API_KEY", "").strip()
 
-    if not smtp_email or not smtp_password:
-        print(f"[SMTP Missing] Email: {smtp_email}, Pwd length: {len(smtp_password)}")
+    if not resend_api_key:
+        logger.error("[Resend Missing] RESEND_API_KEY environment variable is not set!")
         return False
 
+    safe_shop_name = html.escape(shop_name)
+    html_body = f"""
+    <div style="font-family: Arial, sans-serif; max-width: 500px; margin: auto; padding: 25px; border: 1px solid #e2e8f0; border-radius: 16px;">
+      <h2 style="color: #2563eb; text-align: center;">🧾 PJ SmartBill POS</h2>
+      <p>Your verification code for <b>{safe_shop_name}</b> is:</p>
+      <div style="text-align: center; margin: 20px 0;">
+        <span style="font-size: 32px; font-weight: 900; letter-spacing: 6px; color: #1e3a8a; background: #eff6ff; padding: 10px 24px; border-radius: 12px; border: 2px dashed #3b82f6;">{otp}</span>
+      </div>
+      <p style="font-size: 11px; color: #64748b; text-align: center;">This code expires in 10 minutes.</p>
+    </div>
+    """
+
+    payload = {
+        "from": "PJ SmartBill <onboarding@resend.dev>",
+        "to": [to_email],
+        "subject": f"{otp} is your PJ SmartBill Verification Code",
+        "html": html_body
+    }
+
     try:
-        msg = MIMEMultipart("alternative")
-        msg["From"] = f"PJ SmartBill <{smtp_email}>"
-        msg["To"] = to_email
-        msg["Subject"] = f"{otp} is your PJ SmartBill Verification Code"
-
-        safe_shop_name = html.escape(shop_name)
-        html_body = f"""
-        <div style="font-family: Arial, sans-serif; max-width: 500px; margin: auto; padding: 25px; border: 1px solid #e2e8f0; border-radius: 16px;">
-          <h2 style="color: #2563eb; text-align: center;">🧾 PJ SmartBill POS</h2>
-          <p>Your verification code for <b>{safe_shop_name}</b> is:</p>
-          <div style="text-align: center; margin: 20px 0;">
-            <span style="font-size: 32px; font-weight: 900; letter-spacing: 6px; color: #1e3a8a; background: #eff6ff; padding: 10px 24px; border-radius: 12px; border: 2px dashed #3b82f6;">{otp}</span>
-          </div>
-          <p style="font-size: 11px; color: #64748b; text-align: center;">This code expires in 10 minutes.</p>
-        </div>
-        """
-        msg.attach(MIMEText(html_body, "html"))
-
-        # Render outbound block thadukka direct SSL Port 465
-        server = smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=15)
-        server.login(smtp_email, smtp_password)
-        server.send_message(msg)
-        server.quit()
-        print(f"[SMTP Success] OTP sent to {to_email}")
-        return True
+        req = urllib.request.Request(
+            "https://api.resend.com/emails",
+            data=json.dumps(payload).encode("utf-8"),
+            headers={
+                "Authorization": f"Bearer {resend_api_key}",
+                "Content-Type": "application/json",
+                "User-Agent": "PJSmartBill/1.0"
+            },
+            method="POST"
+        )
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            if resp.status in [200, 201]:
+                logger.info(f"[Email Success] OTP sent via HTTP API to {to_email}")
+                return True
+            return False
     except Exception as e:
-        print(f"[SMTP Failure Details]: {type(e).__name__} - {str(e)}")
+        logger.error(f"[Resend API Error]: {e}")
         return False
 
 # ----------------- VALIDATED SCHEMAS -----------------
